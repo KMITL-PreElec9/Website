@@ -20,5 +20,6 @@ from .views import IndexView
 urlpatterns = [
     path('', IndexView.as_view(), name = 'home'),
     path('admin/', admin.site.urls),
-    path('accounts/', include('allauth.urls')),
+    path('accounts/', include('site_auth.urls')),
+    #path('camp/', include('preelec9_camp.urls')),
 ]
