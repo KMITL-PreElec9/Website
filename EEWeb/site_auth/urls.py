@@ -1,11 +1,9 @@
 from django.urls import path, include
-from django.utils.translation import templatize
-from .views import RegisterView
-from django.views.generic import TemplateView
+from django.views.generic.base import RedirectView
+
 
 urlpatterns = [
-    path('register/', RegisterView.as_view()),
-    path('base/',TemplateView.as_view(template_name='account/base.html')),
+    #path('base/',TemplateView.as_view(template_name='account/base.html')),
     path('', include('allauth.urls')),
-
+    path('profile/', RedirectView.as_view(pattern_name ='home')),
 ]
