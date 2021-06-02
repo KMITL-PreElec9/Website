@@ -1,5 +1,6 @@
 body{
     font-family: 'Mali';
+    
 }
 .divider-text {
     position: relative;
@@ -30,4 +31,9 @@ body{
 .btn-twitter {
     background-color: #42AEEC;
     color: #fff;
+}
+.container{
+    padding: auto;
+    margin: auto;
+    
 }
