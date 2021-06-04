@@ -1,4 +1,4 @@
-from allauth.account.forms import LoginForm,SignupForm
+from allauth.account.forms import LoginForm,SignupForm,ChangePasswordForm,ResetPasswordForm
 from django import forms
 
 class EELoginForm(LoginForm):
@@ -14,3 +14,15 @@ class EESignupForm(SignupForm):
         self.fields['email'].widget = forms.PasswordInput(attrs={'type': 'email','class': 'form-control', 'placeholder':'อีเมล'})
         self.fields['password1'].widget = forms.PasswordInput(attrs={'type': 'password','class': 'form-control', 'placeholder':'รหัสผ่าน'})
         self.fields['password2'].widget = forms.PasswordInput(attrs={'type': 'password','class': 'form-control', 'placeholder':'ยืนยันรหัสผ่าน'})
+
+class EEChangePasswordForm(ChangePasswordForm):
+    def __init__(self, *args, **kwargs):
+        super(EEChangePasswordForm, self).__init__(*args, **kwargs)
+        self.fields['password'].widget = forms.PasswordInput(attrs={'type': 'password','class': 'form-control', 'placeholder':'รหัสผ่านปัจจุบัน'})
+        self.fields['password1'].widget = forms.PasswordInput(attrs={'type': 'password','class': 'form-control', 'placeholder':'รหัสผ่านใหม่'})
+        self.fields['password2'].widget = forms.PasswordInput(attrs={'type': 'password','class': 'form-control', 'placeholder':'ยืนยันรหัสผ่านใหม่'})
+
+class EEResetPasswordForm(ResetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super(EEResetPasswordForm, self).__init__(*args, **kwargs)
+        self.fields['email'].widget = forms.PasswordInput(attrs={'type': 'email','class': 'form-control', 'placeholder':'อีเมล'})
