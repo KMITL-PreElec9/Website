@@ -1,0 +1,40 @@
+{% extends '../account/base.html' %}
+{% block extra_head%}
+<script>
+var status = '{{data.completed}}'
+$(document).ready(function(){
+    $('#changedata_form').hide()
+    $("#editdata").click(function(){
+        $("#data").hide();
+        $('#changedata_form').show()
+    });
+    if (status != 'True'){
+        $("#data").hide();
+        $('#changedata_form').show()
+    }
+});
+</script>
+{% endblock%}
+{% block content %}
+<h1>ข้อมูลส่วนตัว</h1>
+<div id = 'data'>
+<ul>
+    <li>คำนำหน้า: {{data.gender}}</li>
+    <li>ชื่อ-นามสกุล: {{data.name}} {{data.surname}}</li>
+    <li>ชื่อเล่น: {{data.nickname}}</li>
+    <li>รหัสนักศึกษา: {{data.student_id}}</li>
+    <li>วันเดือนปีเกิด: {{data.birth_date}}</li>
+    <li>หมายเลขโทรศัพท์: {{data.self_telephone_num}}</li>
+    <li>ไอดีไลน์: {{data.line_id}}</li>
+    <li>เฟซบุ๊ก: {{data.facebook}}</li>
+    <li>อินสตาแกรม: {{data.instagram}}</li>
+</ul>
+<button id ='editdata'>แก้ไขข้อมูล</button>
+</div>
+<div id = 'changedata_form'>
+<form method="post" action = ''>{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="บันทึกข้อมูล">
+</form>
+</div>
+{% endblock %}
