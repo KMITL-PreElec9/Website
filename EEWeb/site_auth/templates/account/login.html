@@ -10,7 +10,7 @@
 	<p class="text-center">Get started with your free account</p>
 	<p>
 		<a href="../google/login/?process=login" class="btn btn-block btn-twitter"> <i class="fab fa-google"></i>   Login via Google</a>
-    <button type="submit" class="btn btn-primary btn-block" > สมัครสมาชิก </button>
+    <a type="submit" class="btn btn-primary btn-block" href="../signup"> สมัครสมาชิก </a>
 	</p>
 	<p class="divider-text">
         <span class="bg-light">OR</span>
@@ -33,7 +33,7 @@
             {{ form.password }}
     </div>
     <div style="height: 35px;">{{ form.remember}} จดจำการลงชื่อเข้าใช้</div>
-  
+    <p> </p>
 
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
@@ -42,7 +42,7 @@
   
   <a  class="btn btn-warning btn-block"  href="{% url 'account_reset_password' %}"> ลืมรหัสผ่าน  </a>
   <button type="submit" class="btn btn-success btn-block" > ลงชื่อเข้าใช้  </button>
- 
+  <p> </p>
 </form>
 </article>
 </div>
