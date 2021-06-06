@@ -8,6 +8,7 @@ class EEUserProfile(models.Model):
     ]
     class Meta:
         db_table = 'auth_userprofile'
+        verbose_name = "EEUserProfile"
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     gender = models.CharField(choices=gender_choices, max_length=6, null=True)
     name = models.CharField(max_length=100,null=True)
@@ -20,5 +21,6 @@ class EEUserProfile(models.Model):
     line_id = models.CharField(max_length=100, null=True)
     facebook = models.CharField(max_length=100, null=True)
     instagram = models.CharField(max_length=100, null=True)
+    completed = models.BooleanField(default= False)
     def __str__(self):
-        return self.name()
+        return '{} {}'.format(self.name , self.surname)

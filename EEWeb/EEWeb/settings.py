@@ -146,3 +146,15 @@ ACCOUNT_FORMS = {'login': 'site_auth.forms.EELoginForm',
                 'password_change': 'site_auth.forms.EEChangePasswordForm',
                 'password_reset': 'site_auth.forms.EEResetPasswordForm'
         }
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}

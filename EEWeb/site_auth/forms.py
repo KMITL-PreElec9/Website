@@ -1,5 +1,7 @@
 from allauth.account.forms import LoginForm,SignupForm,ChangePasswordForm,ResetPasswordForm
 from django import forms
+from django.forms import fields
+from .models import EEUserProfile
 
 class EELoginForm(LoginForm):
     def __init__(self, *args, **kwargs):
@@ -26,3 +28,16 @@ class EEResetPasswordForm(ResetPasswordForm):
     def __init__(self, *args, **kwargs):
         super(EEResetPasswordForm, self).__init__(*args, **kwargs)
         self.fields['email'].widget = forms.PasswordInput(attrs={'type': 'email','class': 'form-control', 'placeholder':'อีเมล'})
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = EEUserProfile
+        fields = [
+            'gender', 'name', 'surname', 'nickname',
+            'student_id', 'birth_date', 'address', 'self_telephone_num',
+            'line_id', 'facebook', 'instagram'
+            ]
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        self.fields['birth_date'].widget = forms.DateInput(attrs={'type': 'date'})
+        
