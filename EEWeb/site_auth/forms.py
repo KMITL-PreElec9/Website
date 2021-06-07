@@ -1,6 +1,6 @@
 from allauth.account.forms import LoginForm,SignupForm,ChangePasswordForm,ResetPasswordForm
 from django import forms
-from django.forms import fields
+from django.forms import fields, Textarea, DateInput
 from .models import EEUserProfile
 
 class EELoginForm(LoginForm):
@@ -32,12 +32,11 @@ class EEResetPasswordForm(ResetPasswordForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = EEUserProfile
-        fields = [
-            'gender', 'name', 'surname', 'nickname',
-            'student_id', 'birth_date', 'address', 'self_telephone_num',
-            'line_id', 'facebook', 'instagram'
-            ]
-    def __init__(self, *args, **kwargs):
-        super(ProfileForm, self).__init__(*args, **kwargs)
-        self.fields['birth_date'].widget = forms.DateInput(attrs={'type': 'date'})
+        fields = '__all__'
+        exclude = ['completed', 'user']
+        widgets = {
+            'address': Textarea(attrs={'cols': 80, 'rows': 20}),
+            'birth_date': DateInput(attrs={'type': 'date'})
+        }
+
         
