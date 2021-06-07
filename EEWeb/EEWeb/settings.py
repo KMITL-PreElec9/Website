@@ -143,6 +143,7 @@ STATICFILES_DIRS = (
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ACCOUNT_FORMS = {'login': 'site_auth.forms.EELoginForm',
                 'signup': 'site_auth.forms.EESignupForm',
+                'password_change' : 'site_auth.forms.EESignupForm',
                 'password_change': 'site_auth.forms.EEChangePasswordForm',
                 'password_reset': 'site_auth.forms.EEResetPasswordForm'
         }
