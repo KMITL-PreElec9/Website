@@ -19,13 +19,11 @@ class UserProfileView(FormView):
         context['data'] = EEUserProfile.objects.get(user = self.request.user)
         return context
     def get(self, request, *args, **kwargs):
-        #print(request.user.username)
-        try:
-            self.initial = EEUserProfile.objects.filter(user = request.user).values()[0]
+        try: instance = EEUserProfile.objects.filter(user = request.user).values()[0]
         except:
             db = EEUserProfile(user = request.user)
             db.save()
-            self.initial = EEUserProfile.objects.filter(user = request.user).values()[0]
+        self.initial = EEUserProfile.objects.filter(user = request.user).values()[0]
         return super().get(request,*args, **kwargs)
     def form_valid(self, form):
         cd = form.cleaned_data
