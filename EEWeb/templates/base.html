@@ -71,9 +71,9 @@
             <ul>
                 <li class="drop-down">{{user.email}}
                     <ul>
-                        <center><li><a href="{{ HTTP_HOST }}/accounts/userprofile">ข้อมูลส่วนตัว</a></li></center>
-                        <center><li><a href="{{ HTTP_HOST }}/accounts/password/change">เปลี่ยนรหัสผ่าน</a></li></center>
-                        <li ><a class="btn btn-danger btn-block" style = 'width:70%; color:white; margin:auto' href="{{ HTTP_HOST }}/accounts/logout">ออกจากระบบ</a></li>
+                        <center><li><a href="/accounts/userprofile?next={{ request.get_full_path }}">ข้อมูลส่วนตัว</a></li></center>
+                        <center><li><a href="/accounts/password/change">เปลี่ยนรหัสผ่าน</a></li></center>
+                        <li ><a class="btn btn-danger btn-block" style = 'width:70%; color:white; margin:auto' href="{{ HTTP_HOST }}/accounts/logout?next={{ request.get_full_path }}">ออกจากระบบ</a></li>
                     </ul>
             </ul>
         <nav>

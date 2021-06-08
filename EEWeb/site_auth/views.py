@@ -1,3 +1,4 @@
+from django.db.models.query import InstanceCheckMeta
 from django.views.generic import View
 from django.views.generic.edit import FormView
 from django.shortcuts import redirect
@@ -9,7 +10,7 @@ from .forms import ProfileForm
 class CheckProfileView(View):
     def get(self,request,*args, **kwargs):
         try: 
-            db = EEUserProfile.objects.get(user = request.user)
+            db = EEUserProfile.objects.get(user = request.user, completed = True)
             return redirect('home')
         except:
             return redirect('site_auth_userprofile')
@@ -26,10 +27,13 @@ class UserProfileView(FormView):
         context = super(UserProfileView, self).get_context_data(*args,**kwargs)
         context['title_name'] = 'User Profile'
         context['data'] = EEUserProfile.objects.get(user = self.request.user)
+        try:
+            context['back_url'] = self.request.GET['next']
+        except: context['back_url'] = '/'
         return context
     def get(self, request, *args, **kwargs):
         try: 
-            instance = EEUserProfile.objects.filter(user = request.user).values()[0]
+            EEUserProfile.objects.filter(user = request.user).values()[0]
         except:
             db = EEUserProfile(user = request.user)
             db.save()
