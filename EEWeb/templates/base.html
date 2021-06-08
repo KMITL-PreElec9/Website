@@ -78,7 +78,7 @@
             </ul>
         <nav>
       {%else%}
-      <a href="/accounts/login" class="get-started-btn">ลงชื่อเข้าใช้/สมัครสมาชิก</a>
+      <a href="/accounts/login?next={{ request.get_full_path }}" class="get-started-btn">ลงชื่อเข้าใช้/สมัครสมาชิก</a>
       {%endif%}
     </div>
   </header><!-- End Header -->
