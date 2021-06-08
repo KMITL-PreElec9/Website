@@ -1,11 +1,20 @@
-from django.views.generic import TemplateView
+from django.views.generic import View
 from django.views.generic.edit import FormView
+from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from .models import EEUserProfile
 from .forms import ProfileForm
-class RegisterView(TemplateView):
-    template_name = "site_auth/index.html"
+
+class CheckProfileView(View):
+    def get(self,request,*args, **kwargs):
+        try: 
+            db = EEUserProfile.objects.get(user = request.user)
+            return redirect('home')
+        except:
+            return redirect('site_auth_userprofile')
+        
+
 class UserProfileView(FormView):
     template_name = 'profile/userprofile.html'
     form_class = ProfileForm
@@ -19,30 +28,18 @@ class UserProfileView(FormView):
         context['data'] = EEUserProfile.objects.get(user = self.request.user)
         return context
     def get(self, request, *args, **kwargs):
-        #print(request.user.username)
-        try:
-            self.initial = EEUserProfile.objects.filter(user = request.user).values()[0]
+        try: 
+            instance = EEUserProfile.objects.filter(user = request.user).values()[0]
         except:
             db = EEUserProfile(user = request.user)
             db.save()
-            self.initial = EEUserProfile.objects.filter(user = request.user).values()[0]
+        self.initial = EEUserProfile.objects.filter(user = request.user).values()[0]
         return super().get(request,*args, **kwargs)
     def form_valid(self, form):
-        cd = form.cleaned_data
-        db = EEUserProfile.objects.get(user = self.request.user)
-        db.gender = cd['gender']
-        db.name = cd['name']
-        db.surname = cd['surname']
-        db.nickname = cd['nickname']
-        db.student_id = cd['student_id']
-        db.birth_date = cd['birth_date']
-        db.address = cd['address']
-        db.self_telephone_num = cd['self_telephone_num']
-        db.line_id = cd['line_id']
-        db.facebook = cd['facebook']
-        db.instagram = cd['instagram']
-        db.completed = True
-        db.save()
+        model = form.save(commit = False)
+        model.user = self.request.user
+        model.completed = True
+        model.save()
         return super().form_valid(form)
 
 
