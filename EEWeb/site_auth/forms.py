@@ -1,6 +1,7 @@
 from allauth.account.forms import LoginForm,SignupForm,ChangePasswordForm,ResetPasswordForm
 from django import forms
 from django.forms import fields,DateInput,Select,Textarea, widgets
+
 from .models import EEUserProfile
 
 class EELoginForm(LoginForm):
