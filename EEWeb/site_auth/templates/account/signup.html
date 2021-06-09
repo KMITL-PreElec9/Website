@@ -7,12 +7,13 @@
 
 {% endblock%}
 {% block content %}
-<div style="padding-top: 10%; padding-bottom: 10%;">
-<div class="card bg-light" style="padding: 3%; max-width: 700px; margin: auto;" >
-    <article  class="center" style="max-width: 600px; ">
+<div style="padding-top: 10%; padding-bottom: 10%; max-height: 1000px;">
+<div class="card bg-light" style="padding: 3%; max-width: 800px; margin: auto;" >
+    <article  class="center" style="max-width: 800px; ">
+      <a type="button" class="btn btn-primary" href ='/'><i class="fa fa-home"></i>  หน้าหลัก</a> 
 <h1 class="card-title mt-3 text-center"> สมัครสมาชิก </h1>
 <p></p>
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+<p>{% blocktrans %}หากมีบัญชีอยู่แล้ว กรุณา<a href="{{ login_url }}">ลงชื่อเข้าใช้</a>{% endblocktrans %}</p>
 <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
   {% csrf_token %}
   <p><label for="id_username">ชื่อผู้ใช้ :</label> </p>

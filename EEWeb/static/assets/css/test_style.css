@@ -2008,3 +2008,7 @@ section {
   color: #fff;
   text-decoration: none;
 }
+.nav-menu ul li{
+
+  text-align: center;
+}
