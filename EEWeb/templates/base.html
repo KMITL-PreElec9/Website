@@ -68,14 +68,15 @@
                 <li class="drop-down"><a>{{user.email}}</a>
                     <ul>
                         <center><li><a href="/accounts/userprofile?next={{ request.get_full_path }}">ข้อมูลส่วนตัว</a></li></center>
+                        <center><li><a href="/accounts/email?next={{ request.get_full_path }}">เปลี่ยนอีเมล</a></li></center>
                         <center><li><a href="/accounts/password/change?next={{ request.get_full_path }}">เปลี่ยนรหัสผ่าน</a></li></center>
-                        <li ><a class="btn btn-danger btn-block" style = 'width:70%; color:white; margin:auto' href="{{ HTTP_HOST }}/accounts/logout?next={{ request.get_full_path }}">ออกจากระบบ</a></li>
+                       <li ><a class="btn btn-danger btn-block" style = 'width:70%; color:white; margin:auto' href="{{ HTTP_HOST }}/accounts/logout?next={{ request.get_full_path }}">ออกจากระบบ</a></li>
                     </ul>
                   </li>
             </ul>
         
       {%else%}
-      <a href="/accounts/login?next={{ request.get_full_path }}" class="get-started-btn" style="color:rgb(255, 255, 255); margin: auto;">ลงชื่อเข้าใช้/สมัครสมาชิก</a>
+      <a href="/accounts/login?next={{ request.get_full_path }}" class="get-started-btn" style="color:rgb(255, 255, 255); margin: auto; ">ลงชื่อเข้าใช้/สมัครสมาชิก</a>
       {%endif%}
       </nav>
     </div>
