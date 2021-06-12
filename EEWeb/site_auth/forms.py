@@ -36,7 +36,7 @@ class ProfileForm(forms.ModelForm):
         fields = [
             'gender', 'name', 'surname', 'nickname',
             'student_id', 'birth_date', 'address', 'self_telephone_num',
-            'line_id', 'facebook', 'instagram', 'religion','allergic_foods',
+            'line_id', 'facebook', 'instagram','religion','allergic_foods',
             'allergic_meds','congenital_disease'
             ]
 
@@ -53,7 +53,12 @@ class ProfileForm(forms.ModelForm):
         self.fields['line_id'].widget = forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'Line id'})
         self.fields['facebook'].widget = forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'Facebook'})
         self.fields['instagram'].widget = forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'instagram '})
-    
+        self.fields['religion'].widget = Select(attrs={'type': 'text','class': 'form-control', 'placeholder':'ศาสนา'},choices=EEUserProfile.religion_choices)
+        self.fields['allergic_foods'].widget = forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'ยาที่แพ้ '})
+        self.fields['allergic_meds'].widget = forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'อาหารที่แพ้ '})
+        self.fields['congenital_disease'].widget = forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'โรคประจำตัว '})
+
+
 class EEAddEmailForm(AddEmailForm):
     def __init__(self, *args, **kwargs):
         super(EEAddEmailForm, self).__init__(*args, **kwargs)

@@ -129,6 +129,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #header .logo {
+  
   font-size: 28px;
   margin: 0;
   padding: 0;
@@ -144,6 +145,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #header .logo img {
   max-height: 40px;
+  
 }
 
 @media (max-width: 992px) {

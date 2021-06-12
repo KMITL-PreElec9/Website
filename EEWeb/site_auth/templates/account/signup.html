@@ -4,7 +4,11 @@
 
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 {% block extra_head%}
-
+<style>
+.errorlist{
+    color: rgb(255, 0, 0);
+  }
+</style>
 {% endblock%}
 {% block content %}
 <div style="padding-top: 10%; padding-bottom: 10%; max-height: 1000px;">
@@ -16,40 +20,39 @@
 <p>{% blocktrans %}หากมีบัญชีอยู่แล้ว กรุณา<a href="{{ login_url }}">ลงชื่อเข้าใช้</a>{% endblocktrans %}</p>
 <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
   {% csrf_token %}
-  <p><label for="id_username">ชื่อผู้ใช้ :</label> </p>
+  <p><label for="id_username">ชื่อผู้ใช้ : {{ form.username.errors }}</label> </p>
   <div class="form-group input-group">
     
 		<div class="input-group-prepend">
     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
 		 </div>
-            {{ form.username.errors }}
+            
             {{ form.username }}
     </div>
 
-    <p><label for="id_email">อีเมล :</label> </p>
+    <p><label for="id_email">อีเมล : <p1>{{ form.email.errors }}</p1></label> </p>
     <div class="form-group input-group">
 		<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
 		 </div>
-            {{ form.email.errors }}
             {{ form.email }}
     </div>
 
-    <p><label for="id_password1">รหัสผ่าน :</label> </p>
+    <p><label for="id_password1">รหัสผ่าน : {{ form.password1.errors }} </label> </p>
     <div class="form-group input-group">
 		<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-fa fa-lock"></i> </span>
 		 </div>
-            {{ form.password1.errors }}
+           
             {{ form.password1 }}
     </div>
 
-    <p><label for="id_password2">ยืนยันรหัสผ่าน :</label> </p>
+    <p><label for="id_password2">ยืนยันรหัสผ่าน : {{ form.password2.errors }}</label> </p>
     <div class="form-group input-group">
 		<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-fa fa-lock"></i> </span>
 		 </div>
-            {{ form.password2.errors }}
+            
             {{ form.password2 }}
     </div>
     <p><label for="id_password2"></label> </p>
