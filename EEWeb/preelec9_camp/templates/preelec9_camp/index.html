@@ -1,6 +1,46 @@
 {% extends 'base.html' %}
 {% load static%}
+{%block header%}
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
 
+      <h1 class="logo mr-auto"><a href="/">EE KMITL</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul style="text-align: center;">
+          <li class="active"><a href="/">กลับหน้าหลัก</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="#services">เมนูหลัก</a></li>
+          {%endif%}
+          <li><a href="#about">เกี่ยวกับค่าย</a></li>
+          <li><a href="#team">ทีมงานบริหารจัดการค่าย</a></li>
+          <li>   </li>
+
+        
+    
+      {% if user.is_authenticated %}
+        
+           
+                <li class="drop-down"><a>{{user.email}}</a>
+                    <ul>
+                        <center><li><a href="/accounts/userprofile?next={{ request.get_full_path }}">ข้อมูลส่วนตัว</a></li></center>
+                        <center><li><a href="/accounts/password/change?next={{ request.get_full_path }}">เปลี่ยนรหัสผ่าน</a></li></center>
+                        <li ><a class="btn btn-danger btn-block" style = 'width:70%; color:white; margin:auto' href="{{ HTTP_HOST }}/accounts/logout?next={{ request.get_full_path }}">ออกจากระบบ</a></li>
+                    </ul>
+                  </li>
+            </ul>
+        
+      {%else%}
+      <a href="/accounts/login?next={{ request.get_full_path }}" class="get-started-btn" style="color:rgb(255, 255, 255); margin: auto;">ลงชื่อเข้าใช้/สมัครสมาชิก</a>
+      {%endif%}
+      </nav>
+    </div>
+    
+  </header><!-- End Header -->
+{% endblock%}
 
 {% block content %}
   {% if user.is_authenticated %}

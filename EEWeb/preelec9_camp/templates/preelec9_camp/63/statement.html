@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static%}
+{%block header%}
+{% include  'preelec9_camp/base_header.html' %}
+{% endblock%}
+{% block content%}
+
+
+<div style = 'height: 150px'></div>
+<div>
+<table class="table table-hover">
+
+  <thead>
+    <tr>
+      <th scope="col">ลำดับ</th>
+      <th scope="col">วันที่ทำรายการ</th>
+      <th scope="col">รายการ</th>
+      <th scope="col">จำนวน</th>
+      <th scope="col">ราคา</th>
+      <th scope="col">รายรับ</th>
+      <th scope="col">รายจ่าย</th>
+      <th scope="col">หมายเหตุ</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for a in data%}
+    <tr>
+      <th scope="row">1</th>
+      <td>{{a.transcaction_date}}</td>
+      <td>{{a.item_name}}</td>
+      <td>{{a.quantity}}</td>
+      <td>{{a.price}}</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+      <td>{{a.remarks}}</td>
+    </tr>
+   {% endfor %} 
+  </tbody>
+</table>
+</div>
+{%endblock%}

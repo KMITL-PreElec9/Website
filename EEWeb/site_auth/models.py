@@ -9,6 +9,7 @@ class EEUserProfile(models.Model):
     class Meta:
         db_table = 'auth_userprofile'
         verbose_name = "EEUserProfile"
+        verbose_name_plural = "EEUserProfile"
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     gender = models.CharField(choices=gender_choices, max_length=6, null=True)
     name = models.CharField(max_length=100,null=True)
@@ -24,3 +25,29 @@ class EEUserProfile(models.Model):
     completed = models.BooleanField(default= False)
     def __str__(self):
         return '{} {}'.format(self.name , self.surname)
+
+class EEData(models.Model):
+    class Meta:
+        abstract = True
+    name = models.CharField(max_length=100)
+    surname = models.CharField(max_length=100,null=True)
+    student_id = models.IntegerField(null=True)
+    self_telephone_num = models.CharField(max_length=10, null=True)
+    email = models.EmailField(max_length=200, null=True)
+    line_id = models.CharField(max_length=100, null=True)
+    birth_date = models.DateField(null=True)
+    nickname = models.CharField(max_length=30,null=True)
+    used = models.BooleanField(default=False)
+    def __str__(self):
+        return '{} {}'.format(self.name , self.surname)
+
+class EEData_63(EEData):
+    class Meta:
+        verbose_name = "EEData63"
+        verbose_name_plural = "EEData63"
+
+class EEData_64(EEData):
+    class Meta:
+        verbose_name = "EEData64"
+        verbose_name_plural = "EEData64"
+
