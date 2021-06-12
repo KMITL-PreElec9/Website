@@ -6,6 +6,12 @@ class EEUserProfile(models.Model):
         ('นาย', 'นาย'),
         ('นางสาว', 'นางสาว'),
     ]
+    religion_choices = [
+        ('พุทธ', 'พุทธ'),
+        ('คริสต์', 'คริสต์'),
+        ('อิสลาม', 'อิสลาม'),
+        ('อื่นๆ', 'อื่นๆ'),
+    ]
     class Meta:
         db_table = 'auth_userprofile'
         verbose_name = "EEUserProfile"
@@ -22,6 +28,10 @@ class EEUserProfile(models.Model):
     line_id = models.CharField(max_length=100, null=True)
     facebook = models.CharField(max_length=100, null=True)
     instagram = models.CharField(max_length=100, null=True)
+    religion = models.CharField(choices=religion_choices, max_length=6, null=True)
+    allergic_foods = models.CharField(max_length=200, null=True)
+    allergic_meds = models.CharField(max_length=200, null=True)
+    congenital_disease =  models.CharField(max_length=100, null=True)
     completed = models.BooleanField(default= False)
     def __str__(self):
         return '{} {}'.format(self.name , self.surname)

@@ -40,7 +40,8 @@ class ProfileForm(forms.ModelForm):
         fields = [
             'gender', 'name', 'surname', 'nickname',
             'student_id', 'birth_date', 'address', 'self_telephone_num',
-            'line_id', 'facebook', 'instagram'
+            'line_id', 'facebook', 'instagram', 'religion','religion','allergic_foods',
+            'allergic_meds','congenital_disease'
             ]
 
     def __init__(self, *args, **kwargs):
