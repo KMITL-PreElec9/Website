@@ -3,14 +3,24 @@
 {% load i18n %}
 
 {% block head_title %}{% trans "Sign Out" %}{% endblock %}
-
+{% block extra_head%}
+<style>
+  h1{
+    text-align: center;
+  }
+  p{
+    text-align: center;
+  }
+</style>
+{% endblock%}
 {% block content %}
-<div style="padding-top: 30%; padding-bottom: 10%;">
-  <div class="card bg-light" style="padding: 3%; max-width: 700px; margin: auto;" >
-      <article  class="center" style="max-width: 600px; ">
-<center><h1>ออกจากระบบ</h1></center>
+<div style="padding-top: 25%; padding-bottom: 10%;">
+  <div class="card bg-light" style="padding: 3%; max-width: 800px; margin: auto;" >
+      <article  class="center" style="max-width: 800px; ">
+        <a type="button" class="btn btn-primary" href ='/'><i class="fa fa-home"></i>  หน้าหลัก</a> 
+<h1>ออกจากระบบ</h1>
 
-<center><p>คุณแน่ใจหรือว่าต้องการจะออกจากระบบ</p></center>
+<p>คุณแน่ใจหรือว่าต้องการจะออกจากระบบ</p>
 
 <form method="post" action="{% url 'account_logout' %}">
   {% csrf_token %}

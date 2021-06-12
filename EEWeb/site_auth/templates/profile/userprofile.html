@@ -20,31 +20,33 @@ $(document).ready(function(){
   }
 ul li{
   margin: 2%;
+  font-size: 20px;
   }
+
 </style>
 {% endblock%}
 {% block content %}
 <div style="padding-top: 10%; padding-bottom: 10%;">
   <div class="card bg-light" style="padding: 3%; max-width: 800px; margin: auto;" >
-      <article  class="center" style="max-width: 700px; ">
+      <article  class="center" style="max-width: 800px; ">
+        <a type="button" class="btn btn-primary" href ='{{back_url}}'><i class="fa fa-home"></i>  หน้าหลัก</a> 
 <h1>ข้อมูลส่วนตัว</h1>
 <p> </p>
 <div id = 'data' > 
 <ul>
 
-    <li>คำนำหน้า: {{data.gender}}</li>
-    <li>ชื่อ-นามสกุล: {{data.name}} {{data.surname}}</li>
-    <li>ชื่อเล่น: {{data.nickname}}</li>
-    <li>รหัสนักศึกษา: {{data.student_id}}</li>
-    <li>วันเดือนปีเกิด: {{data.birth_date}}</li>
-    <li>ที่อยู่: {{data.address}}</li>
-    <li>หมายเลขโทรศัพท์: {{data.self_telephone_num}}</li>
-    <li>ไอดีไลน์: {{data.line_id}}</li>
-    <li>เฟซบุ๊ก: {{data.facebook}}</li>
-    <li>อินสตาแกรม: {{data.instagram}}</li>
+    <li>คำนำหน้า : {{data.gender}}</li>
+    <li>ชื่อ-นามสกุล : {{data.name}} {{data.surname}}</li>
+    <li>ชื่อเล่น : {{data.nickname}}</li>
+    <li>รหัสนักศึกษา : {{data.student_id}}</li>
+    <li>วันเดือนปีเกิด : {{data.birth_date}}</li>
+    <li>ที่อยู่ : {{data.address}}</li>
+    <li>หมายเลขโทรศัพท์ : {{data.self_telephone_num}}</li>
+    <li>ไอดีไลน์ : {{data.line_id}}</li>
+    <li>เฟซบุ๊ก : {{data.facebook}}</li>
+    <li>อินสตาแกรม : {{data.instagram}}</li>
 </ul>
 <button  class="btn btn-warning btn-block" id ='editdata'>แก้ไขข้อมูล</button>
-<a  class="btn btn-success btn-block" href ='{{back_url}}'>ย้อนกลับ</a>
 </div>
 <div id = 'changedata_form'>
 <form method="post" action = ''>
@@ -101,7 +103,7 @@ ul li{
   
       <div class="form-group input-group">
           <span class="input-group-text" style="background-color: transparent;border: none;"> 
-            <label for="id_surname" style="margin: auto; ">เบอร์โทรศัพท์ส่วนตัว :</label> </span>
+            <label for="id_surname" style="margin: auto; ">หมายเลขโทรศัพท์ :</label> </span>
               {{ form.self_telephone_num.errors }}
               {{ form.self_telephone_num }}
       </div>

@@ -146,10 +146,10 @@ STATICFILES_DIRS = (
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ACCOUNT_FORMS = {'login': 'site_auth.forms.EELoginForm',
                 'signup': 'site_auth.forms.EESignupForm',
-                #'password_change' : 'site_auth.forms.EESignupForm',
-                'password_change': 'site_auth.forms.EEChangePasswordForm',
-                'password_reset': 'site_auth.forms.EEResetPasswordForm'
-        }
+                'change_password': 'site_auth.forms.EEChangePasswordForm',
+                'reset_password': 'site_auth.forms.EEResetPasswordForm'
+                
+}
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
