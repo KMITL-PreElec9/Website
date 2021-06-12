@@ -31,22 +31,18 @@ class EEResetPasswordForm(ResetPasswordForm):
         self.fields['email'].widget = forms.TextInput(attrs={'type': 'email','class': 'form-control', 'placeholder':'อีเมล'})
 
 class ProfileForm(forms.ModelForm):
-    gender_choices = [
-        ('นาย', 'นาย'),
-        ('นางสาว', 'นางสาว'),
-    ]
     class Meta:
         model = EEUserProfile
         fields = [
             'gender', 'name', 'surname', 'nickname',
             'student_id', 'birth_date', 'address', 'self_telephone_num',
-            'line_id', 'facebook', 'instagram', 'religion','religion','allergic_foods',
+            'line_id', 'facebook', 'instagram', 'religion','allergic_foods',
             'allergic_meds','congenital_disease'
             ]
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
-        self.fields['gender'].widget = Select(attrs={'type': 'text','class': 'form-control', 'placeholder':'เพศ'},choices=self.gender_choices)
+        self.fields['gender'].widget = Select(attrs={'type': 'text','class': 'form-control', 'placeholder':'เพศ'},choices=EEUserProfile.gender_choices)
         self.fields['name'].widget = forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'ชื่อ'})
         self.fields['surname'].widget = forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'นามสกุล'})
         self.fields['nickname'].widget = forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'ชื่อเล่น'})

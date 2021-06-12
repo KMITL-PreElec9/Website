@@ -3,5 +3,6 @@ from django.views.generic.base import RedirectView
 from .views import *
 urlpatterns = [
     path('', CampIndexView.as_view()),
-    path('63/statement/', CampStatementView.as_view())
+    path('63/statement/', CampStatementView.as_view()),
+    path('64/register/', RegisterView_64.as_view())
 ] 
