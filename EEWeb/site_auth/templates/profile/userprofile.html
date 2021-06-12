@@ -31,27 +31,36 @@ ul li{
       <article  class="center" style="max-width: 800px; ">
         <a type="button" class="btn btn-outline-primary" href ='{{back_url}}'><i class="fa fa-home"></i>  หน้าหลัก</a> 
 <h1>ข้อมูลส่วนตัว</h1>
+
 <p> </p>
 <div id = 'data' > 
 <ul>
-
+  <h3>ข้อมูลทั่วไป</h3>
     <li>คำนำหน้า : {{data.gender}}</li>
     <li>ชื่อ-นามสกุล : {{data.name}} {{data.surname}}</li>
     <li>ชื่อเล่น : {{data.nickname}}</li>
     <li>รหัสนักศึกษา : {{data.student_id}}</li>
     <li>วันเดือนปีเกิด : {{data.birth_date}}</li>
+    <li>ศาสนา : {{data.religion}}</li>
+    <h3>ข้อมูลติดต่อ</h3>
     <li>ที่อยู่ : {{data.address}}</li>
     <li>หมายเลขโทรศัพท์ : {{data.self_telephone_num}}</li>
-    <li>ไอดีไลน์ : {{data.line_id}}</li>
-    <li>เฟซบุ๊ก : {{data.facebook}}</li>
-    <li>อินสตาแกรม : {{data.instagram}}</li>
+    <li>Line id : {{data.line_id}}</li>
+    <li>Facebook : {{data.facebook}}</li>
+    <li>instagram : {{data.instagram}}</li>
+    <h3>ประวัติการแพ้</h3>
+    <li>อาหารที่แพ้ : {{data.allergic_foods}}</li>
+    <li>ยาที่แพ้ : {{data.allergic_meds}}</li>
+    <li>โรคประจำตัว : {{data.congenital_disease}}</li>
+    
+
 </ul>
 <button  class="btn btn-warning btn-block" id ='editdata'>แก้ไขข้อมูล</button>
 </div>
 <div id = 'changedata_form'>
 <form method="post" action = ''>
     {% csrf_token %}
-    
+    <h3>ข้อมูลทั่วไป</h3>
     <div class="form-group input-group">
         <span class="input-group-text" style="background-color: transparent;border: none;"> 
           <label for="id_name" style="margin: auto; ">คำนำหน้า :</label> </span>
@@ -95,6 +104,13 @@ ul li{
       </div>
   
       <div class="form-group input-group">
+        <span class="input-group-text" style="background-color: transparent;border: none;"> 
+          <label for="id_surname" style="margin: auto; ">ศาสนา :</label> </span>
+            {{ form.religion.errors }}
+            {{ form.religion }}
+      </div> 
+      <h3>ข้อมูลติดต่อ</h3>
+      <div class="form-group input-group">
           <span class="input-group-text" style="background-color: transparent;border: none;"> 
             <label for="id_surname" style="margin: auto; ">ที่อยู่ :</label> </span>
               {{ form.address.errors }}
@@ -127,11 +143,30 @@ ul li{
             <label for="id_surname" style="margin: auto; ">instagram :</label> </span>
               {{ form.instagram.errors }}
               {{ form.instagram }}
-      </div>
-  
-  
-     
-  
+      </div> 
+
+      <h3>ประวัติการแพ้</h3>
+      <div class="form-group input-group">
+        <span class="input-group-text" style="background-color: transparent;border: none;"> 
+          <label for="id_surname" style="margin: auto; ">อาหารที่แพ้ :</label> </span>
+            {{ form.allergic_foods.errors }}
+            {{ form.allergic_foods }}
+      </div> 
+
+      <div class="form-group input-group">
+        <span class="input-group-text" style="background-color: transparent;border: none;"> 
+          <label for="id_surname" style="margin: auto; ">ยาที่แพ้ :</label> </span>
+            {{ form.allergic_meds.errors }}
+            {{ form.allergic_meds }}
+      </div> 
+
+      <div class="form-group input-group">
+        <span class="input-group-text" style="background-color: transparent;border: none;"> 
+          <label for="id_surname" style="margin: auto; ">โรคประจำตัว :</label> </span>
+            {{ form.congenital_disease.errors }}
+            {{ form.congenital_disease }}
+      </div> 
+
       <button class="btn btn-success btn-block" type="submit" >บันทึกข้อมูล</button>
 </form>
 </div>
