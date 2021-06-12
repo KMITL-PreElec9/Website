@@ -1,4 +1,4 @@
-from allauth.account.forms import LoginForm,SignupForm,ChangePasswordForm,ResetPasswordForm
+from allauth.account.forms import LoginForm,SignupForm,ChangePasswordForm,ResetPasswordForm,AddEmailForm
 from django import forms
 from django.forms import fields,DateInput,Select,Textarea, widgets
 
@@ -57,4 +57,8 @@ class ProfileForm(forms.ModelForm):
         self.fields['facebook'].widget = forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'Facebook'})
         self.fields['instagram'].widget = forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'instagram '})
     
-
+class EEAddEmailForm(AddEmailForm):
+    def __init__(self, *args, **kwargs):
+        super(EEAddEmailForm, self).__init__(*args, **kwargs)
+        
+        self.fields['email'].widget = forms.TextInput(attrs={'type': 'email','class': 'form-control', 'placeholder':'อีเมล'})
