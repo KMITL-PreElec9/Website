@@ -53,7 +53,7 @@
         {%if menu%}
         <div class="row">
         {% for item in menu%}
-          <div class="col-lg-4 col-md-6  align-items-stretch" data-aos="zoom-in" data-aos-delay="100" style='padding-bottom:20px'>
+          <div class="col-lg-4 col-md-6  align-items-stretch" data-aos="zoom-in" data-aos-delay="100" style='padding-bottom:20px; cursor: pointer;' onclick="location.href='{{item.1}}';">
             <div class="icon-box iconbox-{{item.4}}">
               <div class="icon">
                 <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
@@ -61,7 +61,7 @@
                 </svg>
                 <i class="bx bx-{{item.3}}"></i>
               </div>
-              <h4><a href="{{item.1}}">{{item.0}}</a></h4>
+              <h4>{{item.0}}</h4>
               <p>{{item.2}}</p>
             </div>
           </div>
