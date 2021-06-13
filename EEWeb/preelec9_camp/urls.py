@@ -7,5 +7,6 @@ urlpatterns = [
     path('64/register/', RegisterView_64.as_view()),
     path('64/register/confirm/', CampConfirmView.as_view()),
     path('64/unregister/', CampUnregisterView.as_view()),
-    path('64/viewdata/', DataView_64.as_view())
+    path('64/viewdata/', DataView_64.as_view()),
+    path('64/parent/', CampParentView.as_view())
 ] 
