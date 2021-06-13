@@ -53,11 +53,19 @@ class Campdata_64(models.Model):
         ('ZE', 'Zeus'),
         ('HE', 'Hermes'),
     ]
+    parent_gender_choices = [
+        ('นาย', 'นาย'),
+        ('นาง', 'นาง'),
+        ('นางสาว', 'นางสาว'),
+    ]
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     shirt_size = models.CharField(max_length=100, choices = shirt_size_choices)
     passion = models.CharField(max_length=1000, null= True)
     parent_telephone_num = models.CharField(max_length=10, null= True)
+    parent_gender=models.CharField(max_length=10, null= True, choices=parent_gender_choices)
     parent_name = models.CharField(max_length=100, null= True)
+    parent_surname = models.CharField(max_length=100, null= True)
+    parent_relation = models.CharField(max_length=100, null= True)
     completed = models.BooleanField(default=False)
     registered = models.BooleanField(default=False)
     house = models.CharField(max_length=2, choices = house_choices, null=True)
