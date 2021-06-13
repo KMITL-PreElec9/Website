@@ -7,7 +7,11 @@ class RegisterForm_64(forms.ModelForm):
         fields = '__all__'
         exclude = ['user', 'completed', 'registered', 'house']
         widgets = {'shirt_size' : Select(attrs={'type': 'text','class': 'form-control', 'placeholder':'เลือกไซส์เสื้อ'},choices=Campdata_64.shirt_size_choices),
+                    'parent_gender' : Select(attrs={'type': 'text','class': 'form-control', 'placeholder':'เลือกไซส์เสื้อ'},choices=Campdata_64.parent_gender_choices),
                     'passion' : forms.Textarea(attrs={'type': 'text','class': 'form-control', 'placeholder':'มีอะไรจะบอกพี่ๆ, ทำไมถึงเข้าที่นี่, สิ่งที่คาดหวังจากที่นี่'}),
                     'parent_telephone_num' : forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'เบอร์ติดต่อผู้ปกครอง'}),
-                    'parent_name': forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'ชื่อผู้ปกครอง'})
+                    'parent_name': forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'ชื่อผู้ปกครอง'}),
+                    'parent_surname': forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'นามสกุลผู้ปกครอง'}),
+                    'parent_relation': forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'บิดา, มารดา , .....'})
+        
         }

@@ -27,10 +27,13 @@
 <a href='/accounts/userprofile?next={{ request.get_full_path }}&edit=1'>แก้ไข</a>
 <h2>ข้อมูลค่าย</h2>
 <ul>
-    <li>ไซส์เสื้อ:{{campdata.shirt_size}}</li>
-    <li>สิ่งที่อยากจะบอก:{{campdata.shirt_size}}</li>
-    <li>เบอร์โทรผู้ปกครอง:{{campdata.parent_telephone_num}}</li>
-    <li>ชื่อผู้ปกครอง:{{campdata.parent_name}}</li>
+    <li>คำนำหน้าผู้ปกครอง : {{campdata.parent_gender}}</li>
+    <li>ชื่อผู้ปกครอง : {{campdata.parent_name}} {{campdata.parent_surname}} </li>
+    <li>เกี่ยวข้องเป็น : {{campdata.parent_relation}}</li>
+    <li>เบอร์โทรผู้ปกครอง : {{campdata.parent_telephone_num}}</li>
+    <li>ไซส์เสื้อ : {{campdata.shirt_size}}</li>
+    <li>สิ่งที่อยากจะบอก : {{campdata.shirt_size}}</li>
 </ul>
 <a href='../register?next={{ request.get_full_path }}'>แก้ไข</a>
+
 {% endblock %}
