@@ -34,7 +34,7 @@ class Statement(models.Model):
     remarks = models.CharField(max_length=1000, null= True)
 
     def __str__(self):
-        return self.item_name
+        return str(self.item_name)
     
 class Campdata_64(models.Model):
     class Meta:
@@ -70,4 +70,4 @@ class Campdata_64(models.Model):
     registered = models.BooleanField(default=False)
     house = models.CharField(max_length=2, choices = house_choices, null=True)
     def __str__(self):
-        return self.user
+        return str(self.user)

@@ -51,6 +51,10 @@ class UserProfileView(FormView):
         model.save()
         return super().form_valid(form)
     def get_success_url(self, **kwargs) -> str:
-        return self.request.GET['next']
+        if 'next' in self.request.GET.keys():
+            url = self.request.GET['next']
+        else: 
+            url = '/accounts/userprofile/'
+        return url
 
         
