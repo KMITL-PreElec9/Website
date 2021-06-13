@@ -158,4 +158,5 @@ class CampParentView(TemplateView):
     def get_context_data(self,*args, **kwargs):
         context = super(CampParentView, self).get_context_data(*args,**kwargs)
         context['title_name'] = 'Parent_Form'
+        context['data'] = self.request.user
         return context
