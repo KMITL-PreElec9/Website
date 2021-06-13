@@ -25,11 +25,16 @@ class UserProfileView(FormView):
         return super().dispatch(*args, **kwargs)
     def get_context_data(self,*args, **kwargs):
         context = super(UserProfileView, self).get_context_data(*args,**kwargs)
+        data = EEUserProfile.objects.get(user = self.request.user)
         context['title_name'] = 'User Profile'
-        context['data'] = EEUserProfile.objects.get(user = self.request.user)
+        context['data'] = data
         try:
             context['back_url'] = self.request.GET['next']
         except: context['back_url'] = '/'
+        if 'edit' in self.request.GET.keys():
+            context['completed'] = not bool(int(self.request.GET['edit']))
+        else:
+            context['completed'] = data.completed
         return context
     def get(self, request, *args, **kwargs):
         try: 
@@ -45,7 +50,7 @@ class UserProfileView(FormView):
         model.completed = True
         model.save()
         return super().form_valid(form)
+    def get_success_url(self, **kwargs) -> str:
+        return self.request.GET['next']
 
-
-
-
+        

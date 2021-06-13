@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{%block header%}
+{% include  'preelec9_camp/base_header.html' %}
+{% endblock%}
+{% block content%}
+<div>
+<div style='height:150px'></div>
+<div>
+<h2>สำเร็จ !!</h2>
+<p>ยินดีต้อนรับน้องๆ Electronics 45 ทุกคน... โปรดพิมพ์ใบอนุญาตจากผู้ปกครองจากลิงก์ด้านล่างนี้
+และนำมาส่งให้พี่ๆ ฝ่ายลงทะเบียนในวันค่าย</p>
+<a href='/camp/64/parent'>ใบขออนุญาตผู้ปกครอง</a>
+<h3>ข้อตกลงและเงื่อนไขในการเข้าค่าย</h3>
+...
+<form action="" method='post'>
+  {%csrf_token%}
+  <input type="submit" value="ยอมรับเงื่อนไขและยืนยันการสมัคร" name = 'confirm'>
+  <input type="submit" value="ยกเลิกการสมัคร" name = 'delete'>
+</form> 
+</div>
+</div>
+{% endblock %}

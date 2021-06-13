@@ -12,3 +12,12 @@ def allowed_users(allowed_roles = []):
                 return redirect('/camp/')
         return wrapper_function
     return decorator
+
+def registered_only(view_func):
+    def wrapper_function(request, *args, **kwargs):
+            try:
+                db = request.user.campdata_64.completed
+                return view_func(request, *args, **kwargs) 
+            except:
+                return redirect('/camp/')
+    return wrapper_function
