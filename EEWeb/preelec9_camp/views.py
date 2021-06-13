@@ -20,6 +20,7 @@ def campmenu(View):
             menu = [
                 ['ตรวจสอบข้อมูล','64/viewdata/','ตรวจสอบและแก้ไขข้อมูลที่ลงทะเบียน','file', 'orange'],
                 ['ตรวจสอบตารางกิจกรรม','64/table/', 'ตรวจสอบตารางกิจกรรมและจุดนัดพบ','tachometer', 'red'],
+                ['ใบขออนุญาตผู้ปกครอง','64/parent/', 'ดาวน์โหลด และพิมพ์ใบขออนุญาตผู้ปกครอง','book-open', 'green'],
                 ['ยกเลิกการสมัคร','64/unregister/', 'ยกเลิกการสมัครเข้าค่าย','calendar-x', 'pink'],
             ]
         except Campdata_64.DoesNotExist:
@@ -98,7 +99,7 @@ class RegisterView_64(FormView):
             return self.request.GET['next']
         except:
             return 'confirm/'
-            
+
 class CampConfirmView(TemplateView):
     template_name = "preelec9_camp/64/confirm.html"
     def get_context_data(self,*args, **kwargs):
@@ -148,3 +149,15 @@ class CampUnregisterView(TemplateView):
     def post(self,request,*args, **kwargs):
         request.user.campdata_64.delete()
         return redirect('/camp/')
+class CampParentView(TemplateView):
+    template_name = "preelec9_camp/64/parent.html"
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(['64_student']))
+    @method_decorator(registered_only)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+    def get_context_data(self,*args, **kwargs):
+        context = super(CampParentView, self).get_context_data(*args,**kwargs)
+        context['title_name'] = 'Parent_Form'
+        context['data'] = self.request.user
+        return context
