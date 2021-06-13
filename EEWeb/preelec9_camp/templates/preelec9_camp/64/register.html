@@ -11,6 +11,24 @@
 <form action="" method="post">
     {% csrf_token %}
 
+    <p><label for="id_shirt_size">ไซส์เสื้อ : <p1>{{ form.shirt_size.errors }}</p1></label> </p>
+    <div class="form-group input-group">
+		<div class="input-group-prepend">
+		    <span class="input-group-text"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-check-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+              </svg> </span>
+		 </div>
+            {{ form.shirt_size}}
+    </div>
+
+    <p><label for="id_shirt_size">สิ่งที่อยากจะบอก : <p1>{{ form.passion.errors }}</p1></label> </p>
+    <div class="form-group input-group">
+		<div class="input-group-prepend">
+		    
+		 </div>
+            {{ form.passion}}
+    </div>
+    
     <p><label for="id_shirt_size">คำนำหน้า : <p1>{{ form.parent_gender.errors }}</p1></label> </p>
     <div class="form-group input-group">
 		<div class="input-group-prepend">
@@ -61,24 +79,6 @@
             {{ form.parent_telephone_num}}
     </div>
 
-    <p><label for="id_shirt_size">ไซส์เสื้อ : <p1>{{ form.shirt_size.errors }}</p1></label> </p>
-    <div class="form-group input-group">
-		<div class="input-group-prepend">
-		    <span class="input-group-text"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-check-fill" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
-              </svg> </span>
-		 </div>
-            {{ form.shirt_size}}
-    </div>
-
-    <p><label for="id_shirt_size">สิ่งที่อยากจะบอก : <p1>{{ form.passion.errors }}</p1></label> </p>
-    <div class="form-group input-group">
-		<div class="input-group-prepend">
-		    
-		 </div>
-            {{ form.passion}}
-    </div>
-    
     <button type="submit" class="btn btn-primary btn-block "> {{button}}</button>
 
 </form>
