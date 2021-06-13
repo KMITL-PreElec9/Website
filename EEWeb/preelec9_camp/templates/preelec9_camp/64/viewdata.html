@@ -2,38 +2,54 @@
 
 {%block header%}
 {% include  'preelec9_camp/base_header.html' %}
+<style>
+  h1{
+    text-align: center;
+  }
+ul li{
+  margin: 2%;
+  font-size: 20px;
+  }
+
+</style>
 {% endblock%}
 {% block content%}
-<h2>ข้อมูลส่วนตัว</h2>
+<div style="padding-top: 10%; padding-bottom: 10%; max-height: 10000px; margin: 20px 10px 10px 10px ">
+  <div class="card bg-light" style="padding: 3%; max-width: 800px; margin: auto;" >
+      <article  class="center" style="max-width: 800px; ">
+<h1>ข้อมูลส่วนตัว</h1>
 <ul>
-  <h3>ข้อมูลทั่วไป</h3>
+  <h4>ข้อมูลทั่วไป</h4>
     <li>คำนำหน้า : {{data.gender}}</li>
     <li>ชื่อ-นามสกุล : {{data.name}} {{data.surname}}</li>
     <li>ชื่อเล่น : {{data.nickname}}</li>
     <li>รหัสนักศึกษา : {{data.student_id}}</li>
     <li>วันเดือนปีเกิด : {{data.birth_date}}</li>
     <li>ศาสนา : {{data.religion}}</li>
-    <h3>ข้อมูลติดต่อ</h3>
+    <h4>ข้อมูลติดต่อ</h4>
     <li>ที่อยู่ : {{data.address}}</li>
     <li>หมายเลขโทรศัพท์ : {{data.self_telephone_num}}</li>
     <li>Line id : {{data.line_id}}</li>
     <li>Facebook : {{data.facebook}}</li>
     <li>instagram : {{data.instagram}}</li>
-    <h3>ประวัติการแพ้</h3>
+    <h4>ประวัติการแพ้</h4>
     <li>อาหารที่แพ้ : {{data.allergic_foods}}</li>
     <li>ยาที่แพ้ : {{data.allergic_meds}}</li>
     <li>โรคประจำตัว : {{data.congenital_disease}}</li>
 </ul>
-<a href='/accounts/userprofile?next={{ request.get_full_path }}&edit=1'>แก้ไข</a>
-<h2>ข้อมูลค่าย</h2>
+<a class="btn btn-warning btn-block" href='/accounts/userprofile?next={{ request.get_full_path }}&edit=1'>แก้ไข</a>
+<h6> &nbsp; </h6>
+<h1>ข้อมูลค่าย</h1>
 <ul>
+    <li>ไซส์เสื้อ : {{campdata.shirt_size}}</li>
+    <li>สิ่งที่อยากจะบอก : {{campdata.passion}}</li>
     <li>คำนำหน้าผู้ปกครอง : {{campdata.parent_gender}}</li>
     <li>ชื่อผู้ปกครอง : {{campdata.parent_name}} {{campdata.parent_surname}} </li>
     <li>เกี่ยวข้องเป็น : {{campdata.parent_relation}}</li>
     <li>เบอร์โทรผู้ปกครอง : {{campdata.parent_telephone_num}}</li>
-    <li>ไซส์เสื้อ : {{campdata.shirt_size}}</li>
-    <li>สิ่งที่อยากจะบอก : {{campdata.shirt_size}}</li>
 </ul>
-<a href='../register?next={{ request.get_full_path }}'>แก้ไข</a>
-
+<a class="btn btn-warning btn-block" href='../register?next={{ request.get_full_path }}'>แก้ไข</a>
+</article>
+</div>
+</div>
 {% endblock %}

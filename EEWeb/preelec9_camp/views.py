@@ -104,6 +104,7 @@ class CampConfirmView(TemplateView):
     def get_context_data(self,*args, **kwargs):
         context = super(CampConfirmView, self).get_context_data(*args,**kwargs)
         context['title_name'] = 'Confirmation'
+        context['data']=self.request.user.eeuserprofile
         return context
     @method_decorator(login_required)
     @method_decorator(allowed_users(['64_student']))
