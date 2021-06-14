@@ -16,9 +16,6 @@ class RegisterForm_64(forms.ModelForm):
         
         }
 class StatementForm_63(forms.Form):
-    class Meta:
-        #widgets = {}
-        pass
     division_choices = [
         ('Art', 'Art'),
         ('Data', 'Data'),
@@ -35,3 +32,7 @@ class StatementForm_63(forms.Form):
         ('All', 'All')
     ]
     division = forms.ChoiceField(choices = division_choices, label = 'เลือกฝ่าย')
+    
+    class Meta:
+        widgets = {'division' : Select(attrs={'type': 'text','class': 'form-control', 'placeholder':'เลือกไซส์เสื้อ'})}
+        

@@ -4,17 +4,28 @@
 {% include  'preelec9_camp/base_header.html' %}
 {% endblock%}
 {% block content%}
+<div style="padding-top: 10%; padding-bottom: 10%; margin: 50px 10px 10px 10px  ">
+  <div class="card bg-light" style="padding: 3%; max-width: 1200px; margin: auto;" >
+      <article  class="center" style="max-width: 1200px; ">
 
-
-<div style = 'height: 150px'></div>
-<div>
 {% if form %}
 <form method='get' action = ''>
-  {{form.as_p}}
-  <input type="submit" value="Submit">
+   <p><label for="id_shirt_size">เลือกฝ่าย : <p1>{{ form.division.errors }}</p1></label> </p>
+    <div class="form-group input-group">
+		<div class="input-group-prepend">
+		    <span class="input-group-text"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+</svg> </span>
+		 </div>
+            {{ form.division}}
+    </div>
+  <input type="submit" class="btn btn-primary" value="Submit">
 </form>
 {%else%}
-<a href='/camp/63/statement/'>กลับ</a>
+<a class="btn btn-outline-primary" href='/camp/63/statement/'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/>
+</svg> กลับ</a><br><br>
 {% endif %}
 {% for division in data%}
   {% if division.1 %}
@@ -50,7 +61,10 @@
   {% endif %}
 {%endfor%}
 {%if total%}
-รวม {{total}} บาท
+<button type="button" class="btn btn-success"> รวม {{total}} บาท </button>
 {%endif%}
+
+</article>
+</div>
 </div>
 {%endblock%}
