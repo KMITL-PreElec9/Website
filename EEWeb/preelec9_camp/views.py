@@ -186,3 +186,7 @@ class RegistrarView_63(ListView):
     @method_decorator(allowed_users(['63_student']))
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
+    def get_context_data(self,*args, **kwargs):
+        context = super(RegistrarView_63, self).get_context_data(*args,**kwargs)
+        context['title_name'] = 'ลงทะเบียนน้อง'
+        return context
