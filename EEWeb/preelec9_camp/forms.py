@@ -1,4 +1,5 @@
 from django import forms
+from django.db.models import fields
 from django.forms import widgets,Select,Textarea
 from .models import Campdata_64, Statement
 class RegisterForm_64(forms.ModelForm):
@@ -16,9 +17,6 @@ class RegisterForm_64(forms.ModelForm):
         
         }
 class StatementForm_63(forms.Form):
-    class Meta:
-        #widgets = {}
-        pass
     division_choices = [
         ('Art', 'Art'),
         ('Data', 'Data'),
@@ -34,4 +32,8 @@ class StatementForm_63(forms.Form):
         ('Other', 'Other'),
         ('All', 'All')
     ]
-    division = forms.ChoiceField(choices = division_choices, label = 'เลือกฝ่าย')
+    division = forms.ChoiceField(
+        choices = division_choices, label = 'เลือกฝ่าย',
+        widget=Select(attrs={'type': 'text','class': 'form-control'}
+        ))
+
