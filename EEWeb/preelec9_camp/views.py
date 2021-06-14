@@ -182,3 +182,7 @@ class RegistrarView_63(ListView):
     model = Campdata_64
     template_name = 'preelec9_camp/63/reg.html'
     paginate_by = 50
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(['63_student']))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)

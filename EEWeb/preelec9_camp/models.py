@@ -98,11 +98,8 @@ class Campdata_64(models.Model):
     parent_surname = models.CharField(max_length=100, null= True)
     parent_relation = models.CharField(max_length=100, null= True)
     completed = models.BooleanField(default=False)
-    registered_1_ts = models.DateTimeField(null=True)
-    registered_2_ts = models.DateTimeField(null=True)
-    registered_3_ts = models.DateTimeField(null=True)
-    registered_fin_ts = models.DateTimeField(null=True)
     #registered = models.BooleanField(default=False)
     house = models.CharField(max_length=2, choices = house_choices, null=True)
     def __str__(self):
         return str(self.user)
+#class Camp_Registered_64(models.Model):
