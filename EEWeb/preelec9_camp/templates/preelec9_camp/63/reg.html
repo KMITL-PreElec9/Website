@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static%}
+{%block header%}
+{% include  'preelec9_camp/base_header.html' %}
+{% endblock%}
+{% block content%}
+<h1>ข้อมูลน้อง</h1>
+<ul>
+{% for obj in object_list %}
+    <li>
+        <a href="{{obj.pk}}">
+            น้อง{{ obj.user.eeuserprofile.nickname }},
+            {{ obj.user.eeuserprofile.gender }} 
+            {{  obj.user.eeuserprofile.name  }} 
+            {{  obj.user.eeuserprofile.surname  }}
+        </a>
+    </li>
+{% empty %}
+    <li>ยังไม่มีผู้ลงทะเบียนสำเร็จ</li>
+{% endfor %}
+</ul>
+{% endblock %}

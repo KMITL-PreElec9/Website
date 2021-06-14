@@ -1,7 +1,7 @@
 from django import forms
 from django.db import models
 from django.shortcuts import redirect
-from django.views.generic import TemplateView, FormView
+from django.views.generic import TemplateView, FormView, ListView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from .decorators import *
@@ -178,3 +178,7 @@ class CampParentView(TemplateView):
         context['title_name'] = 'Parent_Form'
         context['data'] = self.request.user
         return context
+class RegistrarView_63(ListView):
+    model = Campdata_64
+    template_name = 'preelec9_camp/63/reg.html'
+    paginate_by = 50
