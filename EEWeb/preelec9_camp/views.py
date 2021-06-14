@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from .decorators import *
 from .models import Campdata_64, Statement
-from .forms import RegisterForm_64
+from .forms import RegisterForm_64, StatementForm_63
 from site_auth.models import EEUserProfile
 
 def campmenu(View):
@@ -59,7 +59,23 @@ class CampStatementView(TemplateView):
     def get_context_data(self,*args, **kwargs):
         context = super(CampStatementView, self).get_context_data(*args,**kwargs)
         context['title_name'] = 'Camp Statements'
-        context['data'] = Statement.objects.all()
+        if 'division' in self.request.GET.keys():
+            getstr = str(self.request.GET['division'])
+            db = Statement
+            if (getstr,getstr) in StatementForm_63.division_choices and getstr != 'All':
+                data, total1, total2 = db.get_data_by_division(db,getstr)
+                context['data'] = [[getstr, data, total1, total2]]
+                context['total'] = total1 +total2
+            elif getstr == 'All':
+                context['data'] = []
+                context['total'] = 0
+                for tuple in StatementForm_63.division_choices:
+                    data, total1, total2 = db.get_data_by_division(db,tuple[0])
+                    context['data'].append([tuple[0], data, total1, total2])
+                    context['total'] = context['total']+total1+total2
+            else: pass   
+        else:
+            context['form'] = StatementForm_63()
         return context
 
 class RegisterView_64(FormView):

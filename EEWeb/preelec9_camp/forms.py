@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import widgets,Select,Textarea
-from .models import Campdata_64
+from .models import Campdata_64, Statement
 class RegisterForm_64(forms.ModelForm):
     class Meta:
         model = Campdata_64
@@ -15,3 +15,23 @@ class RegisterForm_64(forms.ModelForm):
                     'parent_relation': forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'บิดา, มารดา , .....'})
         
         }
+class StatementForm_63(forms.Form):
+    class Meta:
+        #widgets = {}
+        pass
+    division_choices = [
+        ('Art', 'Art'),
+        ('Data', 'Data'),
+        ('Delivery', 'Delivery'),
+        ('Local', 'Local'),
+        ('Medic', 'Medic'),
+        ('PR', 'PR'),
+        ('Recreation', 'Recreation'),
+        ('Security', 'Security'),
+        ('Secretary', 'Secretary'),
+        ('Welfare', 'Welfare'),
+        ('Treasurer', 'Treasurer'),
+        ('Other', 'Other'),
+        ('All', 'All')
+    ]
+    division = forms.ChoiceField(choices = division_choices, label = 'เลือกฝ่าย')
