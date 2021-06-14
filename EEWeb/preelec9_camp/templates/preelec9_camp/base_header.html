@@ -9,34 +9,5 @@
         <ul style="text-align: center;">
           <li class="active"><a href="/">กลับหน้าหลัก</a></li>
           <li><a href="/camp/">กลับหน้าหลักค่าย</a></li>
-<<<<<<< HEAD
-<<<<<<< HEAD
-          
+      
 
-        
-    
-      {% if user.is_authenticated %}
-        
-           
-=======
-      {% if user.is_authenticated %}          
->>>>>>> bea025ed256f6382f2c8b248d659b3137c809a1c
-                <li class="drop-down"><a>{{user.email}}</a>
-                    <ul>
-                        <center><li><a href="/accounts/userprofile?next={{ request.get_full_path }}">ข้อมูลส่วนตัว</a></li></center>
-                        <center><li><a href="/accounts/password/change?next={{ request.get_full_path }}">เปลี่ยนรหัสผ่าน</a></li></center>
-                        <li ><a class="btn btn-danger btn-block" style = 'width:70%; color:white; margin:auto' href="{{ HTTP_HOST }}/accounts/logout?next={{ request.get_full_path }}">ออกจากระบบ</a></li>
-                    </ul>
-                  </li>
-            </ul>
-        
-      {%else%}
-      <a href="/accounts/login?next={{ request.get_full_path }}" class="get-started-btn" style="color:rgb(255, 255, 255); margin: auto;">ลงชื่อเข้าใช้/สมัครสมาชิก</a>
-      {%endif%}
-      </nav>
-    </div>
-    
-  </header><!-- End Header -->
-=======
-
->>>>>>> aea959417bacf196a5886de10601269ddd96dfbb

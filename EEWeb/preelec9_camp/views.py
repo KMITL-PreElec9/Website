@@ -20,7 +20,7 @@ def campmenu(View):
             menu = [
                 ['ตรวจสอบข้อมูล','64/viewdata/','ตรวจสอบและแก้ไขข้อมูลที่ลงทะเบียน','file', 'orange'],
                 ['ตรวจสอบตารางกิจกรรม','64/table/', 'ตรวจสอบตารางกิจกรรมและจุดนัดพบ','tachometer', 'red'],
-                ['ใบขออนุญาตผู้ปกครอง','64/parent/', 'ดาวน์โหลด และพิมพ์ใบขออนุญาตผู้ปกครอง','book-open', 'green'],
+                ['ใบขออนุญาตผู้ปกครอง','64/parent/', 'ดาวน์โหลด และพิมพ์ใบขออนุญาตผู้ปกครอง','book-open', 'yellow'],
                 ['ยกเลิกการสมัคร','64/unregister/', 'ยกเลิกการสมัครเข้าค่าย','calendar-x', 'pink'],
             ]
         except Campdata_64.DoesNotExist:
@@ -149,6 +149,7 @@ class CampUnregisterView(TemplateView):
     def post(self,request,*args, **kwargs):
         request.user.campdata_64.delete()
         return redirect('/camp/')
+
 class CampParentView(TemplateView):
     template_name = "preelec9_camp/64/parent.html"
     @method_decorator(login_required)
