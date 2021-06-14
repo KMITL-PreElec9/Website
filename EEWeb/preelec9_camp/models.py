@@ -69,8 +69,8 @@ class Statement(models.Model):
     
 class Campdata_64(models.Model):
     class Meta:
-        verbose_name = "CampData64"
-        verbose_name_plural = "CampData64"
+        verbose_name = "Camp Data 64"
+        verbose_name_plural = "Camp Data 64"
     shirt_size_choices = [
         ('S', 'S'),
         ('M', 'M'),
@@ -98,7 +98,11 @@ class Campdata_64(models.Model):
     parent_surname = models.CharField(max_length=100, null= True)
     parent_relation = models.CharField(max_length=100, null= True)
     completed = models.BooleanField(default=False)
-    registered = models.BooleanField(default=False)
+    registered_1_ts = models.DateTimeField(null=True)
+    registered_2_ts = models.DateTimeField(null=True)
+    registered_3_ts = models.DateTimeField(null=True)
+    registered_fin_ts = models.DateTimeField(null=True)
+    #registered = models.BooleanField(default=False)
     house = models.CharField(max_length=2, choices = house_choices, null=True)
     def __str__(self):
         return str(self.user)
