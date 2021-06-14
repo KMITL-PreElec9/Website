@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
-
 class Statement(models.Model):
     class Meta:
         verbose_name = "Statement"
@@ -32,7 +31,39 @@ class Statement(models.Model):
     price = models.FloatField(null=True)
     quantity = models.IntegerField(null=True)
     remarks = models.CharField(max_length=1000, null= True)
-
+    def get_data_by_division(self, division, *args, **kwargs):
+        data1 = self.objects.filter(division = division, mode = 'รายรับ').values()
+        data2 = self.objects.filter(division = division, mode = 'รายจ่าย').values()
+        result = []; total1 = 0; total2 =0
+        def add_data_to_template(*args, **kwargs):
+            data_template = {
+                'transaction_date' : args[0].strftime('%Y-%m-%d'),
+                'name' : args[1], 'quantity' : args[2],
+                'price' : args[3], 'income' : args[4],
+                'expenditure' : args[5], 'remarks' : args[6]
+            }
+            return data_template
+        def sort_key(d):
+            return d['transaction_date']
+        for i in range(len(data1)):
+            st = data1[i]['price']*data1[i]['quantity']
+            total1 = total1 + st
+            result.append(add_data_to_template(
+                data1[i]['transaction_date'], data1[i]['item_name'],
+                data1[i]['quantity'], data1[i]['price'], st, '-', 
+                data1[i]['remarks']
+            ))
+        for i in range(len(data2)):
+            st = data2[i]['price']*data2[i]['quantity']
+            total2 = total2 - st
+            result.append(add_data_to_template(
+                data2[i]['transaction_date'], data2[i]['item_name'],
+                data2[i]['quantity'], data2[i]['price'], '-', st,
+                data2[i]['remarks']
+            ))
+        result.sort(key = sort_key)
+        return result, total1,total2
+          
     def __str__(self):
         return str(self.item_name)
     

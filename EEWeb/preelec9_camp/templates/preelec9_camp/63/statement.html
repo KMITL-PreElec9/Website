@@ -8,34 +8,49 @@
 
 <div style = 'height: 150px'></div>
 <div>
-<table class="table table-hover">
-
-  <thead>
-    <tr>
-      <th scope="col">ลำดับ</th>
-      <th scope="col">วันที่ทำรายการ</th>
-      <th scope="col">รายการ</th>
-      <th scope="col">จำนวน</th>
-      <th scope="col">ราคา</th>
-      <th scope="col">รายรับ</th>
-      <th scope="col">รายจ่าย</th>
-      <th scope="col">หมายเหตุ</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% for a in data%}
-    <tr>
-      <th scope="row">1</th>
-      <td>{{a.transcaction_date}}</td>
-      <td>{{a.item_name}}</td>
-      <td>{{a.quantity}}</td>
-      <td>{{a.price}}</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td>{{a.remarks}}</td>
-    </tr>
-   {% endfor %} 
-  </tbody>
-</table>
+{% if form %}
+<form method='get' action = ''>
+  {{form.as_p}}
+  <input type="submit" value="Submit">
+</form>
+{%else%}
+<a href='/camp/63/statement/'>กลับ</a>
+{% endif %}
+{% for division in data%}
+  {% if division.1 %}
+  <h3>{{division.0}}</h3>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">ลำดับ</th>
+        <th scope="col">วันที่ทำรายการ</th>
+        <th scope="col">รายการ</th>
+        <th scope="col">จำนวน</th>
+        <th scope="col">ราคา</th>
+        <th scope="col">รายรับ</th>
+        <th scope="col">รายจ่าย</th>
+        <th scope="col">หมายเหตุ</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for a in division.1%}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{a.transaction_date}}</td>
+        <td>{{a.name}}</td>
+        <td>{{a.quantity}}</td>
+        <td>{{a.price}}</td>
+        <td>{{a.income}}</td>
+        <td>{{a.expenditure}}</td>
+        <td>{{a.remarks}}</td>
+      </tr>
+    {% endfor %} 
+    </tbody>
+  </table>
+  {% endif %}
+{%endfor%}
+{%if total%}
+รวม {{total}} บาท
+{%endif%}
 </div>
 {%endblock%}
