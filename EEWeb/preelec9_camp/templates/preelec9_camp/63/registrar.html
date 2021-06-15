@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static%}
+{%block header%}
+{% include  'preelec9_camp/base_header.html' %}
+{% endblock%}
+{% block content%}
+<div style="padding-top: 10%; padding-bottom: 10%; max-height: 5000px ; margin: 30px 10px 10px 10px  ">
+    <div class="card bg-light " style="padding: 3%; max-width: 1200px; margin: auto;" >
+        <article  class="center" style="max-width: 1200px; ">
+<h2 style="text-align: center;">ลงทะเบียนน้อง</h2>
+  <p>กรุณากดยืนยันเพื่อลงทะเบียนให้กับน้อง{{userdata.nickname}} 
+  {{userdata.gender}} 
+  {{userdata.name}} 
+  {{userdata.surname}} </p>   
+
+    <form action='' method='post'>
+        {% csrf_token %}
+        <label for="comment">หมายเหตุ:</label><br>
+        <input type='hidden' name='regID' value='{{obj.pk}}'>
+        <input type='text' name='comment' placeholder='หมายเหตุ'>
+        <input type='submit' name='sign_in' value='เพิ่มการลงทะเบียน'>
+    </form>    
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ลงทะเบียนวันที่</th>
+        <th>ลงทะเบียนโดย</th>
+        <th>ลงทะเบียนเข้าเมื่อ</th>
+        <th>ลงทะเบียนออกเมื่อ</th>
+        <th>หมายเหตุ</th>
+        <th>การดำเนินการ</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for obj in regdata %}
+      <tr> 
+        <td><a>{{forloop.counter}}</a></td>
+        <td>
+            พี่{{obj.registered_by.eeuserprofile.nickname}} 
+            {{obj.registered_by.eeuserprofile.name}} 
+        </td>
+        <td>{{obj.registered_on_1}}</td>
+        <td>{{obj.registered_on_2}}</td>
+        <td>{{obj.comment}}</td>
+        <td>
+            <form action='' method='post'>
+            {% csrf_token %}
+            <input type='hidden' name='regID' value='{{obj.pk}}'>
+            <input type='submit' name='delete' value='ลบข้อมูล'>
+            <input type='submit' name='sign_out' value='ลงทะเบียนออก'>
+            </form>
+        </td>
+    
+    {% empty %}
+        <td>ยังไม่มีประวัติการลงทะเบียน</td>
+    {% endfor %}
+      </tr>
+    
+    </tbody>
+  </table>
+
+</article>
+</div>
+</div>
+{% endblock %}

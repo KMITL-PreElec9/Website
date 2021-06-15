@@ -4,11 +4,14 @@ from django.shortcuts import redirect
 from django.views.generic import TemplateView, FormView, ListView, DetailView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.views.generic.base import View
 from .decorators import *
 from .models import Camp_Registered_64, Campdata_64, Statement
 from django.contrib.auth.models import User
 from .forms import RegisterForm_64, StatementForm_63
 from site_auth.models import EEUserProfile
+from django.utils import timezone
+
 
 def campmenu(View):
     if View.request.user.groups.exists():
@@ -197,3 +200,36 @@ class CampDetailView_63(DetailView):
     @method_decorator(allowed_users(['63_student']))
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
+class CampRegistrarView_63(TemplateView):
+    template_name = 'preelec9_camp/63/registrar.html'
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(['63_student']))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+    def get_context_data(self,*args, **kwargs):
+        user = User.objects.get(pk = kwargs['pk'])
+        context = super(CampRegistrarView_63, self).get_context_data(*args,**kwargs)
+        context['title_name'] = 'ลงทะเบียนน้อง'
+        context['regdata'] = Camp_Registered_64.objects.filter(campdata_64 = user.campdata_64)
+        context['userdata'] = EEUserProfile.objects.get(user=user)
+        return context
+    def post(self, *args, **kwargs):
+        if 'delete' in self.request.POST.keys():
+            db = Camp_Registered_64.objects.get(pk=self.request.POST['regID'])
+            db.delete()
+        elif 'sign_out' in self.request.POST.keys():
+            db = Camp_Registered_64.objects.get(pk=self.request.POST['regID'])
+            db.registered_on_2 = timezone.now()
+            db.save()
+        elif 'sign_in' in self.request.POST.keys():
+            cuser = Campdata_64.objects.get(pk = kwargs['pk'])
+            ruser = self.request.user
+            db = Camp_Registered_64(comment=self.request.POST['comment'])
+            db.registered_on_1 = timezone.now()
+            db.campdata_64 = cuser
+            db.registered_by = ruser
+            db.save()
+        else: pass
+        return redirect('/camp/63/camp_register/'+str(kwargs['pk']))
+
+

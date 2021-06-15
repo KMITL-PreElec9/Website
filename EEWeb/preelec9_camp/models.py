@@ -107,7 +107,8 @@ class Camp_Registered_64(models.Model):
         verbose_name = "Camp Registered 64"
         verbose_name_plural = "Camp Registered 64"
     campdata_64 = models.ForeignKey(Campdata_64, on_delete=models.CASCADE)
-    registered_on = models.DateTimeField(null= True)
+    registered_on_1 = models.DateTimeField(null= True)
+    registered_on_2 = models.DateTimeField(null= True)
     registered_by = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.CharField(max_length=300, null=True)
 
