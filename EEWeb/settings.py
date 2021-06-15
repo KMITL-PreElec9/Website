@@ -16,8 +16,8 @@ import django_heroku
 
 # Initialise environment variables
 env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, True)
+    DEBUG=(bool, True),
+    SITE_ID=(int, 1)
 )
 
 environ.Env.read_env()
@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'preelec9_camp.apps.Preelec9CampConfig',
     'site_auth.apps.SiteAuthConfig'
 ]
-SITE_ID = 1
+SITE_ID = env('SITE_ID')
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
