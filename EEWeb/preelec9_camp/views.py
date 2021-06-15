@@ -233,6 +233,7 @@ class CampRegistrarView_63(TemplateView):
         elif 'sign_out' in self.request.POST.keys():
             db = Camp_Registered_64.objects.get(pk=self.request.POST['regID'])
             db.registered_on_2 = timezone.now()
+            db.registered_by_2 = str(self.request.user.eeuserprofile.nickname) + ' '+  str(self.request.user.eeuserprofile.name)
             db.save()
         elif 'sign_in' in self.request.POST.keys():
             cuser = Campdata_64.objects.get(pk = kwargs['pk'])
@@ -240,7 +241,7 @@ class CampRegistrarView_63(TemplateView):
             db = Camp_Registered_64(comment=self.request.POST['comment'])
             db.registered_on_1 = timezone.now()
             db.campdata_64 = cuser
-            db.registered_by = ruser
+            db.registered_by_1 = ruser
             db.save()
         else: pass
         return redirect('/camp/63/camp_register/'+str(kwargs['pk']))

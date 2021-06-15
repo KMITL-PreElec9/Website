@@ -109,7 +109,8 @@ class Camp_Registered_64(models.Model):
     campdata_64 = models.ForeignKey(Campdata_64, on_delete=models.CASCADE)
     registered_on_1 = models.DateTimeField(null= True)
     registered_on_2 = models.DateTimeField(null= True)
-    registered_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    registered_by_1 = models.ForeignKey(User, on_delete=models.CASCADE)
+    registered_by_2 = models.CharField(null = True, max_length=200)
     comment = models.CharField(max_length=300, null=True)
     def __str__(self):
         return str(self.campdata_64)

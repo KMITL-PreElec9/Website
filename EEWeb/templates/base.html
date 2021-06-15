@@ -63,14 +63,16 @@
 
         
       {% endblock%}
-      {% if user.is_authenticated %}
-        
-           
-                <li class="drop-down"><a>{{user.email}}</a>
+      {% if user.is_authenticated %}   
+                <li class="drop-down">
+                  <a>{{user.email}}</a> 
                     <ul>
                         <center><li><a href="/accounts/userprofile?next={{ request.get_full_path }}">ข้อมูลส่วนตัว</a></li></center>
                         <center><li><a href="/accounts/email?next={{ request.get_full_path }}">เปลี่ยนอีเมล</a></li></center>
+                        {%if user.socialaccount_set%}
+                        {%else%}
                         <center><li><a href="/accounts/password/change?next={{ request.get_full_path }}">เปลี่ยนรหัสผ่าน</a></li></center>
+                        {%endif%}
                        <li ><a class="btn btn-danger btn-block" style = 'width:70%; color:white; margin:auto' href="{{ HTTP_HOST }}/accounts/logout?next={{ request.get_full_path }}">ออกจากระบบ</a></li>
                     </ul>
                   </li>

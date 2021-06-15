@@ -24,9 +24,10 @@
   <table class="table table-hover">
     <thead>
       <tr>
-        <th>ลงทะเบียนวันที่</th>
-        <th>ลงทะเบียนโดย</th>
+        <th>ครั้งที่</th>
+        <th>ลงทะเบียนเข้าโดย</th>
         <th>ลงทะเบียนเข้าเมื่อ</th>
+        <th>ลงทะเบียนออกโดย</th>
         <th>ลงทะเบียนออกเมื่อ</th>
         <th>หมายเหตุ</th>
         <th>การดำเนินการ</th>
@@ -37,18 +38,26 @@
       <tr> 
         <td><a>{{forloop.counter}}</a></td>
         <td>
-            พี่{{obj.registered_by.eeuserprofile.nickname}} 
-            {{obj.registered_by.eeuserprofile.name}} 
+            พี่{{obj.registered_by_1.eeuserprofile.nickname}} 
+            {{obj.registered_by_1.eeuserprofile.name}} 
         </td>
         <td>{{obj.registered_on_1}}</td>
+        {% if obj.registered_by_2 %}
+        <td>พี่{{obj.registered_by_2}}</td>
         <td>{{obj.registered_on_2}}</td>
-        <td>{{obj.comment}}</td>
+        {%else%}
+        <td></td><td></td>
+        {% endif%}
+        <td style="max-width:100px">{{obj.comment}}</td>
         <td>
             <form action='' method='post'>
             {% csrf_token %}
             <input type='hidden' name='regID' value='{{obj.pk}}'>
             <input type='submit' name='delete' value='ลบข้อมูล'>
+            {% if obj.registered_by_2 %}
+            {%else%}
             <input type='submit' name='sign_out' value='ลงทะเบียนออก'>
+            {% endif%}
             </form>
         </td>
     
