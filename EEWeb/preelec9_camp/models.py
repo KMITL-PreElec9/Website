@@ -112,3 +112,4 @@ class Camp_Registered_64(models.Model):
     registered_by = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.CharField(max_length=300, null=True)
 
+
