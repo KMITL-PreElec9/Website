@@ -48,7 +48,42 @@ ul li{
     <li>เกี่ยวข้องเป็น : {{campdata.parent_relation}}</li>
     <li>เบอร์โทรผู้ปกครอง : {{campdata.parent_telephone_num}}</li>
 </ul>
-<a class="btn btn-warning btn-block" href='../register?next={{ request.get_full_path }}'>แก้ไข</a>
+<h6> &nbsp; </h6>
+<h1>ประวัติการลงทะเบียน</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ครั้งที่</th>
+        <th>ลงทะเบียนเข้าโดย</th>
+        <th>ลงทะเบียนเข้าเมื่อ</th>
+        <th>ลงทะเบียนออกโดย</th>
+        <th>ลงทะเบียนออกเมื่อ</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for obj in regdata %}
+      <tr> 
+        <td><a>{{forloop.counter}}</a></td>
+        <td>
+            พี่{{obj.registered_by_1.eeuserprofile.nickname}} 
+            {{obj.registered_by_1.eeuserprofile.name}} 
+        </td>
+        <td>{{obj.registered_on_1}}</td>
+        {% if obj.registered_by_2 %}
+        <td>พี่{{obj.registered_by_2}}</td>
+        <td>{{obj.registered_on_2}}</td>
+        {%else%}
+        <td></td>
+        {% endif%}
+            
+    {% empty %}
+        <td>ยังไม่มีประวัติการลงทะเบียน</td>
+    {% endfor %}
+      </tr>
+    
+    </tbody>
+  </table>
+
 </article>
 </div>
 </div>

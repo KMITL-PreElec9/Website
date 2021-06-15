@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import environ
 from pathlib import Path
 import os
+import django_heroku
 
 # Initialise environment variables
 env = environ.Env()
@@ -165,3 +166,6 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())

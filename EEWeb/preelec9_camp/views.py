@@ -1,6 +1,7 @@
 from django import forms
 from django.db import models
 from django.shortcuts import redirect
+from django.urls import reverse
 from django.views.generic import TemplateView, FormView, ListView, DetailView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -11,7 +12,9 @@ from django.contrib.auth.models import User
 from .forms import RegisterForm_64, StatementForm_63
 from site_auth.models import EEUserProfile
 from django.utils import timezone
-
+import qrcode
+import qrcode.image.svg
+from io import BytesIO
 
 def campmenu(View):
     if View.request.user.groups.exists():
@@ -163,6 +166,7 @@ class DataView_64(TemplateView):
         context['title_name'] = 'Viewdata'
         context['data'] = EEUserProfile.objects.get(user = self.request.user)
         context['campdata'] = Campdata_64.objects.get(user = self.request.user)
+        context['regdata'] = Camp_Registered_64.objects.filter(campdata_64 = context['campdata'])
         return context
 
 class CampUnregisterView(TemplateView):
@@ -191,6 +195,13 @@ class CampParentView(TemplateView):
         context = super(CampParentView, self).get_context_data(*args,**kwargs)
         context['title_name'] = 'Parent_Form'
         context['data'] = self.request.user
+        id = self.request.user.pk
+        factory = qrcode.image.svg.SvgImage
+        img = qrcode.make(self.request.get_host()+reverse('qrcode', kwargs={'pk':id}), image_factory=factory, box_size=15)
+        stream = BytesIO()
+        img.save(stream)
+        context["svg"] = stream.getvalue().decode()
+        context["title_name"] = 'ใบขออนุญาตผู้ปกครอง'
         return context
 class CampListView_63(ListView):
     model = Campdata_64
@@ -233,6 +244,7 @@ class CampRegistrarView_63(TemplateView):
         elif 'sign_out' in self.request.POST.keys():
             db = Camp_Registered_64.objects.get(pk=self.request.POST['regID'])
             db.registered_on_2 = timezone.now()
+            db.registered_by_2 = str(self.request.user.eeuserprofile.nickname) + ' '+  str(self.request.user.eeuserprofile.name)
             db.save()
         elif 'sign_in' in self.request.POST.keys():
             cuser = Campdata_64.objects.get(pk = kwargs['pk'])
@@ -240,7 +252,7 @@ class CampRegistrarView_63(TemplateView):
             db = Camp_Registered_64(comment=self.request.POST['comment'])
             db.registered_on_1 = timezone.now()
             db.campdata_64 = cuser
-            db.registered_by = ruser
+            db.registered_by_1 = ruser
             db.save()
         else: pass
         return redirect('/camp/63/camp_register/'+str(kwargs['pk']))
@@ -268,3 +280,13 @@ class CampUnregisterView_63(TemplateView):
     def post(self,request,*args, **kwargs):
         request.user.campdata_63.delete()
         return redirect('/camp/')
+class QRView(View):
+    def get(self,request,*args, **kwargs):
+        try: 
+            if request.user.groups.all()[0].name == '64_student':
+                return redirect('/camp/64/viewdata/')
+            elif request.user.groups.all()[0].name == '63_student':
+                return redirect('/camp/63/camp_register/'+str(kwargs['pk']))
+            else: pass
+        except:
+            return redirect('/camp/')
