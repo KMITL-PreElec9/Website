@@ -8,7 +8,13 @@
     <div class="card bg-light " style="padding: 3%; max-width: 1200px; margin: auto;" >
         <article  class="center" style="max-width: 1200px; ">
 
-
+{%if data%}
+<ul>
+  {%for obj in data%}
+    <li>obj</li>
+  {%endfor%}
+</ul>
+{%else%}
 <h2 style="text-align: center;">ข้อมูลน้องงงงง</h2>
   <p> </p>            
   <table class="table table-hover">
@@ -17,14 +23,16 @@
         <th>รหัสนักศึกษา</th>
         <th>ชื่อ - นามสกุล</th>
         <th>ชื่อเล่น</th>
+        <th>การดำเนินการ</th>
       </tr>
     </thead>
     <tbody>
     {% for obj in object_list %}
       <tr> 
-        <td><a href="{{obj.pk}}">{{ obj.user.eeuserprofile.student_id }}</a></td>
+        <td><a>{{ obj.user.eeuserprofile.student_id }}</a></td>
         <td>{{obj.user.eeuserprofile.gender}} {{obj.user.eeuserprofile.name}} {{obj.user.eeuserprofile.surname}}</td>
         <td>{{obj.user.eeuserprofile.nickname}}</td>
+        <td><a href="{{obj.pk}}">ดูข้อมูล</a> <a href='../camp_register/{{obj.pk}}'>ลงทะเบียน</a></td>
     
     {% empty %}
         <li>ยังไม่มีผู้ลงทะเบียนสำเร็จ</li>
@@ -33,6 +41,7 @@
     
     </tbody>
   </table>
+  {%endif%}
 </article>
 </div>
 </div>

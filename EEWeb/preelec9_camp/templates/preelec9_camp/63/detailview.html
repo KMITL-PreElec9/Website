@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{%block header%}
+{% include  'preelec9_camp/base_header.html' %}
+<style>
+  h1{
+    text-align: center;
+  }
+ul li{
+  margin: 2%;
+  font-size: 20px;
+  }
+
+</style>
+{% endblock%}
+{% block content%}
+<div style="padding-top: 10%; padding-bottom: 10%; max-height: 10000px; margin: 20px 10px 10px 10px ">
+  <div class="card bg-light" style="padding: 3%; max-width: 800px; margin: auto;" >
+      <article  class="center" style="max-width: 800px; ">
+<h1>ข้อมูลส่วนตัว</h1>
+<ul>
+  <h4>ข้อมูลทั่วไป</h4>
+    <li>คำนำหน้า : {{user.eeuserprofile.gender}}</li>
+    <li>ชื่อ-นามสกุล : {{user.eeuserprofile.name}} {{user.eeuserprofile.surname}}</li>
+    <li>ชื่อเล่น : {{user.eeuserprofile.nickname}}</li>
+    <li>รหัสนักศึกษา : {{user.eeuserprofile.student_id}}</li>
+    <li>วันเดือนปีเกิด : {{user.eeuserprofile.birth_date}}</li>
+    <li>ศาสนา : {{user.eeuserprofile.religion}}</li>
+    <h4>ข้อมูลติดต่อ</h4>
+    <li>ที่อยู่ : {{user.eeuserprofile.address}}</li>
+    <li>หมายเลขโทรศัพท์ : {{user.eeuserprofile.self_telephone_num}}</li>
+    <li>Line id : {{user.eeuserprofile.line_id}}</li>
+    <li>Facebook : {{user.eeuserprofile.facebook}}</li>
+    <li>instagram : {{user.eeuserprofile.instagram}}</li>
+    <h4>ประวัติการแพ้</h4>
+    <li>อาหารที่แพ้ : {{user.eeuserprofile.allergic_foods}}</li>
+    <li>ยาที่แพ้ : {{user.eeuserprofile.allergic_meds}}</li>
+    <li>โรคประจำตัว : {{user.eeuserprofile.congenital_disease}}</li>
+</ul>
+<h6> &nbsp; </h6>
+<h1>ข้อมูลค่าย</h1>
+<ul>
+    <li>ไซส์เสื้อ : {{user.campdata_64.shirt_size}}</li>
+    <li>สิ่งที่อยากจะบอก : {{user.campdata_64.passion}}</li>
+    <li>คำนำหน้าผู้ปกครอง : {{user.campdata_64.parent_gender}}</li>
+    <li>ชื่อผู้ปกครอง : {{user.campdata_64.parent_name}} {{user.campdata_64.parent_surname}} </li>
+    <li>เกี่ยวข้องเป็น : {{user.campdata_64.parent_relation}}</li>
+    <li>เบอร์โทรผู้ปกครอง : {{user.campdata_64.parent_telephone_num}}</li>
+</ul>
+</article>
+</div>
+</div>
+{% endblock %}
