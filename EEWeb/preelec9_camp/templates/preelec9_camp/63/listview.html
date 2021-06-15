@@ -1,10 +1,18 @@
 {% extends 'base.html' %}
 {% load static%}
 {%block header%}
+<style>
+  td{
+    text-align: center;
+  }
+  th{
+    text-align: center;
+  }
+</style>
 {% include  'preelec9_camp/base_header.html' %}
 {% endblock%}
 {% block content%}
-<div style="padding-top: 10%; padding-bottom: 10%; max-height: 5000px ; margin: 30px 10px 10px 10px  ">
+<div style="padding-top: 10%; padding-bottom: 10%; max-height: 50000px ; margin: 30px 10px 10px 10px  ">
     <div class="card bg-light " style="padding: 3%; max-width: 1200px; margin: auto;" >
         <article  class="center" style="max-width: 1200px; ">
 
@@ -16,7 +24,8 @@
 </ul>
 {%else%}
 <h2 style="text-align: center;">ข้อมูลน้องงงงง</h2>
-  <p> </p>   
+<p style="color:crimson">กดที่รหัสนักศึกษาเพื่อดูข้อมูลน้อง</p>
+  
   <div class="table-responsive">       
   <table class="table table-hover">
     <thead>
@@ -30,10 +39,10 @@
     <tbody>
     {% for obj in object_list %}
       <tr> 
-        <td><a>{{ obj.user.eeuserprofile.student_id }}</a></td>
-        <td>{{obj.user.eeuserprofile.gender}} {{obj.user.eeuserprofile.name}} {{obj.user.eeuserprofile.surname}}</td>
+        <td><a href="{{obj.pk}}">{{ obj.user.eeuserprofile.student_id }}</a></td>
+        <td >{{obj.user.eeuserprofile.gender}} {{obj.user.eeuserprofile.name}} {{obj.user.eeuserprofile.surname}}</td>
         <td>{{obj.user.eeuserprofile.nickname}}</td>
-        <td><a href="{{obj.pk}}">ดูข้อมูล</a> <a href='../camp_register/{{obj.pk}}'>ลงทะเบียน</a></td>
+        <td><a class="btn btn-success" href='../camp_register/{{obj.pk}}'>ลงทะเบียน</a></td>
     
     {% empty %}
         <li>ยังไม่มีผู้ลงทะเบียนสำเร็จ</li>
