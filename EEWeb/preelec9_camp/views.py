@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic.base import View
 from .decorators import *
-from .models import Camp_Registered_64, Campdata_64, Statement
+from .models import Camp_Registered_64, Campdata_63, Campdata_64, Statement
 from django.contrib.auth.models import User
 from .forms import RegisterForm_64, StatementForm_63
 from site_auth.models import EEUserProfile
@@ -35,12 +35,22 @@ def campmenu(View):
             ]
     #กรณีรุ่นเรา
     elif group in ['63_student', 'admin']:
-        menu = [
-                ['ตรวจสอบข้อมูลน้อง','63/camp_listview/','ตรวจสอบข้อมูลน้องที่ลงทะเบียน','baseball', 'blue'],
-                ['ตรวจสอบข้อมูลรุ่นเรา','63/viewdata/', 'ตรวจสอบข้อมูลเพื่อนรุ่นเราที่ยืนยันเข้าค่าย','file', 'pink'],
-                ['บัญชีค่าย Pre-Elec9','63/statement/', 'ตรวจสอบบัญชีค่าย','book','yellow'],
-                ['ตรวจสอบตารางกิจกรรม','63/table/', 'ตรวจสอบตารางกิจกรรมและจุดนัดพบ','tachometer', 'red'],
-            ]
+        try:
+            db = View.request.user.campdata_63
+            menu = [
+                    ['ตรวจสอบข้อมูลน้อง','63/camp_listview/','ตรวจสอบข้อมูลน้องที่ลงทะเบียน','baseball', 'blue'],
+                    ['ตรวจสอบข้อมูลรุ่นเรา','63/viewdata/', 'ตรวจสอบข้อมูลเพื่อนรุ่นเราที่ยืนยันเข้าค่าย','file', 'pink'],
+                    ['บัญชีค่าย Pre-Elec9','63/statement/', 'ตรวจสอบบัญชีค่าย','book','yellow'],
+                    ['ตรวจสอบตารางกิจกรรม','63/table/', 'ตรวจสอบตารางกิจกรรมและจุดนัดพบ','tachometer', 'red'],
+                    ['ยกเลิกการสมัคร','63/unregister/', 'ยกเลิกการสมัครเข้าค่าย','calendar-x', 'pink'],
+                ]
+        except Campdata_63.DoesNotExist:
+            menu = [
+                    ['สมัครเข้าค่าย','63/register/','สมัครเข้าทำค่าย Pre-Elec 9','baseball', 'blue'],
+                    ['ตรวจสอบข้อมูลรุ่นเรา','63/viewdata/', 'ตรวจสอบข้อมูลเพื่อนรุ่นเราที่ยืนยันเข้าค่าย','file', 'pink'],
+                    ['บัญชีค่าย Pre-Elec9','63/statement/', 'ตรวจสอบบัญชีค่าย','book','yellow'],
+                    ['ตรวจสอบตารางกิจกรรม','63/table/', 'ตรวจสอบตารางกิจกรรมและจุดนัดพบ','tachometer', 'red'],
+                ]
     else: return False
     return menu
 
@@ -187,6 +197,7 @@ class CampListView_63(ListView):
     template_name = 'preelec9_camp/63/listview.html'
     @method_decorator(login_required)
     @method_decorator(allowed_users(['63_student']))
+    @method_decorator(registered_only)
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
     def get_context_data(self,*args, **kwargs):
@@ -198,12 +209,14 @@ class CampDetailView_63(DetailView):
     template_name = 'preelec9_camp/63/detailview.html'
     @method_decorator(login_required)
     @method_decorator(allowed_users(['63_student']))
+    @method_decorator(registered_only)
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
 class CampRegistrarView_63(TemplateView):
     template_name = 'preelec9_camp/63/registrar.html'
     @method_decorator(login_required)
     @method_decorator(allowed_users(['63_student']))
+    @method_decorator(registered_only)
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
     def get_context_data(self,*args, **kwargs):
@@ -231,5 +244,27 @@ class CampRegistrarView_63(TemplateView):
             db.save()
         else: pass
         return redirect('/camp/63/camp_register/'+str(kwargs['pk']))
-
-
+class RegisterView_63(TemplateView):
+    template_name = 'preelec9_camp/63/register.html'
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(['63_student']))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+    def post(self, *args, **kwargs):
+        db = Campdata_63(user = self.request.user, confirmed= True)
+        db.save()
+        return redirect('/camp/')
+class CampUnregisterView_63(TemplateView):
+    template_name = "preelec9_camp/64/unregister.html"
+    def get_context_data(self,*args, **kwargs):
+        context = super(CampUnregisterView_63, self).get_context_data(*args,**kwargs)
+        context['title_name'] = 'Unregister'
+        return context
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(['63_student']))
+    @method_decorator(registered_only)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+    def post(self,request,*args, **kwargs):
+        request.user.campdata_63.delete()
+        return redirect('/camp/')

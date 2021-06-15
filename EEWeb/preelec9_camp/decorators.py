@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.shortcuts import redirect
 def allowed_users(allowed_roles = []):
     def decorator(view_func):
@@ -16,7 +17,10 @@ def allowed_users(allowed_roles = []):
 def registered_only(view_func):
     def wrapper_function(request, *args, **kwargs):
             try:
-                db = request.user.campdata_64.completed
+                if request.user.groups.all()[0].name == '64_student':
+                    db = request.user.campdata_64.completed
+                elif request.user.groups.all()[0].name == '63_student':
+                    db = request.user.campdata_63
                 return view_func(request, *args, **kwargs) 
             except:
                 return redirect('/camp/')

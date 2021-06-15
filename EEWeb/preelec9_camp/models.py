@@ -111,5 +111,14 @@ class Camp_Registered_64(models.Model):
     registered_on_2 = models.DateTimeField(null= True)
     registered_by = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.CharField(max_length=300, null=True)
+    def __str__(self):
+        return str(self.campdata_64)
 
-
+class Campdata_63(models.Model):
+    class Meta:
+        verbose_name = "Camp Data 63"
+        verbose_name_plural = "Camp Data 63"
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    confirmed = models.BooleanField(default=False)
+    def __str__(self):
+        return str(self.user)
