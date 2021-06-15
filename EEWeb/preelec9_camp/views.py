@@ -1,11 +1,12 @@
 from django import forms
 from django.db import models
 from django.shortcuts import redirect
-from django.views.generic import TemplateView, FormView, ListView
+from django.views.generic import TemplateView, FormView, ListView, DetailView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from .decorators import *
-from .models import Campdata_64, Statement
+from .models import Camp_Registered_64, Campdata_64, Statement
+from django.contrib.auth.models import User
 from .forms import RegisterForm_64, StatementForm_63
 from site_auth.models import EEUserProfile
 
@@ -32,10 +33,10 @@ def campmenu(View):
     #กรณีรุ่นเรา
     elif group in ['63_student', 'admin']:
         menu = [
-                ['ตรวจสอบข้อมูลน้อง','63/viewdata/','ตราวจสอบข้อมูลน้องที่ลงทะเบียน','baseball', 'blue'],
+                ['ตรวจสอบข้อมูลน้อง','63/camp_listview/','ตรวจสอบข้อมูลน้องที่ลงทะเบียน','baseball', 'blue'],
+                ['ครวจสอบข้อมูลรุ่นเรา','63/viewdata/', 'ตรวจสอบข้อมูลเพื่อนรุ่นเราที่ยืนยันเข้าค่าย','file', 'pink'],
                 ['บัญชีค่าย Pre-Elec9','63/statement/', 'ตรวจสอบบัญชีค่าย','book','yellow'],
                 ['ตรวจสอบตารางกิจกรรม','63/table/', 'ตรวจสอบตารางกิจกรรมและจุดนัดพบ','tachometer', 'red'],
-                ['ลงทะเบียนน้อง','63/camp_register/', 'ลงทะเบียนน้องเข้าค่าย','file', 'pink'],
             ]
     else: return False
     return menu
@@ -178,15 +179,21 @@ class CampParentView(TemplateView):
         context['title_name'] = 'Parent_Form'
         context['data'] = self.request.user
         return context
-class RegistrarView_63(ListView):
+class CampListView_63(ListView):
     model = Campdata_64
-    template_name = 'preelec9_camp/63/reg.html'
-    paginate_by = 50
+    template_name = 'preelec9_camp/63/listview.html'
     @method_decorator(login_required)
     @method_decorator(allowed_users(['63_student']))
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
     def get_context_data(self,*args, **kwargs):
-        context = super(RegistrarView_63, self).get_context_data(*args,**kwargs)
-        context['title_name'] = 'ลงทะเบียนน้อง'
+        context = super(CampListView_63, self).get_context_data(*args,**kwargs)
+        context['title_name'] = 'ข้อมูลน้อง'
         return context
+class CampDetailView_63(DetailView):
+    model = User
+    template_name = 'preelec9_camp/63/detailview.html'
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(['63_student']))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)

@@ -102,4 +102,12 @@ class Campdata_64(models.Model):
     house = models.CharField(max_length=2, choices = house_choices, null=True)
     def __str__(self):
         return str(self.user)
-#class Camp_Registered_64(models.Model):
+class Camp_Registered_64(models.Model):
+    class Meta:
+        verbose_name = "Camp Registered 64"
+        verbose_name_plural = "Camp Registered 64"
+    campdata_64 = models.ForeignKey(Campdata_64, on_delete=models.CASCADE)
+    registered_on = models.DateTimeField(null= True)
+    registered_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.CharField(max_length=300, null=True)
+
