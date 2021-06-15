@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+from logging import DEBUG
 import environ
 from pathlib import Path
 import os
@@ -32,8 +33,8 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
-
-ALLOWED_HOSTS = ['kmitl-eeweb.herokuapp.com', '127.0.0.1', 'localhost']
+#DEBUG = False
+ALLOWED_HOSTS = ['https://kmitl-eeweb.herokuapp.com', '127.0.0.1', 'localhost']
 
 # Application definition
 
