@@ -15,7 +15,10 @@ import os
 import django_heroku
 
 # Initialise environment variables
-env = environ.Env()
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, True)
+)
 
 environ.Env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['kmitl-eeweb.herokuapp.com', '127.0.0.1', 'localhost']
 
