@@ -1,1 +1,1 @@
-web: gunicorn EEWeb.wsgi
+web: gunicorn EEWeb.EEWeb.wsgi
