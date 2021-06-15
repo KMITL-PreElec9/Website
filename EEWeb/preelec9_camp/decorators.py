@@ -7,7 +7,7 @@ def allowed_users(allowed_roles = []):
             if request.user.groups.exists():
                 group = request.user.groups.all()[0].name
 
-            if group in allowed_roles or request.user.is_superuser:
+            if group in allowed_roles:
                 return view_func(request, *args, **kwargs)
             else:
                 return redirect('/camp/')
@@ -18,7 +18,7 @@ def registered_only(view_func):
     def wrapper_function(request, *args, **kwargs):
             try:
                 if request.user.groups.all()[0].name == '64_student':
-                    db = request.user.campdata_64.completed
+                    db = request.user.campdata_64
                 elif request.user.groups.all()[0].name == '63_student':
                     db = request.user.campdata_63
                 return view_func(request, *args, **kwargs) 
