@@ -168,7 +168,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 # Activate Django-Heroku.
 django_heroku.settings(locals())
 del DATABASES['default']['OPTIONS']['sslmode']
-
+'''
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -201,3 +201,4 @@ LOGGING = {
         },
     }
 }
+'''
