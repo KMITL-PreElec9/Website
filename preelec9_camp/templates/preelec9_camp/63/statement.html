@@ -1,8 +1,16 @@
-{% extends 'base.html' %}
+{{% extends 'base.html' %}
 {% load static%}
 {%block header%}
 {% include  'preelec9_camp/base_header.html' %}
-
+<style>
+  td{
+    text-align: center;
+  }
+  th{
+      text-align: center;
+  }
+  
+</style>
 {% endblock%}
 {% block content%}
 <div style="padding-top: 10%; padding-bottom: 10%; max-height: 5000px ; margin: 50px 10px 10px 10px  ">
@@ -64,21 +72,23 @@
 
   {% endif %}
 {%endfor%}
+<div class="col-md-12 bg-light text-right">
 {%if total != None %}
 
   {%if total > 0 %}
-    <button type="button" class="btn btn-success"> รวม {{total}} บาท </button>
+    <button type="button" class="btn pull-right btn-success"> คงเหลือ {{total}} บาท </button>
   {%endif%}
 
   {%if total == 0 %}
-    <button type="button" class="btn btn-warning"> รวม {{total}} บาท </button>
+    <button type="button" class="btn pull-right btn-warning"> คงเหลือ {{total}} บาท </button>
   {%endif%}
 
   {%if total < 0 %}
-    <button type="button" class="btn btn-danger"> รวม {{total}} บาท </button>
+    <button type="button" class="btn pull-right btn-danger"> คงเหลือ {{total}} บาท </button>
   {%endif%}
 
 {%endif%}
+</div>
 
 </article>
 </div>

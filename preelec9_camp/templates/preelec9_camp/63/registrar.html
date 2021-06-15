@@ -1,26 +1,35 @@
 {% extends 'base.html' %}
 {% load static%}
 {%block header%}
+<style>
+  th{
+    text-align: center;
+  }
+  td{
+    text-align: center;
+  }
+
+</style>
 {% include  'preelec9_camp/base_header.html' %}
 {% endblock%}
 {% block content%}
 <div style="padding-top: 10%; padding-bottom: 10%; max-height: 5000px ; margin: 30px 10px 10px 10px  ">
-    <div class="card bg-light " style="padding: 3%; max-width: 1200px; margin: auto;" >
-        <article  class="center" style="max-width: 1200px; ">
+    <div class="card bg-light " style="padding: 3%; max-width: 1400px; margin: auto;" >
+        <article  class="center" style="max-width: 1400px; ">
 <h2 style="text-align: center;">ลงทะเบียนน้อง</h2>
-  <p>กรุณากดยืนยันเพื่อลงทะเบียนให้กับน้อง{{userdata.nickname}} 
-  {{userdata.gender}} 
-  {{userdata.name}} 
-  {{userdata.surname}} </p>   
+  <p>กรุณากดยืนยันเพื่อลงทะเบียนให้กับน้อง <p1 class="text-primary">{{userdata.nickname}}</p1> 
+  {{userdata.gender}}<p1 class="text-primary">{{userdata.name}} 
+  {{userdata.surname}} </p1> </p>   
 
-    <form action='' method='post'>
+    <form class="form-inline" action='' method='post'>
         {% csrf_token %}
-        <label for="comment">หมายเหตุ:</label><br>
+        <label for="comment">หมายเหตุ :&nbsp;</label><br>
         <input type='hidden' name='regID' value='{{obj.pk}}'>
-        <input type='text' name='comment' placeholder='หมายเหตุ'>
-        <input type='submit' name='sign_in' value='เพิ่มการลงทะเบียน'>
-    </form>    
-
+        <input class="form-control" type='text' name='comment' placeholder='หมายเหตุ'>
+        <label for="comment">&nbsp;&nbsp;</label>
+        <input type='submit' class="btn btn-success" name='sign_in' value='เพิ่มการลงทะเบียน'>
+    </form><br>
+ <div class="table-responsive">
   <table class="table table-hover">
     <thead>
       <tr>
@@ -52,12 +61,12 @@
         <td>
             <form action='' method='post'>
             {% csrf_token %}
-            <input type='hidden' name='regID' value='{{obj.pk}}'>
-            <input type='submit' name='delete' value='ลบข้อมูล'>
             {% if obj.registered_by_2 %}
             {%else%}
-            <input type='submit' name='sign_out' value='ลงทะเบียนออก'>
+            <input type='submit'  class="btn btn-danger" name='sign_out' value='ลงทะเบียนออก'>
             {% endif%}
+            <input type='hidden' name='regID' value='{{obj.pk}}'>
+            <input type='submit'  class="btn btn-outline-danger" name='delete' value='ลบข้อมูล'>
             </form>
         </td>
     
@@ -68,6 +77,7 @@
     
     </tbody>
   </table>
+  </div>
 
 </article>
 </div>

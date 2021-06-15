@@ -37,7 +37,7 @@ ul li{
     <li>ยาที่แพ้ : {{data.allergic_meds}}</li>
     <li>โรคประจำตัว : {{data.congenital_disease}}</li>
 </ul>
-<a class="btn btn-warning btn-block" href='/accounts/userprofile?next={{ request.get_full_path }}&edit=1'>แก้ไข</a>
+<a class="btn btn-warning btn-block" href='/accounts/userprofile?next={{ request.get_full_path }}&edit=1'>แก้ไขข้อมูลส่วนตัว</a>
 <h6> &nbsp; </h6>
 <h1>ข้อมูลค่าย</h1>
 <ul>
@@ -48,6 +48,7 @@ ul li{
     <li>เกี่ยวข้องเป็น : {{campdata.parent_relation}}</li>
     <li>เบอร์โทรผู้ปกครอง : {{campdata.parent_telephone_num}}</li>
 </ul>
+<a class="btn btn-warning btn-block" href='../register?next={{ request.get_full_path }}'>แก้ไขข้อมูลคค่าย</a>
 <h6> &nbsp; </h6>
 <h1>ประวัติการลงทะเบียน</h1>
   <table class="table table-hover">
