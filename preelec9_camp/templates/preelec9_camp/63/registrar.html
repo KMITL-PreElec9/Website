@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static%}
+{%block header%}
+<style>
+  th{
+    text-align: center;
+  }
+  td{
+    text-align: center;
+  }
+
+</style>
+{% include  'preelec9_camp/base_header.html' %}
+{% endblock%}
+{% block content%}
+<div style="padding-top: 10%; padding-bottom: 10%; max-height: 5000px ; margin: 30px 10px 10px 10px  ">
+    <div class="card bg-light " style="padding: 3%; max-width: 1400px; margin: auto;" >
+        <article  class="center" style="max-width: 1400px; ">
+<h2 style="text-align: center;">ลงทะเบียนน้อง</h2>
+  <p>กรุณากดยืนยันเพื่อลงทะเบียนให้กับน้อง <p1 class="text-primary">{{userdata.nickname}}</p1> 
+  {{userdata.gender}}<p1 class="text-primary">{{userdata.name}} 
+  {{userdata.surname}} </p1> </p>   
+
+    <form class="form-inline" action='' method='post'>
+        {% csrf_token %}
+        <label for="comment">หมายเหตุ :&nbsp;</label><br>
+        <input type='hidden' name='regID' value='{{obj.pk}}'>
+        <input class="form-control" type='text' name='comment' placeholder='หมายเหตุ'>
+        <label for="comment">&nbsp;&nbsp;</label>
+        <input type='submit' class="btn btn-success" name='sign_in' value='เพิ่มการลงทะเบียน'>
+    </form><br>
+ <div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ครั้งที่</th>
+        <th>ลงทะเบียนเข้าโดย</th>
+        <th>ลงทะเบียนเข้าเมื่อ</th>
+        <th>ลงทะเบียนออกโดย</th>
+        <th>ลงทะเบียนออกเมื่อ</th>
+        <th>หมายเหตุ</th>
+        <th>การดำเนินการ</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for obj in regdata %}
+      <tr> 
+        <td><a>{{forloop.counter}}</a></td>
+        <td>
+            พี่{{obj.registered_by_1.eeuserprofile.nickname}} 
+            {{obj.registered_by_1.eeuserprofile.name}} 
+        </td>
+        <td>{{obj.registered_on_1}}</td>
+        {% if obj.registered_by_2 %}
+        <td>พี่{{obj.registered_by_2}}</td>
+        <td>{{obj.registered_on_2}}</td>
+        {%else%}
+        <td></td><td></td>
+        {% endif%}
+        <td style="max-width:100px">{{obj.comment}}</td>
+        <td>
+            <form action='' method='post'>
+            {% csrf_token %}
+            {% if obj.registered_by_2 %}
+            {%else%}
+            <input type='submit'  class="btn btn-danger" name='sign_out' value='ลงทะเบียนออก'>
+            {% endif%}
+            <input type='hidden' name='regID' value='{{obj.pk}}'>
+            <input type='submit'  class="btn btn-outline-danger" name='delete' value='ลบข้อมูล'>
+            </form>
+        </td>
+    
+    {% empty %}
+        <td>ยังไม่มีประวัติการลงทะเบียน</td>
+    {% endfor %}
+      </tr>
+    
+    </tbody>
+  </table>
+  </div>
+
+</article>
+</div>
+</div>
+{% endblock %}
