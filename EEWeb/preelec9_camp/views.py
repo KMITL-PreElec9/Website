@@ -215,6 +215,20 @@ class CampListView_63(ListView):
         context = super(CampListView_63, self).get_context_data(*args,**kwargs)
         context['title_name'] = 'ข้อมูลน้อง'
         return context
+
+class viewdata_63(ListView):#ข้อมูลพี่
+    model = Campdata_63
+    template_name = 'preelec9_camp/63/viewdata.html'
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(['63_student']))
+    @method_decorator(registered_only)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+    def get_context_data(self,*args, **kwargs):
+        context = super(viewdata_63, self).get_context_data(*args,**kwargs)
+        context['title_name'] = 'ข้อมูลพี่'
+        return context
+
 class CampDetailView_63(DetailView):
     model = User
     template_name = 'preelec9_camp/63/detailview.html'
@@ -223,6 +237,7 @@ class CampDetailView_63(DetailView):
     @method_decorator(registered_only)
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
+
 class CampRegistrarView_63(TemplateView):
     template_name = 'preelec9_camp/63/registrar.html'
     @method_decorator(login_required)
@@ -256,6 +271,7 @@ class CampRegistrarView_63(TemplateView):
             db.save()
         else: pass
         return redirect('/camp/63/camp_register/'+str(kwargs['pk']))
+
 class RegisterView_63(TemplateView):
     template_name = 'preelec9_camp/63/register.html'
     @method_decorator(login_required)
@@ -266,6 +282,8 @@ class RegisterView_63(TemplateView):
         db = Campdata_63(user = self.request.user, confirmed= True)
         db.save()
         return redirect('/camp/')
+
+
 class CampUnregisterView_63(TemplateView):
     template_name = "preelec9_camp/64/unregister.html"
     def get_context_data(self,*args, **kwargs):
