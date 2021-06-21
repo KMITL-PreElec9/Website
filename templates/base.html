@@ -6,14 +6,14 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <link rel="icon" type="image/png" href="{%static 'assets/img/Bear.png'%}"/>
+  <link rel="icon" type="image/png" href="http://russberry.trueddns.com:39870/Bear.png"/>
   <title>{{title_name}}</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
   <!--<link href="{%static 'assets/img/favicon.png' %}" rel="icon">-->
-  <link href='{%static "assets/img/apple-touch-icon.png"%}' rel="apple-touch-icon">
+  <link href="http://russberry.trueddns.com:39870/Bear.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -47,13 +47,13 @@
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo mr-auto"><a href="{{ HTTP_HOST }}/">EE KMITL</a></h1>
+      <h1 class="logo mr-auto"><a href="/">EE KMITL</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
       <nav class="nav-menu d-none d-lg-block">
         <ul style="text-align: center;">
-          <li class="active"><a href="{{ HTTP_HOST }}/">หน้าหลัก</a></li>
+          <li class="active"><a href="/">หน้าหลัก</a></li>
           <li><a href="#about">เกี่ยวกับเรา</a></li>
           <li><a href="#covid">โควิด-19</a></li>
           <li><a href="#team">ทีมงาน</a></li>
@@ -73,7 +73,7 @@
                         {%else%}
                         <center><li><a href="/accounts/password/change?next={{ request.get_full_path }}">เปลี่ยนรหัสผ่าน</a></li></center>
                         {%endif%}
-                       <li ><a class="btn btn-danger btn-block" style = 'width:70%; color:white; margin:auto' href="{{ HTTP_HOST }}/accounts/logout?next={{ request.get_full_path }}">ออกจากระบบ</a></li>
+                       <li ><a class="btn btn-danger btn-block" style = 'width:70%; color:white; margin:auto' href="/accounts/logout?next={{ request.get_full_path }}">ออกจากระบบ</a></li>
                     </ul>
                   </li>
             </ul>
