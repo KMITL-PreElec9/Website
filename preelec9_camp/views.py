@@ -1,6 +1,6 @@
 from django import forms
 from django.db import models
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.generic import TemplateView, FormView, ListView, DetailView
 from django.contrib.auth.decorators import login_required
@@ -286,29 +286,30 @@ class RegisterView_63(TemplateView):
         elif 'delete' in self.request.POST.keys():
             db = Shirt.objects.get(pk=self.request.POST['regID'])
             db.delete()
-            return redirect('/camp/63/register/')
         elif 'upload' in self.request.POST.keys():
             form = Check_shirtForm(self.request.POST,self.request.FILES)
             if form.is_valid():
                 model = form.save(commit=False)
                 model.user = self.request.user
+                model.confirmed=True
                 model.save()
-        
         else:
             form = RegisterForm_63(self.request.POST)
             if form.is_valid():
                 model = form.save(commit=False)
                 model.user = self.request.user
                 model.save()
-            print(form.errors)
-        return redirect('/camp/63/register/')
+        return render(self.request,self.template_name, context=self.get_context_data())
 
     def get_context_data(self,*args, **kwargs):
+        try:
+            form_instance = self.request.user.campdata_63
+        except: form_instance = None
         context = super(RegisterView_63, self).get_context_data(*args,**kwargs)
         context['shirt'] = Shirt.objects.filter(user=self.request.user)
         context['title_name'] = 'ลงทะเบียนพี่'
         context['form'] = RegisterForm_63
-        context['form2'] = Check_shirtForm
+        context['form2'] = Check_shirtForm(instance=form_instance)
         context['price'] = 250
         total = 0
         for obj in context['shirt'].values():

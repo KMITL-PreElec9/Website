@@ -120,7 +120,7 @@ class Campdata_63(models.Model):
         verbose_name = "Camp Data 63"
         verbose_name_plural = "Camp Data 63"
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    check_shirt = models.ImageField(upload_to='images/preelec9_camp/shirt',null=True)
+    check_shirt = models.ImageField('หลักฐานการโอน',upload_to='images/preelec9_camp/shirt',null=True)
     confirmed = models.BooleanField(default=False)
     def __str__(self):
         return str(self.user)
