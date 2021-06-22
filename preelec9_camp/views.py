@@ -7,9 +7,9 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic.base import View
 from .decorators import *
-from .models import Camp_Registered_64, Campdata_63, Campdata_64, Statement
+from .models import Camp_Registered_64, Campdata_63, Campdata_64, Statement,Shirt
 from django.contrib.auth.models import User
-from .forms import RegisterForm_64, StatementForm_63
+from .forms import RegisterForm_64, StatementForm_63,RegisterForm_63,Check_shirtForm
 from site_auth.models import EEUserProfile
 from django.utils import timezone
 import qrcode
@@ -279,9 +279,51 @@ class RegisterView_63(TemplateView):
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
     def post(self, *args, **kwargs):
-        db = Campdata_63(user = self.request.user, confirmed= True)
-        db.save()
-        return redirect('/camp/')
+        if 'regis' in self.request.POST.keys():
+            db = Campdata_63(user = self.request.user, confirmed= True)
+            db.save()
+            return redirect('/camp/')
+        elif 'delete' in self.request.POST.keys():
+            db = Shirt.objects.get(pk=self.request.POST['regID'])
+            db.delete()
+            return redirect('/camp/63/register/')
+        elif 'upload' in self.request.POST.keys():
+            form = Check_shirtForm(self.request.POST,self.request.FILES)
+            if form.is_valid():
+                model = form.save(commit=False)
+                model.user = self.request.user
+                model.save()
+        
+        else:
+            form = RegisterForm_63(self.request.POST)
+            if form.is_valid():
+                model = form.save(commit=False)
+                model.user = self.request.user
+                model.save()
+            print(form.errors)
+        return redirect('/camp/63/register/')
+
+    def get_context_data(self,*args, **kwargs):
+        context = super(RegisterView_63, self).get_context_data(*args,**kwargs)
+        context['shirt'] = Shirt.objects.filter(user=self.request.user)
+        context['title_name'] = 'ลงทะเบียนพี่'
+        context['form'] = RegisterForm_63
+        context['form2'] = Check_shirtForm
+        context['price'] = 250
+        total = 0
+        for obj in context['shirt'].values():
+            total += int(obj["quantity_shirt"]) * context['price']
+        context['total'] = total
+        try:
+            image = Campdata_63.objects.get(user=self.request.user).check_shirt
+            context['img_obj']= image
+        except:
+            pass
+
+        return context
+
+
+
 
 
 class CampUnregisterView_63(TemplateView):
@@ -298,6 +340,7 @@ class CampUnregisterView_63(TemplateView):
     def post(self,request,*args, **kwargs):
         request.user.campdata_63.delete()
         return redirect('/camp/')
+
 class QRView(View):
     def get(self,request,*args, **kwargs):
         try: 
@@ -308,3 +351,4 @@ class QRView(View):
             else: pass
         except:
             return redirect('/camp/')
+

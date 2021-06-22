@@ -120,6 +120,38 @@ class Campdata_63(models.Model):
         verbose_name = "Camp Data 63"
         verbose_name_plural = "Camp Data 63"
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    check_shirt = models.ImageField(upload_to='images/preelec9_camp/shirt',null=True)
     confirmed = models.BooleanField(default=False)
+    def __str__(self):
+        return str(self.user)
+
+class Shirt(models.Model):
+    class Meta:
+        verbose_name = "Size_shirt"
+        verbose_name_plural = "Size_shirt"
+
+    shirt_size_choices = [
+        ('S', 'S'),
+        ('M', 'M'),
+        ('L', 'L'),
+        ('XL', 'XL'),
+        ('XXL', 'XXL'),
+    ]
+    shirt_quantity_choices = [
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+    ]
+    shirt_color_choices = [
+        ('black', 'black'),
+        ('white', 'white'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    size_shirt = models.CharField(max_length=100, choices = shirt_size_choices)
+    quantity_shirt = models.CharField(max_length=100, choices = shirt_quantity_choices)
+    color_shirt = models.CharField(max_length=100, choices = shirt_color_choices)
     def __str__(self):
         return str(self.user)
