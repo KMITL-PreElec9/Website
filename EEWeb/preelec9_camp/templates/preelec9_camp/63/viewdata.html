@@ -2,9 +2,7 @@
 {% load static%}
 {%block header%}
 <style>
-  td{
-    text-align: center;
-  }
+ 
   th{
     text-align: center;
   }
@@ -23,8 +21,8 @@
   {%endfor%}
 </ul>
 {%else%}
-<h2 style="text-align: center;">ข้อมูลน้อง</h2>
-<p style="color:crimson">กดที่รหัสนักศึกษาเพื่อดูข้อมูลน้อง</p>
+<h2 style="text-align: center;">ข้อมูลพี่</h2>
+
   
   <div class="table-responsive">       
   <table class="table table-hover">
@@ -33,16 +31,16 @@
         <th>รหัสนักศึกษา</th>
         <th>ชื่อ - นามสกุล</th>
         <th>ชื่อเล่น</th>
-        <th>การดำเนินการ</th>
+        
       </tr>
     </thead>
     <tbody>
     {% for obj in object_list %}
       <tr> 
-        <td><a href="{{obj.pk}}">{{ obj.user.eeuserprofile.student_id }}</a></td>
+        <td style="text-align: center;">{{ obj.user.eeuserprofile.student_id }}</td>
         <td >{{obj.user.eeuserprofile.gender}} {{obj.user.eeuserprofile.name}} {{obj.user.eeuserprofile.surname}}</td>
-        <td>{{obj.user.eeuserprofile.nickname}}</td>
-        <td><a class="btn btn-success" href='../camp_register/{{obj.pk}}'>ลงทะเบียน</a></td>
+        <td style="text-align: center;">{{obj.user.eeuserprofile.nickname}}</td>
+        
     
     {% empty %}
         <li>ยังไม่มีผู้ลงทะเบียนสำเร็จ</li>

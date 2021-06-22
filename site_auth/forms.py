@@ -54,8 +54,8 @@ class ProfileForm(forms.ModelForm):
         self.fields['facebook'].widget = forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'Facebook'})
         self.fields['instagram'].widget = forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'instagram '})
         self.fields['religion'].widget = Select(attrs={'type': 'text','class': 'form-control', 'placeholder':'ศาสนา'},choices=EEUserProfile.religion_choices)
-        self.fields['allergic_foods'].widget = forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'ยาที่แพ้ '})
-        self.fields['allergic_meds'].widget = forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'อาหารที่แพ้ '})
+        self.fields['allergic_foods'].widget = forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'อาหารที่แพ้'})
+        self.fields['allergic_meds'].widget = forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'ยาที่แพ้ '})
         self.fields['congenital_disease'].widget = forms.TextInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'โรคประจำตัว '})
 
 
