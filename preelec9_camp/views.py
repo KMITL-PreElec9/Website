@@ -295,13 +295,15 @@ class RegisterView_63(TemplateView):
                 model.user = self.request.user
                 model.confirmed=True
                 model.save()
-        else:
+        elif 'submit' in self.request.POST.keys():
             form = RegisterForm_63(self.request.POST)
             if form.is_valid():
                 model = form.save(commit=False)
                 model.user = self.request.user
                 model.save()
-        return render(self.request,self.template_name, context=self.get_context_data())
+        else: pass
+        return redirect('/camp/63/register')   
+
 
     def get_context_data(self,*args, **kwargs):
         try:

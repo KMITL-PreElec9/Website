@@ -69,7 +69,7 @@
                     </div>
                     {{ form.color_shirt}}
                 </div>
-                <input class="btn btn-primary btn-sm btn-block" type='submit' value='เพิ่มรายการ'>
+                <input class="btn btn-primary btn-sm btn-block" type='submit' name="submit" value='เพิ่มรายการ'>
             </form>
             {%else%}
             <h1>รายการสั่งซื้อ</h1>
@@ -100,8 +100,8 @@
                             <form action='' method='post'>
                                 {% csrf_token %}
                                 <input type='hidden' name='regID' value='{{obj.pk}}'>
-                                <button type='submit' class="btn btn-danger" name='delete'>
-                                <i class="bi bi-cart-dash-fill"></i></button>
+                                <button type='submit' class="btn btn-danger" name='delete' style="padding:none;">
+                                    <i class="bi bi-x-circle" ></i></button>
                             </form>
                             {% endif %}
                         </td>
@@ -113,8 +113,9 @@
                 </tbody>
             </table>
             <input class="btn btn-warning btn-sm btn-block" value='ราคาที่ต้องโอน {{ total }}'>
-            {% if img_obj %}
             <h2>&nbsp;</h2>
+            {% if img_obj %}
+            
             <h3>ได้รับข้อมูลเเล้ว ขอบคุณที่สั่งซื้อเสื้อ {{img_obj.title}}</h3>
             <h6 style="color: red;">ถ้าเกิดปัญหา หรือต้องการสั่งซื้อเสื้อเพิ่มเติม ติดต่อ Data</h6>
             <img src="{{ img_obj.url}}" alt="connect" class="mx-auto d-block" style="max-height:300px">
