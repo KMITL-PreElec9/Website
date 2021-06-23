@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'preelec9_camp.apps.Preelec9CampConfig',
-    'site_auth.apps.SiteAuthConfig'
+    'site_auth.apps.SiteAuthConfig',
+    'storages'
 ]
 SITE_ID = env('SITE_ID')
 MIDDLEWARE = [
@@ -169,9 +170,6 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
-# Activate Django-Heroku.
-django_heroku.settings(locals())
-del DATABASES['default']['OPTIONS']['sslmode']
 '''
 LOGGING = {
     'version': 1,
@@ -211,3 +209,15 @@ MEDIA_URL = '/media/'
 
 # Path where media is stored
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+# AWS Settings
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = 'eeweb-aws'
+#AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# Activate Django-Heroku.
+django_heroku.settings(locals())
+#del DATABASES['default']['OPTIONS']['sslmode']

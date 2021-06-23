@@ -2,19 +2,23 @@
 {% load static%}
 {%block header%}
 <style>
-    h2{
+    h2 {
         text-align: center;
     }
-    h1{
+
+    h1 {
         text-align: center;
     }
-    h3{
+
+    h3 {
         text-align: center;
     }
-    tr{
+
+    tr {
         text-align: center;
     }
-    td{
+
+    td {
         text-align: center;
     }
 </style>
@@ -22,44 +26,54 @@
 {% endblock%}
 {% block content%}
 <div style="padding-top: 10%; padding-bottom: 5%; max-height: 5000px ; margin: 50px 10px 10px 10px  ">
-    <div class="card bg-light " style="padding: 3%; max-width: 800px; margin: auto;" >
-        <article  class="center" style="max-width: 800px; ">
-            {% if img_obj %}
-            <input  class="btn btn-warning btn-sm btn-block"   value='ราคาที่ต้องโอน {{ total }}'>
-            {%else%}
+    <div class="card bg-light " style="padding: 3%; max-width: 800px; margin: auto;">
+        <article class="center" style="max-width: 800px; ">
+            {% if not img_obj%}
+            <h1>สั่งซื้อเสื้อค่าย</h1>
             <form action='' method='post'>
-                <h1>สั่งซื้อเสื้อค่าย</h1>
                 {% csrf_token %}
-                <p><label for="id_shirt_size">ไซส์ : <p1>{{ form.shirt_size.errors }}</p1></label> </p>
-            <div class="form-group input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-check-fill" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
-                  </svg> </span>
-             </div>
-                {{ form.size_shirt}}
-            </div>
-            <p><label for="id_shirt_size">จำนวน : <p1>{{ form.shirt_size.errors }}</p1></label> </p>
-            <div class="form-group input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-check-fill" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
-                  </svg> </span>
-             </div>
-                {{ form.quantity_shirt}}
-            </div>
-            <p><label for="id_shirt_size">สี : <p1>{{ form.shirt_size.errors }}</p1></label> </p>
-            <div class="form-group input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-check-fill" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
-                  </svg> </span>
-             </div>
-                {{ form.color_shirt}}
-            </div>
-    
-                <input  class="btn btn-primary btn-sm btn-block" type='submit'  value='เพิ่มรายการ'>
+                <p>
+                    <label for="id_shirt_size">ไซส์ : <p1>{{ form.shirt_size.errors }}</p1></label>
+                </p>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-bag-check-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" />
+                            </svg>
+                        </span>
+                    </div>
+                    {{ form.size_shirt}}
+                </div>
+                <p><label for="id_shirt_size">จำนวน : <p1>{{ form.shirt_size.errors }}</p1></label> </p>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                fill="currentColor" class="bi bi-bag-check-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" />
+                            </svg> </span>
+                    </div>
+                    {{ form.quantity_shirt}}
+                </div>
+                <p><label for="id_shirt_size">สี : <p1>{{ form.shirt_size.errors }}</p1></label> </p>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                fill="currentColor" class="bi bi-bag-check-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" />
+                            </svg> </span>
+                    </div>
+                    {{ form.color_shirt}}
+                </div>
+                <input class="btn btn-primary btn-sm btn-block" type='submit' value='เพิ่มรายการ'>
             </form>
+            {%else%}
+            <h1>รายการสั่งซื้อ</h1>
+            {%endif%}
             <h5>&nbsp;</h5>
             <div class="table-responsive">
                 <table class="table table-hover">
@@ -71,73 +85,66 @@
                         <th>สี</th>
                         <th>ราคา</th>
                         <th> </th>
-                    
-                      </tr>
-                    </thead>
-                    <tbody>
+                    </tr>
+                </thead>
+                <tbody>
                     {% for obj in shirt %}
-                      <tr> 
-                        <td><a>{{forloop.counter}}</a></td>
-                        <td>
-                            {{obj.size_shirt}} 
-                            
-                        </td>
-                        <td>{{obj.quantity_shirt}}</td>
-                        
-                        <td>{{obj.color_shirt}}</td>
-                        
-                        <td>{% widthratio obj.quantity_shirt 1 price   %} </td>
-                        <td>
+                    <tr>
+                        <td class="align-middle"><a>{{forloop.counter}}</a></td>
+                        <td class="align-middle">{{obj.size_shirt}}</td>
+                        <td class="align-middle">{{obj.quantity_shirt}}</td>
+                        <td class="align-middle">{{obj.color_shirt}}</td>
+                        <td class="align-middle">{% widthratio obj.quantity_shirt 1 price   %} </td>
+                        <td class="align-middle">
+                            {% if not img_obj%}
                             <form action='' method='post'>
-                            {% csrf_token %}   
-                            <input type='hidden' name='regID' value='{{obj.pk}}'>
-                            <button type='submit'  class="btn btn-danger" name='delete' ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                                <path d="M1.293 1.293a1 1 0 0 1 1.414 0L8 6.586l5.293-5.293a1 1 0 1 1 1.414 1.414L9.414 8l5.293 5.293a1 1 0 0 1-1.414 1.414L8 9.414l-5.293 5.293a1 1 0 0 1-1.414-1.414L6.586 8 1.293 2.707a1 1 0 0 1 0-1.414z"/>
-                              </svg></button>
+                                {% csrf_token %}
+                                <input type='hidden' name='regID' value='{{obj.pk}}'>
+                                <button type='submit' class="btn btn-danger" name='delete'>
+                                <i class="bi bi-cart-dash-fill"></i></button>
                             </form>
+                            {% endif %}
                         </td>
-                    {% empty %}
+                        {% empty %}
                         <td>ยังไม่เพิ่มรายการ</td>
-                    {% endfor %}
-                      </tr>
-                    
-                    </tbody>
-                  </table>
-            </div>
-                
-                  <input  class="btn btn-warning btn-sm btn-block"   value='ราคาที่ต้องโอน {{ total }}'>
-            {%endif%}
-       
-              <h2>&nbsp;</h2>
-              {% if img_obj %}
-                <h3>ได้รับข้อมูลเเล้ว ขอบคุณที่สั่งซื้อเสื้อ  {{img_obj.title}}</h3>
-                <h3>เราสมัครค่ายให้เรียบร้อยแล้ว</h3>
-                <h6 style="color: red;">ถ้าเกิดปัญาหา หรือต้องการสั่งซื้อเสื้อเพิ่มเติม ติดต่อ Data</h6>
-                <img src="{{ img_obj.url}}" alt="connect" class="mx-auto d-block" style="max-height:300px">
-                <h2>&nbsp;</h2>
-                <input  class="btn btn-warning btn-sm btn-block" type='submit' name="cancel" value='แก้ไขรูป'>
-              {%else%}
-                <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <h3>กสิกร</h3>
-                <h3>xxx-xxxx-xxxxx</h3>
-                <p><label for="id_check_shirt">อัปโหลดสลีปการชำระเงิน : </label> <input type="file" class="btn " name="check_shirt" accept="image/*" required id="id_check_shirt"></p>
-               <button type="submit" class="btn btn-info" name="upload"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M3.5 6a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 1 0-1h2A1.5 1.5 0 0 1 14 6.5v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-8A1.5 1.5 0 0 1 3.5 5h2a.5.5 0 0 1 0 1h-2z"/>
-                <path fill-rule="evenodd" d="M7.646.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 1.707V10.5a.5.5 0 0 1-1 0V1.707L5.354 3.854a.5.5 0 1 1-.708-.708l3-3z"/>
-              </svg> Upload</button>
-                </form>
-              {% endif %}
-            
+                        {% endfor %}
+                    </tr>
+
+                </tbody>
+            </table>
+            <input class="btn btn-warning btn-sm btn-block" value='ราคาที่ต้องโอน {{ total }}'>
             {% if img_obj %}
-            <a href="/camp/"  class="btn btn-success btn-sm btn-block" type='submit' name="regis" >กลับหน้าค่าย</a>
+            <h2>&nbsp;</h2>
+            <h3>ได้รับข้อมูลเเล้ว ขอบคุณที่สั่งซื้อเสื้อ {{img_obj.title}}</h3>
+            <h6 style="color: red;">ถ้าเกิดปัญหา หรือต้องการสั่งซื้อเสื้อเพิ่มเติม ติดต่อ Data</h6>
+            <img src="{{ img_obj.url}}" alt="connect" class="mx-auto d-block" style="max-height:300px">
+            {% else %}
+            <h3>กสิกร</h3>
+                <h3>xxx-xxxx-xxxxx</h3>
+            {% endif %}
+            <h2>&nbsp;</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form2.as_p}}
+                <button type="submit" class="btn btn-info" name="upload">
+                {% if not img_obj%}
+                <i class="bi bi-upload"></i> อัพโหลดภาพและสมัครค่าย
+                {%else%}
+                <i class="bi bi-pencil-square"></i> บันทึกการเปลี่ยนแปลง
+                {%endif%}
+                </button>
+            </form>
+            
+            {%if img_obj%}
+            <h2>&nbsp;</h2>
+            <a href="/camp/" class="btn btn-success btn-sm btn-block" type='submit' name="regis">กลับหน้าค่าย</a>
             {%else%}
             <form action='' method='post'>
-                {% csrf_token %}   
+                {% csrf_token %}
                 <h2>&nbsp;</h2>
                 <h2 style="color: red;">ถ้าไม่ต้องการสั่งซื้อเสื้อค่าย ก็สมัครเลย!!</h2>
-            <input  class="btn btn-success btn-sm btn-block" type='submit' name="regis" value='สมัครค่าย'>
-                </form>
+                <input class="btn btn-success btn-sm btn-block" type='submit' name="regis" value='สมัครค่าย'>
+            </form>
             {%endif%}
 
         </article>
