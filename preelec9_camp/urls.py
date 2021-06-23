@@ -10,7 +10,8 @@ urlpatterns = [
     path('63/camp_listview/<int:pk>/', CampDetailView_63.as_view()),
     path('63/camp_register/<int:pk>/', CampRegistrarView_63.as_view()),
     path('63/unregister/', CampUnregisterView_63.as_view()),
-    path('63/viewdata/',viewdata_63.as_view()),
+    path('63/viewdata/',Viewdata_63.as_view()),
+    path('63/abstract/',Abstract.as_view()),
     path('64/register/', RegisterView_64.as_view()),
     path('64/register/confirm/', CampConfirmView.as_view()),
     path('64/unregister/', CampUnregisterView.as_view()),
@@ -19,3 +20,4 @@ urlpatterns = [
     path('qrcode/<int:pk>/', QRView.as_view(), name='qrcode')
 
 ]
+
