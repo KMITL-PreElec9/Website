@@ -10,7 +10,7 @@ from .decorators import *
 from .models import Camp_Registered_64, Campdata_63, Campdata_64, Statement,Shirt
 from django.contrib.auth.models import User
 from .forms import RegisterForm_64, StatementForm_63,RegisterForm_63,Check_shirtForm
-from site_auth.models import EEUserProfile
+from site_auth.models import EEUserProfile,EEData_63,EEData_64
 from django.utils import timezone
 import qrcode
 import qrcode.image.svg
@@ -44,6 +44,7 @@ def campmenu(View):
                     ['ตรวจสอบข้อมูลน้อง','63/camp_listview/','ตรวจสอบข้อมูลน้องที่ลงทะเบียน','baseball', 'blue'],
                     ['ตรวจสอบข้อมูลรุ่นเรา','63/viewdata/', 'ตรวจสอบข้อมูลเพื่อนรุ่นเราที่ยืนยันเข้าค่าย','file', 'pink'],
                     ['บัญชีค่าย Pre-Elec9','63/statement/', 'ตรวจสอบบัญชีค่าย','book','yellow'],
+                    ['สรุปข้อมูลต่างๆ','63/abstract/', 'สรุปรายการต่างๆ','book', 'red'],
                     ['ตรวจสอบตารางกิจกรรม','63/table/', 'ตรวจสอบตารางกิจกรรมและจุดนัดพบ','tachometer', 'red'],
                     ['ยกเลิกการสมัคร','63/unregister/', 'ยกเลิกการสมัครเข้าค่าย','calendar-x', 'pink'],
                 ]
@@ -203,6 +204,7 @@ class CampParentView(TemplateView):
         context["svg"] = stream.getvalue().decode()
         context["title_name"] = 'ใบขออนุญาตผู้ปกครอง'
         return context
+
 class CampListView_63(ListView):
     model = Campdata_64
     template_name = 'preelec9_camp/63/listview.html'
@@ -216,7 +218,7 @@ class CampListView_63(ListView):
         context['title_name'] = 'ข้อมูลน้อง'
         return context
 
-class viewdata_63(ListView):#ข้อมูลพี่
+class Viewdata_63(ListView):#ข้อมูลพี่
     model = Campdata_63
     template_name = 'preelec9_camp/63/viewdata.html'
     @method_decorator(login_required)
@@ -225,7 +227,7 @@ class viewdata_63(ListView):#ข้อมูลพี่
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
     def get_context_data(self,*args, **kwargs):
-        context = super(viewdata_63, self).get_context_data(*args,**kwargs)
+        context = super(Viewdata_63, self).get_context_data(*args,**kwargs)
         context['title_name'] = 'ข้อมูลพี่'
         return context
 
@@ -352,3 +354,19 @@ class QRView(View):
         except:
             return redirect('/camp/')
 
+class Abstract(TemplateView):
+    template_name = "preelec9_camp/63/abstract/main.html"
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(['63_student']))
+    @method_decorator(registered_only)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+    def get_context_data(self,*args, **kwargs):
+        context = super(Abstract, self).get_context_data(*args,**kwargs)
+        context['num_p'] =len(Campdata_63.objects.all())
+        context['num_p_all'] =len(EEData_63.objects.all())
+        context['num_n'] =len(Campdata_64.objects.all())
+        context['num_n_all'] =len(EEData_64.objects.all())
+        context['title_name'] = 'สรุปรวม'
+        return context
+  

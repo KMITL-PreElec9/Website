@@ -19,7 +19,7 @@
 <h2 style="text-align: center;">ลงทะเบียนน้อง</h2>
   <p>กรุณากดยืนยันเพื่อลงทะเบียนให้กับน้อง <p1 class="text-primary">{{userdata.nickname}}</p1> 
   {{userdata.gender}}<p1 class="text-primary">{{userdata.name}} 
-  {{userdata.surname}} </p1> </p>   
+  {{userdata.surname}} </p1> </p> 
 
     <form class="form-inline" action='' method='post'>
         {% csrf_token %}
@@ -28,6 +28,8 @@
         <input class="form-control" type='text' name='comment' placeholder='หมายเหตุ'>
         <label for="comment">&nbsp;&nbsp;</label>
         <input type='submit' class="btn btn-success" name='sign_in' value='เพิ่มการลงทะเบียน'>
+        <label for="comment">&nbsp;&nbsp;</label>
+        <a type='submit' href="/camp/63/camp_listview/{{userdata.pk}}" class="btn btn-warning" name='sign_in' >ดูข้อมูลเพิ่มเติม</a>
     </form><br>
  <div class="table-responsive">
   <table class="table table-hover">
