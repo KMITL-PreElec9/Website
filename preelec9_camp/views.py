@@ -290,6 +290,8 @@ class RegisterView_63(TemplateView):
             form = Check_shirtForm(self.request.POST,self.request.FILES)
             if form.is_valid():
                 model = form.save(commit=False)
+                if hasattr(self.request.user, 'campdata_63'):
+                    self.request.user.campdata_63.delete()
                 model.user = self.request.user
                 model.confirmed=True
                 model.save()
