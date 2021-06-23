@@ -21,6 +21,7 @@ def registered_only(view_func):
                     db = request.user.campdata_64
                 elif request.user.groups.all()[0].name == '63_student':
                     db = request.user.campdata_63
+                    if db.confirmed == False: return redirect('/camp/')
                 return view_func(request, *args, **kwargs) 
             except:
                 return redirect('/camp/')

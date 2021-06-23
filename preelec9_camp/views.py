@@ -38,23 +38,27 @@ def campmenu(View):
             ]
     #กรณีรุ่นเรา
     elif group in ['63_student', 'admin']:
-        try:
-            db = View.request.user.campdata_63
-            menu = [
-                    ['ตรวจสอบข้อมูลน้อง','63/camp_listview/','ตรวจสอบข้อมูลน้องที่ลงทะเบียน','baseball', 'blue'],
-                    ['ตรวจสอบข้อมูลรุ่นเรา','63/viewdata/', 'ตรวจสอบข้อมูลเพื่อนรุ่นเราที่ยืนยันเข้าค่าย','file', 'pink'],
-                    ['บัญชีค่าย Pre-Elec9','63/statement/', 'ตรวจสอบบัญชีค่าย','book','yellow'],
-                    ['สรุปข้อมูลต่างๆ','63/abstract/', 'สรุปรายการต่างๆ','book', 'red'],
-                    ['ตรวจสอบตารางกิจกรรม','63/table/', 'ตรวจสอบตารางกิจกรรมและจุดนัดพบ','tachometer', 'red'],
-                    ['ยกเลิกการสมัคร','63/unregister/', 'ยกเลิกการสมัครเข้าค่าย','calendar-x', 'pink'],
-                ]
-        except Campdata_63.DoesNotExist:
-            menu = [
+        menu = [
                     ['สมัครเข้าค่าย','63/register/','สมัครเข้าทำค่าย Pre-Elec 9','baseball', 'blue'],
                     ['ตรวจสอบข้อมูลรุ่นเรา','63/viewdata/', 'ตรวจสอบข้อมูลเพื่อนรุ่นเราที่ยืนยันเข้าค่าย','file', 'pink'],
                     ['บัญชีค่าย Pre-Elec9','63/statement/', 'ตรวจสอบบัญชีค่าย','book','yellow'],
                     ['ตรวจสอบตารางกิจกรรม','63/table/', 'ตรวจสอบตารางกิจกรรมและจุดนัดพบ','tachometer', 'red'],
                 ]
+        try: 
+            db = View.request.user.campdata_63
+            if db.confirmed is True:
+                menu = [
+                        ['รายการสั่งซื้อ','63/register/','ตราวสอบรายการสั่งซื้อและหลักฐานการโอน','baseball', 'blue'],
+                        ['ตรวจสอบข้อมูลน้อง','63/camp_listview/','ตรวจสอบข้อมูลน้องที่ลงทะเบียน','baseball', 'blue'],
+                        ['ตรวจสอบข้อมูลรุ่นเรา','63/viewdata/', 'ตรวจสอบข้อมูลเพื่อนรุ่นเราที่ยืนยันเข้าค่าย','file', 'pink'],
+                        ['บัญชีค่าย Pre-Elec9','63/statement/', 'ตรวจสอบบัญชีค่าย','book','yellow'],
+                        ['สรุปข้อมูลต่างๆ','63/abstract/', 'สรุปรายการต่างๆ','book', 'red'],
+                        ['ตรวจสอบตารางกิจกรรม','63/table/', 'ตรวจสอบตารางกิจกรรมและจุดนัดพบ','tachometer', 'red'],
+                        ['ยกเลิกการสมัคร','63/unregister/', 'ยกเลิกการสมัครเข้าค่าย','calendar-x', 'pink'],
+                    ]
+                if not db.check_shirt: menu.pop(0)
+        except Campdata_63.DoesNotExist: pass
+            
     else: return False
     return menu
 
@@ -282,7 +286,13 @@ class RegisterView_63(TemplateView):
         return super().dispatch(*args, **kwargs)
     def post(self, *args, **kwargs):
         if 'regis' in self.request.POST.keys():
-            db = Campdata_63(user = self.request.user, confirmed= True)
+            if hasattr(self.request.user, 'campdata_63'):
+                db = self.request.user.campdata_63
+                db.confirmed =True
+            else: 
+                db = Campdata_63(user = self.request.user, confirmed= True)
+                if hasattr(self.request.user, 'shirt_set'):
+                    self.request.user.shirt_set.all().delete()
             db.save()
             return redirect('/camp/')
         elif 'delete' in self.request.POST.keys():
@@ -322,8 +332,9 @@ class RegisterView_63(TemplateView):
             total += int(obj["quantity_shirt"]) * context['price']
         context['total'] = total
         try:
-            image = Campdata_63.objects.get(user=self.request.user).check_shirt
-            context['img_obj']= image
+            query = Campdata_63.objects.get(user=self.request.user)
+            context['confirmed'] = query.confirmed
+            context['img_obj']= query.check_shirt
         except:
             pass
 
@@ -345,7 +356,11 @@ class CampUnregisterView_63(TemplateView):
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
     def post(self,request,*args, **kwargs):
-        request.user.campdata_63.delete()
+        db = request.user.campdata_63
+        if db.check_shirt:
+            db.confirmed = False
+            db.save()
+        else: db.delete()
         return redirect('/camp/')
 
 class QRView(View):

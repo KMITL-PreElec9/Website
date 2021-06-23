@@ -25,6 +25,23 @@
 {% include  'preelec9_camp/base_header.html' %}
 {% endblock%}
 {% block content%}
+{% if not confirmed%}
+{%if img_obj%}
+<div >
+<div style="padding-top: 10%;"></div>
+    <div class="card bg-light " style="padding: 3%; max-width: 800px; margin: auto;">
+        <article class="center" style="max-width: 800px; ">
+        <h2>สมัครค่าย</h2>
+        <p>สมัครค่าย</p>
+        <form action='' method='post'>
+                {% csrf_token %}
+                <input class="btn btn-success btn-sm btn-block" type='submit' name="regis" value='สมัครค่าย'>
+            </form>
+        </article>
+    </div>
+</div>
+{%endif%}
+{%endif%}
 <div style="padding-top: 10%; padding-bottom: 5%; max-height: 5000px ; margin: 50px 10px 10px 10px  ">
     <div class="card bg-light " style="padding: 3%; max-width: 800px; margin: auto;">
         <article class="center" style="max-width: 800px; ">
@@ -72,7 +89,7 @@
                 <input class="btn btn-primary btn-sm btn-block" type='submit' name="submit" value='เพิ่มรายการ'>
             </form>
             {%else%}
-            <h1>รายการสั่งซื้อ</h1>
+            <h2>รายการสั่งซื้อ</h2>
             {%endif%}
             <h5>&nbsp;</h5>
             <div class="table-responsive">
