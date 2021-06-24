@@ -13,6 +13,7 @@ urlpatterns = [
     path('63/viewdata/',Viewdata_63.as_view()),
     path('63/abstract/',Abstract.as_view()),
     path('63/abstract/allergy/',Allergy.as_view()),
+    path('63/abstract/checkregister/',Checkregister_all.as_view()),
     path('64/register/', RegisterView_64.as_view()),
     path('64/register/confirm/', CampConfirmView.as_view()),
     path('64/unregister/', CampUnregisterView.as_view()),

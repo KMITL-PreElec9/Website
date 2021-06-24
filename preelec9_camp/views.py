@@ -429,11 +429,11 @@ class Checkregister_all(ListView):
         context = super( Checkregister_all, self).get_context_data(*args,**kwargs)
         context['title_name'] = 'เช็คการลงทะเบียน'
         return context
-    def get_queryset(self):
+    '''def get_queryset(self):
         db = Campdata_64.objects.all()
         regis = []
         unregis = []
         for obj in db :
             if hasattr(obj,'camp_registered_64'):
-                if 
+                if '''
             
