@@ -123,6 +123,7 @@ class RegisterView_64(FormView):
         model = form.save(commit = False)
         model.user = self.request.user
         model.save()
+        Campdata_64.random_house(Campdata_64)
         return super().form_valid(form)
     def get(self, request, *args, **kwargs):
         try: 
@@ -187,6 +188,7 @@ class CampUnregisterView(TemplateView):
         return super().dispatch(*args, **kwargs)
     def post(self,request,*args, **kwargs):
         request.user.campdata_64.delete()
+        Campdata_64.random_house(Campdata_64)
         return redirect('/camp/')
 
 class CampParentView(TemplateView):
