@@ -445,6 +445,8 @@ class Checkregister_all(ListView):
                 for attr in obj.camp_registered_64_set.all():
                     if attr.registered_on_2 == None:
                         regis.append(obj)
+                        if obj in not_regis:
+                            not_regis.remove(obj)
                         break
                     else: 
                         if obj not in not_regis: not_regis.append(obj)            
