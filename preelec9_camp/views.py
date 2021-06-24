@@ -259,6 +259,11 @@ class CampRegistrarView_63(TemplateView):
         context['title_name'] = 'ลงทะเบียนน้อง'
         context['regdata'] = Camp_Registered_64.objects.filter(campdata_64 = user.campdata_64)
         context['userdata'] = EEUserProfile.objects.get(user=user)
+        context['allow_new'] = True
+        for obj in context['regdata']:
+            if obj.registered_on_2 == None:
+                context['allow_new'] = False
+                break
         return context
     def post(self, *args, **kwargs):
         if 'delete' in self.request.POST.keys():
