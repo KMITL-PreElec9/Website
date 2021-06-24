@@ -230,6 +230,8 @@ class Viewdata_63(ListView):#ข้อมูลพี่
     @method_decorator(registered_only)
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
+    def get_queryset(self):
+        return super().get_queryset().filter(confirmed = True)
     def get_context_data(self,*args, **kwargs):
         context = super(Viewdata_63, self).get_context_data(*args,**kwargs)
         context['title_name'] = 'ข้อมูลพี่'
