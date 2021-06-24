@@ -259,6 +259,11 @@ class CampRegistrarView_63(TemplateView):
         context['title_name'] = 'ลงทะเบียนน้อง'
         context['regdata'] = Camp_Registered_64.objects.filter(campdata_64 = user.campdata_64)
         context['userdata'] = EEUserProfile.objects.get(user=user)
+        context['allow_new'] = True
+        for obj in context['regdata']:
+            if obj.registered_on_2 == None:
+                context['allow_new'] = False
+                break
         return context
     def post(self, *args, **kwargs):
         if 'delete' in self.request.POST.keys():
@@ -422,9 +427,9 @@ class Allergy(ListView):
 class Checkregister_all(ListView):
     model = Campdata_64
     template_name = "preelec9_camp/63/abstract/checkregister.html"
-    #@method_decorator(login_required)
-    #@method_decorator(allowed_users(['63_student']))
-    #@method_decorator(registered_only)
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(['63_student']))
+    @method_decorator(registered_only)
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
     def get_context_data(self,*args, **kwargs):
