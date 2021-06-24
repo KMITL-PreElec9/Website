@@ -1,5 +1,6 @@
 from django import forms
 from django.db import models
+from django.db.models.expressions import F
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.generic import TemplateView, FormView, ListView, DetailView
@@ -64,6 +65,10 @@ def campmenu(View):
 
 
 class CampIndexView(TemplateView):
+    def dispatch(self, *args, **kwargs):
+        if self.request.user.eeuserprofile.completed == False:
+            return redirect('/accounts/userprofile/?next=/camp/')
+        return super().dispatch(*args, **kwargs)
     template_name = "preelec9_camp/index.html"
     def get_context_data(self,*args, **kwargs):
         context = super(CampIndexView, self).get_context_data(*args,**kwargs)
