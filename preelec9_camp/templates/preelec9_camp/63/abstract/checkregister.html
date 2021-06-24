@@ -15,46 +15,63 @@
 <div style="padding-top: 10%; padding-bottom: 10%; max-height: 50000px ; margin: 30px 10px 10px 10px  ">
     <div class="card bg-light " style="padding: 3%; max-width: 1200px; margin: auto;" >
         <article  class="center" style="max-width: 1200px; ">
-
-{%if data%}
-<ul>
-  {%for obj in data%}
-    <li>obj</li>
-  {%endfor%}
-</ul>
-{%else%}
-<h2 style="text-align: center;">ข้อมูลพี่</h2>
-<p style="color:crimson">รายชื่อเพื่อนที่ลงทะเบียน</p>
-  
-  <div class="table-responsive">       
+<h2 style="text-align: center;">ข้อมูลน้องที่ลงทะเบียน</h2>
+ <div class="table-responsive">       
   <table class="table table-hover">
     <thead>
       <tr>
-        <th>ลำดับ</th>
+        <th>ลำดับที่</th>
         <th>รหัสนักศึกษา</th>
         <th>ชื่อ - นามสกุล</th>
         <th>ชื่อเล่น</th>
+        <th>สถานะ</th>
         
       </tr>
     </thead>
     <tbody>
-    {% for obj in object_list %}
+    {% for obj in checkregister.not_regis %}
       <tr> 
         <td>{{forloop.counter}}</td>
-        <td>{{ obj.user.eeuserprofile.student_id }}</td>
+        <td>{{obj.user.eeuserprofile.student_id }}</td>
         <td >{{obj.user.eeuserprofile.gender}} {{obj.user.eeuserprofile.name}} {{obj.user.eeuserprofile.surname}}</td>
         <td>{{obj.user.eeuserprofile.nickname}}</td>
-        
-    
+        <td><input type='submit'  class="btn btn-danger" name='sign_out' value='ยังไม่ลงทะเบียน'></td>
     {% empty %}
-        <li>ยังไม่มีผู้ลงทะเบียนสำเร็จ</li>
+        <td>ยังไม่มีผู้ลงทะเบียน</td>
+    </tr>
     {% endfor %}
-      </tr>
-    
     </tbody>
   </table>
   </div>
-  {%endif%}
+
+  <h2 style="text-align: center;">ข้อมูลน้องที่รอลงทะเบียนออก</h2>
+ <div class="table-responsive">       
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ลำดับที่</th>
+        <th>รหัสนักศึกษา</th>
+        <th>ชื่อ - นามสกุล</th>
+        <th>ชื่อเล่น</th>
+        <th>สถานะ</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+    {% for obj in checkregister.regis %}
+      <tr> 
+        <td>{{forloop.counter}}</td>
+        <td>{{obj.user.eeuserprofile.student_id }}</td>
+        <td >{{obj.user.eeuserprofile.gender}} {{obj.user.eeuserprofile.name}} {{obj.user.eeuserprofile.surname}}</td>
+        <td>{{obj.user.eeuserprofile.nickname}}</td>
+        <td><input type='submit'  class="btn btn-warning" name='sign_out' value='รอลงทะเบียนออก'></td>
+    {% empty %}
+        <td>น้องลงทะเบียนออกหมดแล้ว</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
   
 </article>
 </div>

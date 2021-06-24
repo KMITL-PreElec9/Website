@@ -421,10 +421,11 @@ class Allergy(ListView):
 
 class Checkregister_all(ListView):
     model = Campdata_64
+    context_object_name = 'checkregister'
     template_name = "preelec9_camp/63/abstract/checkregister.html"
-    #@method_decorator(login_required)
-    #@method_decorator(allowed_users(['63_student']))
-    #@method_decorator(registered_only)
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(['63_student']))
+    @method_decorator(registered_only)
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
     def get_context_data(self,*args, **kwargs):
@@ -447,5 +448,4 @@ class Checkregister_all(ListView):
             'regis' : regis,
             'not_regis' : not_regis
         }
-        print(queryset)
         return queryset    
