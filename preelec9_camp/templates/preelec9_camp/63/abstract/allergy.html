@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static%}
+{%block header%}
+<style>
+  td{
+    text-align: center;
+  }
+  th{
+    text-align: center;
+  }
+</style>
+{% include  'preelec9_camp/base_header.html' %}
+{% endblock%}
+{% block content%}
+<div style="padding-top: 10%; padding-bottom: 10%; max-height: 50000px ; margin: 30px 10px 10px 10px  ">
+    <div class="card bg-light " style="padding: 3%; max-width: 1200px; margin: auto;" >
+        <article  class="center" style="max-width: 1200px; ">
+            
+<h2 style="text-align: center;">ข้อมูลพี่และน้องที่แพ้</h2>
+
+<form method='get' action = '' name="allergy" >
+  <div class="form-group">
+   
+    <select class="form-control" id="sel1" name="form" onchange="javascript:this.form.submit()" 
+    onchange="javascript:this.form.submit()">
+      <option >กรุณาเลือก</option>
+      <option value="a">อาหารที่แพ้</option>
+      <option value="b">ยาที่แพ้</option>
+      <option value="c">โรคประจำตัว</option>
+      <option value="d">ทั้งหมด</option>
+    </select>
+    </div>
+</form>
+
+
+
+<div class="table-responsive">       
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>รหัสนักศึกษา</th>
+        <th>ชื่อ - นามสกุล</th>
+        <th>ยาที่แพ้</th>
+        <th>อาหารที่แพ้</th>
+        <th>โรคประจำตัว</th>
+
+      </tr>
+    </thead>
+    <tbody>
+    {% for obj in allergy %}
+      <tr> 
+        <td>{{ obj.student_id }}</td>
+        <td >{{obj.gender}} {{obj.name}} {{obj.surname}} ({{obj.nickname}})</td>
+        <td>{{obj.allergic_meds}}</td>
+        <td>{{obj.allergic_foods}}</td>
+        <td>{{obj.congenital_disease}}</td>
+        
+    
+    {% empty %}
+        <li>ยังไม่มีผู้ลงทะเบียนสำเร็จ</li>
+    {% endfor %}
+      </tr>
+    
+    </tbody>
+  </table>
+  </div>
+
+
+</article>
+</div>
+</div>
+{% endblock %}

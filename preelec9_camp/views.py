@@ -385,10 +385,57 @@ class Abstract(TemplateView):
         return super().dispatch(*args, **kwargs)
     def get_context_data(self,*args, **kwargs):
         context = super(Abstract, self).get_context_data(*args,**kwargs)
-        context['num_p'] =len(Campdata_63.objects.all())
-        context['num_p_all'] =len(EEData_63.objects.all())
-        context['num_n'] =len(Campdata_64.objects.all())
-        context['num_n_all'] =len(EEData_64.objects.all())
+        context['num_63'] =len(Campdata_63.objects.all())
+        context['num_63_all'] =len(EEData_63.objects.all())
+        context['num_64'] =len(Campdata_64.objects.all())
+        context['num_64_all'] =len(EEData_64.objects.all())
         context['title_name'] = 'สรุปรวม'
         return context
-  
+
+class Allergy(ListView):
+    model = EEUserProfile
+    template_name = "preelec9_camp/63/abstract/allergy.html"
+    context_object_name = 'allergy'
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(['63_student']))
+    @method_decorator(registered_only)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+    def get_context_data(self,*args, **kwargs):
+        context = super(Allergy, self).get_context_data(*args,**kwargs)
+        return context
+    def get_queryset(self):
+        db = EEUserProfile.objects.exclude(completed=False)
+        if 'form' in self.request.GET.keys():
+            if self.request.GET['form'] == 'a':
+                queryset  = db.exclude(allergic_foods='-').order_by('allergic_foods')
+            elif self.request.GET['form'] == 'b':
+                queryset  = db.exclude(allergic_meds='-').order_by('allergic_meds')
+            elif self.request.GET['form'] == 'c':
+                queryset  = db.exclude(congenital_disease='-').order_by('congenital_disease')
+            else:
+                queryset = db.exclude(allergic_foods='-',allergic_meds='-',congenital_disease='-').order_by('-student_id')
+        else:
+            queryset = db.exclude(allergic_foods='-',allergic_meds='-',congenital_disease='-').order_by('-student_id')
+        return queryset
+
+class Checkregister_all(ListView):
+    model = Campdata_64
+    template_name = "preelec9_camp/63/abstract/checkregister.html"
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(['63_student']))
+    @method_decorator(registered_only)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+    def get_context_data(self,*args, **kwargs):
+        context = super( Checkregister_all, self).get_context_data(*args,**kwargs)
+        context['title_name'] = 'เช็คการลงทะเบียน'
+        return context
+    def get_queryset(self):
+        db = Campdata_64.objects.all()
+        regis = []
+        unregis = []
+        for obj in db :
+            if hasattr(obj,'camp_registered_64'):
+                if 
+            
