@@ -72,11 +72,12 @@ class Campdata_64(models.Model):
         verbose_name = "Camp Data 64"
         verbose_name_plural = "Camp Data 64"
     shirt_size_choices = [
-        ('S', 'S'),
-        ('M', 'M'),
-        ('L', 'L'),
-        ('XL', 'XL'),
-        ('XXL', 'XXL'),
+        ('SS', 'SS (34"/26")'),
+        ('S', 'S (36"/27")'),
+        ('M', 'M (38"/28")'),
+        ('L', 'L (40"/29")'),
+        ('XL', 'XL (42"/30")'),
+        ('XXL', 'XXL (44"/31")'),
     ]
     house_choices = [
         ('AR', 'Ares'),
@@ -131,11 +132,12 @@ class Shirt(models.Model):
         verbose_name_plural = "Size_shirt"
 
     shirt_size_choices = [
-        ('S', 'S'),
-        ('M', 'M'),
-        ('L', 'L'),
-        ('XL', 'XL'),
-        ('XXL', 'XXL'),
+        ('SS', 'SS (34"/26")'),
+        ('S', 'S (36"/27")'),
+        ('M', 'M (38"/28")'),
+        ('L', 'L (40"/29")'),
+        ('XL', 'XL (42"/30")'),
+        ('XXL', 'XXL (44"/31")'),
     ]
     shirt_quantity_choices = [
         ('1', '1'),

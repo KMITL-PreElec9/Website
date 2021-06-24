@@ -422,9 +422,9 @@ class Allergy(ListView):
 class Checkregister_all(ListView):
     model = Campdata_64
     template_name = "preelec9_camp/63/abstract/checkregister.html"
-    @method_decorator(login_required)
-    @method_decorator(allowed_users(['63_student']))
-    @method_decorator(registered_only)
+    #@method_decorator(login_required)
+    #@method_decorator(allowed_users(['63_student']))
+    #@method_decorator(registered_only)
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
     def get_context_data(self,*args, **kwargs):
@@ -436,13 +436,12 @@ class Checkregister_all(ListView):
         regis = []
         not_regis = []
         for obj in db :
-            if hasattr(obj,'camp_registered_64_set'):
+            if obj.camp_registered_64_set.exists():
                 for attr in obj.camp_registered_64_set.all():
                     if attr.registered_on_2 == None:
-                        not_regis.append(obj)
+                        regis.append(obj)
                         break
-                    else: continue
-                regis.append(obj)    
+                    else: not_regis.append(obj)            
             else: not_regis.append(obj)
         queryset = {
             'regis' : regis,
