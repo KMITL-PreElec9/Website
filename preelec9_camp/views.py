@@ -66,8 +66,10 @@ def campmenu(View):
 
 class CampIndexView(TemplateView):
     def dispatch(self, *args, **kwargs):
-        if self.request.user.eeuserprofile.completed == False:
-            return redirect('/accounts/userprofile/?next=/camp/')
+        try:
+            if self.request.user.eeuserprofile.completed == False:
+                return redirect('/accounts/userprofile/?next=/camp/')
+        except: pass
         return super().dispatch(*args, **kwargs)
     template_name = "preelec9_camp/index.html"
     def get_context_data(self,*args, **kwargs):
