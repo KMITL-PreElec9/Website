@@ -428,14 +428,25 @@ class Checkregister_all(ListView):
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
     def get_context_data(self,*args, **kwargs):
-        context = super( Checkregister_all, self).get_context_data(*args,**kwargs)
+        context = super(Checkregister_all, self).get_context_data(*args,**kwargs)
         context['title_name'] = 'เช็คการลงทะเบียน'
         return context
     def get_queryset(self):
         db = Campdata_64.objects.all()
         regis = []
-        unregis = []
+        not_regis = []
         for obj in db :
-            if hasattr(obj,'camp_registered_64'):
-                if 
-            
+            if hasattr(obj,'camp_registered_64_set'):
+                for attr in obj.camp_registered_64_set.all():
+                    if attr.registered_on_2 == None:
+                        not_regis.append(obj)
+                        break
+                    else: continue
+                regis.append(obj)    
+            else: not_regis.append(obj)
+        queryset = {
+            'regis' : regis,
+            'not_regis' : not_regis
+        }
+        print(queryset)
+        return queryset    
