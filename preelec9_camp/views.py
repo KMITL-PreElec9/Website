@@ -446,11 +446,11 @@ class Checkregister_all(ListView):
                     if attr.registered_on_2 == None:
                         regis.append(obj)
                         break
-                    else: not_regis.append(obj)            
+                    else: 
+                        if obj not in not_regis: not_regis.append(obj)            
             else: not_regis.append(obj)
         queryset = {
             'regis' : regis,
             'not_regis' : not_regis
         }
-        print(queryset)
         return queryset    
