@@ -1,5 +1,6 @@
 from django import forms
 from django.db import models
+from django.db.models.expressions import F
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.generic import TemplateView, FormView, ListView, DetailView
@@ -64,6 +65,12 @@ def campmenu(View):
 
 
 class CampIndexView(TemplateView):
+    def dispatch(self, *args, **kwargs):
+        try:
+            if self.request.user.eeuserprofile.completed == False:
+                return redirect('/accounts/userprofile/?next=/camp/')
+        except: pass
+        return super().dispatch(*args, **kwargs)
     template_name = "preelec9_camp/index.html"
     def get_context_data(self,*args, **kwargs):
         context = super(CampIndexView, self).get_context_data(*args,**kwargs)
@@ -123,6 +130,7 @@ class RegisterView_64(FormView):
         model = form.save(commit = False)
         model.user = self.request.user
         model.save()
+        Campdata_64.random_house(Campdata_64)
         return super().form_valid(form)
     def get(self, request, *args, **kwargs):
         try: 
@@ -187,6 +195,7 @@ class CampUnregisterView(TemplateView):
         return super().dispatch(*args, **kwargs)
     def post(self,request,*args, **kwargs):
         request.user.campdata_64.delete()
+        Campdata_64.random_house(Campdata_64)
         return redirect('/camp/')
 
 class CampParentView(TemplateView):

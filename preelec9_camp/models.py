@@ -103,6 +103,20 @@ class Campdata_64(models.Model):
     house = models.CharField(max_length=2, choices = house_choices, null=True)
     def __str__(self):
         return str(self.user)
+    def random_house(self):
+        def assign_house(object, num):
+            object.house = self.house_choices[num % 4][0]
+            object.save()
+        count1 = 0; count2=0
+        for obj in self.objects.all():
+            if obj.user.eeuserprofile.gender == 'นาย':
+                assign_house(obj, count1)
+                count1 += 1
+            else: 
+                assign_house(obj, count2)
+                count2 += 1
+
+        
 class Camp_Registered_64(models.Model):
     class Meta:
         verbose_name = "Camp Registered 64"
