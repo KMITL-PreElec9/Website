@@ -140,6 +140,15 @@ class Campdata_63(models.Model):
     def __str__(self):
         return str(self.user)
 
+class Campdata_6x(models.Model):
+    class Meta:
+        verbose_name = "Camp Data 6x"
+        verbose_name_plural = "Camp Data 6x"
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    check_shirt = models.ImageField('หลักฐานการโอน',upload_to='images/preelec9_camp/shirt',null=True)
+    def __str__(self):
+        return str(self.user)
+
 class Shirt(models.Model):
     class Meta:
         verbose_name = "Size_shirt"

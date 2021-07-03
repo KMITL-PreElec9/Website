@@ -9,7 +9,7 @@ db = [EEData_63, EEData_64]
 
 @receiver(post_save, sender = EEUserProfile)
 def filled_userprofile(sender, instance, created, **kwargs):
-    user_group = ['63_student', '64_student'] 
+    user_group = ['63_student', '64_student','62_student','61_student'] 
     user = User.objects.get(username = instance.user.username)
     user.groups.clear()
     g = Group.objects.get(name = 'guest')

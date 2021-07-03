@@ -59,8 +59,12 @@ def campmenu(View):
                     ]
                 if not db.check_shirt: menu.pop(0)
         except Campdata_63.DoesNotExist: pass
-            
-    else: return False
+
+    else :
+        menu = [
+                    ['สั่งซื้อเสื้อค่าย','63/buyshirt/','สมัครเข้าทำค่าย Pre-Elec 9','baseball', 'blue']
+
+                ]
     return menu
 
 
@@ -232,6 +236,7 @@ class CampListView_63(ListView):
         return context
 
 class Viewdata_63(ListView):#ข้อมูลพี่
+
     model = Campdata_63
     template_name = 'preelec9_camp/63/viewdata.html'
     @method_decorator(login_required)
@@ -331,8 +336,6 @@ class RegisterView_63(TemplateView):
                 model.save()
         else: pass
         return redirect('/camp/63/register')   
-
-
     def get_context_data(self,*args, **kwargs):
         try:
             form_instance = self.request.user.campdata_63
@@ -342,7 +345,8 @@ class RegisterView_63(TemplateView):
         context['title_name'] = 'ลงทะเบียนพี่'
         context['form'] = RegisterForm_63
         context['form2'] = Check_shirtForm(instance=form_instance)
-        context['price'] = 250
+        check_year = self.request.user.groups.all()
+        context['price'] = 100
         total = 0
         for obj in context['shirt'].values():
             total += int(obj["quantity_shirt"]) * context['price']
@@ -356,8 +360,61 @@ class RegisterView_63(TemplateView):
 
         return context
 
+class RegisterView_6x(TemplateView):
+    template_name = 'preelec9_camp/63/register.html'
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(['61_student','62_student','guest']))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+    def post(self, *args, **kwargs):
+        if 'delete' in self.request.POST.keys():
+            db = Shirt.objects.get(pk=self.request.POST['regID'])
+            db.delete()
+        elif 'upload' in self.request.POST.keys():
+            form = Check_shirtForm(self.request.POST,self.request.FILES)
+            if form.is_valid():
+                model = form.save(commit=False)
+                if hasattr(self.request.user, 'campdata_6x'):
+                    self.request.user.campdata_6x.delete()
+                model.user = self.request.user
+                model.save()
+        elif 'submit' in self.request.POST.keys():
+            form = RegisterForm_63(self.request.POST)
+            if form.is_valid():
+                model = form.save(commit=False)
+                model.user = self.request.user
+                model.save()
+        else: pass
+        return redirect('/camp/63/buyshirt/')   
+    def get_context_data(self,*args, **kwargs):
+        try:
+            form_instance = self.request.user.campdata_63
+        except: form_instance = None
+        context = super(RegisterView_6x, self).get_context_data(*args,**kwargs)
+        context['shirt'] = Shirt.objects.filter(user=self.request.user)
+        context['title_name'] = 'สั่งซื้อเสื้อค่าย'
+        context['form'] = RegisterForm_63
+        context['form2'] = Check_shirtForm(instance=form_instance)
+        context['year'] = True
+        check_year = self.request.user.groups.all()
+        if check_year[0] == '62_student':
+            context['price'] = 200
+        elif check_year[0] == '61_student':
+            context['price'] = 300
+        else:
+            context['price'] = 300
+        total = 0
+        for obj in context['shirt'].values():
+            total += int(obj["quantity_shirt"]) * context['price']
+        context['total'] = total
+        try:
+            query = Campdata_63.objects.get(user=self.request.user)
+            context['confirmed'] = query.confirmed
+            context['img_obj']= query.check_shirt
+        except:
+            pass
 
-
+        return context
 
 
 class CampUnregisterView_63(TemplateView):
@@ -433,7 +490,7 @@ class Allergy(ListView):
             queryset = db.exclude(allergic_foods='-',allergic_meds='-',congenital_disease='-').order_by('-student_id')
         return queryset
 
-class Checkregister_all(ListView):
+class CheckRegister(ListView):
     model = Campdata_64
     context_object_name = 'checkregister'
     template_name = "preelec9_camp/63/abstract/checkregister.html"
@@ -443,7 +500,7 @@ class Checkregister_all(ListView):
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
     def get_context_data(self,*args, **kwargs):
-        context = super(Checkregister_all, self).get_context_data(*args,**kwargs)
+        context = super(CheckRegister, self).get_context_data(*args,**kwargs)
         context['title_name'] = 'เช็คการลงทะเบียน'
         return context
     def get_queryset(self):
@@ -466,3 +523,16 @@ class Checkregister_all(ListView):
             'not_regis' : not_regis
         }
         return queryset    
+
+class Checkshirt(ListView):
+    model = Shirt
+    template_name = "preelec9_camp/63/abstract/checkshirt.html"
+   #@method_decorator(login_required)
+    #@method_decorator(allowed_users(['63_student']))
+    #@method_decorator(registered_only)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+    def get_context_data(self,*args, **kwargs):
+        context = super(Checkshirt, self).get_context_data(*args,**kwargs)
+        context['title_name'] = 'ข้อมูลพี่'
+        return context
