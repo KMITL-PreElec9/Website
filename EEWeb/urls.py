@@ -22,6 +22,7 @@ urlpatterns = [
     path('', IndexView.as_view(), name = 'home'),
     path('admin/', admin.site.urls),
     path('accounts/', include('site_auth.urls')),
-    path('camp/', include('preelec9_camp.urls')),
+    path('preelec9_camp/', include('preelec9_camp.urls')),
+    path('camp/', include('preelec_online.urls'))
 ]
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

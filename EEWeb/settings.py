@@ -39,6 +39,7 @@ ALLOWED_HOSTS = ['https://kmitl-eeweb.herokuapp.com', '127.0.0.1', 'localhost']
 # Application definition
 
 INSTALLED_APPS = [
+    # Django Defaults
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,13 +47,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    # 3rd Party Apps
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'storages',
+    'rest_framework',
+    'corsheaders',
+    # Internal Modules
     'preelec9_camp.apps.Preelec9CampConfig',
     'site_auth.apps.SiteAuthConfig',
-    'storages'
+    'preelec_online.apps.PreelecOnlineConfig'
 ]
 SITE_ID = env('SITE_ID')
 MIDDLEWARE = [
@@ -65,6 +71,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+CORS_ORIGIN_WHITELIST = [
+     'http://localhost:3000'
 ]
 
 ROOT_URLCONF = 'EEWeb.urls'

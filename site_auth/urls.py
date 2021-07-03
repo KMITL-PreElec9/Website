@@ -5,4 +5,5 @@ urlpatterns = [
     path('', include('allauth.urls')),
     path('userprofile/', UserProfileView.as_view(), name='site_auth_userprofile'),
     path('profile/', CheckProfileView.as_view()),
+    path('api-auth/', include('rest_framework.urls')),
 ]
