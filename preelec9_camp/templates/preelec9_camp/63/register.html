@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static%}
 {%block header%}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <style>
     h2 {
         text-align: center;
@@ -25,6 +26,7 @@
 {% include  'preelec9_camp/base_header.html' %}
 {% endblock%}
 {% block content%}
+{% if not year%}
 {% if not confirmed%}
 {%if img_obj%}
 
@@ -32,7 +34,7 @@
     <div class="card bg-light " style="padding: 3%; max-width: 800px; margin: auto;">
         <article class="center" style="max-width: 800px; ">
         <h2>สมัครค่าย Pre-Elec 9</h2>
-        <p>ถ้าต้องการซื้อเสื้อเชิญด้านล่าง ถ้าไม่ก็สมัครเลย</p>
+        <p>สมัครเลย</p>
         <form action='' method='post'>
                 {% csrf_token %}
                 <input class="btn btn-success btn-sm btn-block" type='submit' name="regis" value='สมัครค่าย'>
@@ -40,6 +42,7 @@
         </article>
     </div>
 </div>
+{%endif%}
 {%endif%}
 {%endif%}
 <div style="padding-top: 5%;  margin: 10px 10px 10px 10px">
@@ -121,7 +124,7 @@
                                 {% csrf_token %}
                                 <input type='hidden' name='regID' value='{{obj.pk}}'>
                                 <button type='submit' class="btn btn-danger" name='delete' style="padding:none;">
-                                    <i class="bi bi-x-circle" ></i></button>
+                                    <i class="fa fa-times"></i></button>
                             </form>
                             {% endif %}
                         </td>
@@ -158,18 +161,29 @@
             </form>
             
             {%if img_obj%}
+            {% if not year %}
             {% if confirmed %}
             <h2>&nbsp;</h2>
             <h2>เราสมัครค่ายให้เเล้ว ลุยเลย</h2>
             <a href="/camp/" class="btn btn-success btn-sm btn-block" type='submit' name="regis">กลับหน้าค่าย</a>
             {%endif%}
             {%else%}
-            <form action='' method='post'>
-                {% csrf_token %}
+            <h2>&nbsp;</h2>
+            <h2>THANK YOU</h2>
+            {%endif%}
+            {%else%}
+            {% if not year %}
+                <form action='' method='post'>
+                    {% csrf_token %}
+                    <h2>&nbsp;</h2>
+                    <h2 style="color: crimson">ถ้าไม่ต้องการสั่งซื้อเสื้อค่าย ก็สมัครเลย!!</h2>
+                    <input class="btn btn-success btn-sm btn-block" type='submit' name="regis" value='สมัครค่าย'>
+                </form>
+            {%else%}
+            
                 <h2>&nbsp;</h2>
-                <h2 style="color: red;">ถ้าไม่ต้องการสั่งซื้อเสื้อค่าย ก็สมัครเลย!!</h2>
-                <input class="btn btn-success btn-sm btn-block" type='submit' name="regis" value='สมัครค่าย'>
-            </form>
+            {%endif%}  
+           
             {%endif%}
 
         </article>

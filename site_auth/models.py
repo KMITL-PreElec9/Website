@@ -61,3 +61,13 @@ class EEData_64(EEData):
         verbose_name = "EEData64"
         verbose_name_plural = "EEData64"
 
+class EEData_62(EEData):
+    class Meta:
+        verbose_name = "EEData62"
+        verbose_name_plural = "EEData62"
+
+class EEData_61(EEData):
+    class Meta:
+        verbose_name = "EEData61"
+        verbose_name_plural = "EEData61"
+
