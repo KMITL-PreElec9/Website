@@ -1,5 +1,8 @@
 from django.urls import path
-from .views import UserDetail
+from .views import *
+
 urlpatterns = [
-    path('api/user', UserDetail.as_view())
-]
+    path('', CampIndexView.as_view()),
+    path('6x/shop/', Shop_6x.as_view())
+    
+    ]
