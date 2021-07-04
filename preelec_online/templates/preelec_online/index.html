@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% load static%}
+{%block header%}
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo mr-auto"><a href="/"> Pre-Elec 9</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul style="text-align: center;">
+          <li class="active"><a href="/">กลับหน้าหลัก</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="#services">เมนูหลัก</a></li>
+          {%endif%}
+          <li><a href="#about">เกี่ยวกับค่าย</a></li>
+          <li><a href="#team">ทีมงานบริหารจัดการค่าย</a></li>
+          <li> </li>
+          
+{% endblock%}
+
+{% block content %}
+  {% if user.is_authenticated %}
+     <section id="services" class="services section-bg">
+      <div class="container" data-aos="fade-up">
+        <div style= 'height:50px;'></div>
+        <div class="section-title">
+          <h2>หน้าหลักผู้ใช้ online</h2>
+        </div>
+        {%if menu%}
+        <div class="row">
+        {% for item in menu%}
+          <div class="col-lg-4 col-md-6  align-items-stretch" data-aos="zoom-in" data-aos-delay="100" style='padding-bottom:20px; cursor: pointer;' onclick="location.href='{{item.1}}';">
+            <div class="icon-box iconbox-{{item.4}}">
+              <div class="icon">
+                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
+                </svg>
+                <i class="bx bx-{{item.3}}"></i>
+              </div>
+              <h4>{{item.0}}</h4>
+              <p>{{item.2}}</p>
+            </div>
+          </div>
+        {%endfor%}
+        </div>  
+      {%else%}
+        <div>
+        <p>
+          ไม่พบข้อมูลของท่านในฐานข้อมูลผู้มีสิทธิ์สมัครค่าย และเข้าถึงข้อมูลค่าย
+          โปรดตรวจสอบให้แน่ชัดว่าท่านได้กรอกข้อมูลส่วนตัวครบถ้วนดีแล้ว หากคิดว่านี่คือข้อผิดพลาด โปรดติดต่อผู้ดูแลระบบ
+        </p>
+        </div>
+      {%endif%}
+      </div>
+    </section><!-- End Sevices Section -->
+  {% else %}
+  <section id="services" class="services section-bg">
+      <div style= 'height:100px;'></div>
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>ท่านยังไม่ได้ลงชื่อเข้าใช้</h2>
+          <p>โปรด<a href="/accounts/login?next={{ request.get_full_path }}">ลงชื่อเข้าใช้</a>เพื่อสมัครค่าย</p>
+        </div>
+      </div>
+    </section><!-- End Sevices Section -->
+
+  {% endif%}
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>เกี่ยวกับค่าย Pre-Elec Online</h2>
+        </div>
+
+        <!--<div class="row content">
+            <p>
+กิจกรรมทั้งหมด ซึ่งจะถูกจัดขึ้นภายในสถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง ไม่มีการออกนอกสถานที่ ภายในค่ายจะมีการป้องกัน ตรวจวัดอุณหภูมิ การเว้นระยะห่าง พร้อมสวมใส่หน้ากากอนามัยจนสิ้นสุดกิจกรรม ตามมาตรการป้องกัน COVID-19 โดยสิ่งที่น้องๆจะได้รับ มีทั้งในด้านความรู้ในด้านวิศวกรรม และสันทนาการ และภายในกิจกรรมนี้จะไม่ยุ่งเกี่ยวกับสิ่งเสพติด และอบายมุขทุกชนิด
+            </p>
+          </div
+          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. </p>
+        </div>-->
+
+        <div class="row content">
+          <div class="col-lg-6">
+           
+            <ul>
+              <li><i class="ri-check-double-line"></i> ที่มาและวัตถุระสงค์</li>
+              <p>
+                ภาควิชาวิศวกรรมอิเล็กทรอนิกส์ คณะวิศวกรรมศาสตร์ สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง โดยนักศึกษาชั้นปีที่ 2 ปีการศึกษา 2564 ได้จัดค่าย Pre-Electronics 9 ปีการศึกษา 2564 ขึ้น โดยมีวัตถุประสงค์เพื่อเสริมสร้างความสามัคคี และความคุ้นเคย ระหว่างเพื่อน รุ่นพี่ และคณะวิศวกรรมศาสตร์ ให้กับนักศึกษาใหม่ที่จะเข้าศึกษาในปีการศึกษา 2564
+              </p>
+            </ul>
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0">
+            <ul>
+              <li><i class="ri-check-double-line"></i>มาตรการภายในค่าย</li>
+            <p>
+              กิจกรรมทั้งหมด ซึ่งจะถูกจัดขึ้นภายในสถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง ไม่มีการออกนอกสถานที่ ภายในค่ายจะมีการป้องกัน ตรวจวัดอุณหภูมิ การเว้นระยะห่าง พร้อมสวมใส่หน้ากากอนามัยจนสิ้นสุดกิจกรรม ตามมาตรการป้องกัน COVID-19 โดยสิ่งที่น้องๆจะได้รับ มีทั้งในด้านความรู้ในด้านวิศวกรรม และสันทนาการ และภายในกิจกรรมนี้จะไม่ยุ่งเกี่ยวกับสิ่งเสพติด และอบายมุขทุกชนิด
+            </p>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Team Section ======= -->
+    <section id="team" class="team section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>ทีมบริหารจัดการค่าย</h2>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+            <div class="member">
+              <div class="member-img">
+                <img src='{% static "assets/img/team/กาย.jpg"%}' class="img-fluid" alt="" >
+                <div class="social">
+                  <a href="https://www.facebook.com/fosaken.archer.98/"><i class="icofont-facebook"></i></a>
+                  <a href="https://instagram.com/russberryyyyyyyyyyyyyyyyyyyyyy?utm_medium=copy_link"><i class="icofont-instagram"></i></a>
+                  <a href="https://line.me/ti/p/~russberry"><i class="icofont-line"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>นายศิรัส ทองอรุณ</h4>
+                <span>ประธานค่าย pre-electronics ครั้งที่ 9</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+            <div class="member">
+              <div class="member-img">
+                <img src='{% static "assets/img/team/บอย.jpeg"%}' class="img-fluid" alt="" >
+                <div class="social">
+                  <a href="https://www.facebook.com/suicoon"><i class="icofont-facebook"></i></a>
+                  <a href="https://instagram.com/bekoraty?utm_medium=copy_link"><i class="icofont-instagram"></i></a>
+                  <a href="https://line.me/ti/p/vY2JZpxn_p"><i class="icofont-line"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>นายเอกรัตน์	พิทยบวรศักดิ์</h4>
+                <span>รองประธานค่าย pre-electronics ครั้งที่ 9</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+            <div class="member">
+              <div class="member-img">
+                <img src='{% static "assets/img/team/ต้าต้า.jpeg"%}' class="img-fluid" alt="" >
+                <div class="social">
+                  <a href="https://mobile.facebook.com/tata.naclap?_rdc=1&_rdr&refsrc=http%3A%2F%2Finstagram.com%2F"><i class="icofont-facebook"></i></a>
+                  <a href="https://instagram.com/tata_sirithorn?utm_medium=copy_link"><i class="icofont-instagram"></i></a>
+                  <a href="https://line.me/ti/p/zyH11WSzqG"><i class="icofont-line"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>นายโชติวัฒน์ ศิริธร</h4>
+                <span>ผู้ประสานงานค่าย pre-electronics ครั้งที่ 9</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
+            <div class="member">
+              <div class="member-img">
+                <img src='{% static "assets/img/team/แป้ง.jpeg"%}' class="img-fluid" alt="" >
+                <div class="social">
+                  <a href="https://instagram.com/juthawinn?utm_medium=copy_link"><i class="icofont-instagram"></i></a>
+                  <a href="https://line.me/ti/p/69wfx2TdKu"><i class="icofont-line"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>นางสาวจุฑามาศ กาญจนวิวิญ	</h4>
+                <span>เลขานุการค่าย pre-electronics ครั้งที่ 9</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+    <!-- End Team Section -->
+
+
+{%endblock%}

@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load static%}
+{%block header%}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<style>
+    h2 {
+        text-align: center;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    h3 {
+        text-align: center;
+    }
+
+    tr {
+        text-align: center;
+    }
+
+    td {
+        text-align: center;
+    }
+</style>
+{% include  'preelec9_camp/base_header.html' %}
+{% endblock%}
+{% block content%}
+<div style=" padding-bottom: 10%; max-height: 5000px ; margin: 30px 10px 10px 10px  ">
+    <div class="card bg-light " style="padding: 3%; max-width: 800px; margin: auto;">
+        <article class="center" style="max-width: 800px; ">
+            {% if not img_obj%}
+            <h1>สั่งซื้อเสื้อค่าย</h1>
+            <form action='' method='post'>
+                {% csrf_token %}
+                <p>
+                    <label for="id_shirt_size">ไซส์ : ขนาดรอบอก กว้าง/ยาว(โดยประมาณ)<p1>{{ form.shirt_size.errors }}</p1></label>
+                </p>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-bag-check-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" />
+                            </svg>
+                        </span>
+                    </div>
+                    {{ form.size_shirt}}
+                </div>
+                <p><label for="id_shirt_size">จำนวน : <p1>{{ form.shirt_size.errors }}</p1></label> </p>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                fill="currentColor" class="bi bi-bag-check-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" />
+                            </svg> </span>
+                    </div>
+                    {{ form.quantity_shirt}}
+                </div>
+                <p><label for="id_shirt_size">สี : <p1>{{ form.shirt_size.errors }}</p1></label> </p>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                fill="currentColor" class="bi bi-bag-check-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" />
+                            </svg> </span>
+                    </div>
+                    {{ form.color_shirt}}
+                </div>
+                <input class="btn btn-primary btn-sm btn-block" type='submit' name="submit" value='เพิ่มรายการ'>
+            </form>
+            {%else%}
+            <h2>รายการสั่งซื้อ</h2>
+            {%endif%}
+            <h5>&nbsp;</h5>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>รายการที่</th>
+                        <th>ไซส์</th>
+                        <th>จำนวน</th>
+                        <th>สี</th>
+                        <th>ราคา</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for obj in shirt %}
+                    <tr>
+                        <td class="align-middle"><a>{{forloop.counter}}</a></td>
+                        <td class="align-middle">{{obj.size_shirt}}</td>
+                        <td class="align-middle">{{obj.quantity_shirt}}</td>
+                        <td class="align-middle">{{obj.color_shirt}}</td>
+                        <td class="align-middle">{% widthratio obj.quantity_shirt 1 price   %} </td>
+                        <td class="align-middle">
+                            {% if not img_obj%}
+                            <form action='' method='post'>
+                                {% csrf_token %}
+                                <input type='hidden' name='regID' value='{{obj.pk}}'>
+                                <button type='submit' class="btn btn-danger" name='delete' style="padding:none;">
+                                    <i class="fa fa-times"></i></button>
+                            </form>
+                            {% endif %}
+                        </td>
+                        {% empty %}
+                        <td>ยังไม่เพิ่มรายการ</td>
+                        {% endfor %}
+                    </tr>
+
+                </tbody>
+            </table>
+            </div>
+            <input class="btn btn-warning btn-sm btn-block" value='ราคาที่ต้องโอน {{ total }}'>
+            <h2>&nbsp;</h2>
+            {% if img_obj %}
+            
+            <h3>ได้รับข้อมูลเเล้ว ขอบคุณที่สั่งซื้อเสื้อ {{img_obj.title}}</h3>
+            <h5 style="color: red;">ถ้าเกิดปัญหา หรือต้องการสั่งซื้อเสื้อเพิ่มเติม ติดต่อ Data</h5>
+            <img src="{{ img_obj.url}}" alt="connect" class="mx-auto d-block" style="max-height:300px">
+            {% else %}
+            <h3>กสิกร</h3>
+                <h3>xxx-xxxx-xxxxx</h3>
+            {% endif %}
+            <h2>&nbsp;</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form2.as_p}}
+                <button type="submit" class="btn btn-info" name="upload">
+                {% if not img_obj%}
+                <i class="bi bi-upload"></i> อัพโหลดภาพและสมัครค่าย
+                {%else%}
+                <i class="bi bi-pencil-square"></i> บันทึกการเปลี่ยนแปลง
+                {%endif%}
+                </button>
+            </form>
+            
+            {%if img_obj%}
+            {% if not year %}
+            {% if confirmed %}
+            <h2>&nbsp;</h2>
+            <h2>เราสมัครค่ายให้เเล้ว ลุยเลย</h2>
+            <a href="/camp/" class="btn btn-success btn-sm btn-block" type='submit' name="regis">กลับหน้าค่าย</a>
+            {%endif%}
+            {%else%}
+            <h2>&nbsp;</h2>
+            <h2>THANK YOU</h2>
+            {%endif%}
+            {%else%}
+            {% if not year %}
+                <form action='' method='post'>
+                    {% csrf_token %}
+                    <h2>&nbsp;</h2>
+                    <h2 style="color: crimson">ถ้าไม่ต้องการสั่งซื้อเสื้อค่าย ก็สมัครเลย!!</h2>
+                    <input class="btn btn-success btn-sm btn-block" type='submit' name="regis" value='สมัครค่าย'>
+                </form>
+            {%else%}
+            
+                <h2>&nbsp;</h2>
+            {%endif%}  
+           
+            {%endif%}
+
+        </article>
+    </div>
+</div>
+
+{% endblock %}
