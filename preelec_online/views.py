@@ -69,57 +69,12 @@ class CampIndexView(TemplateView):
         return context
 
 class Shop_6x(TemplateView):
-    template_name = 'preelec_online/63/shop.html'
+    template_name = 'preelec_online/6x/shop.html'
     @method_decorator(login_required)
     @method_decorator(allowed_users(['63_student','61_student','62_student','guest']))
     def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
-    def post(self, *args, **kwargs):
-        if 'delete' in self.request.POST.keys():
-            db = Shirt.objects.get(pk=self.request.POST['regID'])
-            db.delete()
-        elif 'upload' in self.request.POST.keys():
-            form = Check_shirtForm(self.request.POST,self.request.FILES)
-            if form.is_valid():
-                model = form.save(commit=False)
-                if hasattr(self.request.user, 'campdata_6x'):
-                    self.request.user.campdata_6x.delete()
-                model.user = self.request.user
-                model.save()
-        elif 'submit' in self.request.POST.keys():
-            form = RegisterForm_63(self.request.POST)
-            if form.is_valid():
-                model = form.save(commit=False)
-                model.user = self.request.user
-                model.save()
-        else: pass
-        return redirect('/camp/63/buyshirt/')   
+        return super().dispatch(*args, **kwargs)   
     def get_context_data(self,*args, **kwargs):
-        try:
-            form_instance = self.request.user.campdata_63
-        except: form_instance = None
-        context = super(RegisterView_6x, self).get_context_data(*args,**kwargs)
-        context['shirt'] = Shirt.objects.filter(user=self.request.user)
+        context = super(Shop_6x, self).get_context_data(*args,**kwargs)
         context['title_name'] = 'สั่งซื้อเสื้อค่าย'
-        context['form'] = RegisterForm_63
-        context['form2'] = Check_shirtForm(instance=form_instance)
-        context['year'] = True
-        check_year = self.request.user.groups.all()
-        if check_year[0] == '62_student':
-            context['price'] = 200
-        elif check_year[0] == '61_student':
-            context['price'] = 300
-        else:
-            context['price'] = 300
-        total = 0
-        for obj in context['shirt'].values():
-            total += int(obj["quantity_shirt"]) * context['price']
-        context['total'] = total
-        try:
-            query = Campdata_63.objects.get(user=self.request.user)
-            context['confirmed'] = query.confirmed
-            context['img_obj']= query.check_shirt
-        except:
-            pass
-
         return context
