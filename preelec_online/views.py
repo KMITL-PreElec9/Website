@@ -1,58 +1,17 @@
+from django.shortcuts import render
 from .serializers import UserSerializer
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, FormView
 from .models import *
+from .menu import campmenu
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from preelec9_camp.decorators import *
+from .forms import *
 
-def campmenu(View):
-    if View.request.user.groups.exists():
-        group = View.request.user.groups.all()[0].name
-    else: return False
-    #กรณีน้อง
-    if group == '64_student':
-        try:
-            db = View.request.user.camp_online_64
-            menu = [
-                ['ตรวจสอบข้อมูล','64/viewdata/','ตรวจสอบและแก้ไขข้อมูลที่ลงทะเบียน','file', 'orange'],
-                ['ตรวจสอบตารางกิจกรรม','64/table/', 'ตรวจสอบตารางกิจกรรมและจุดนัดพบ','tachometer', 'red'],
-                ['ใบขออนุญาตผู้ปกครอง','64/parent/', 'ดาวน์โหลด และพิมพ์ใบขออนุญาตผู้ปกครอง','book-open', 'yellow'],
-                ['ยกเลิกการสมัคร','64/unregister/', 'ยกเลิกการสมัครเข้าค่าย','calendar-x', 'pink'],
-            ]
-        except Camp_online_64.DoesNotExist:
-            
-            menu = [
-                ['สมัครเข้าค่าย','64/register/','สมัครเข้าค่าย Pre-Electronics 9','calendar-plus','blue'],
-               # ['ตรวจสอบตารางกิจกรรม','64/table/', 'ตรวจสอบตารางกิจกรรมและจุดนัดพบแบบ Real-Time','tachometer','orange'],
-            ]
-    #กรณีรุ่นเรา
-    elif group in ['63_student', 'admin']:
-        menu = [
-                    ['สั่งซื้อสินค้า','6x/shop/','สมัครเข้าทำค่าย Pre-Elec 9','baseball', 'blue']
-                    
-                ]
-        try: 
-            db = View.request.user.camp_online_6x
-            if db.confirmed is True:
-                menu = [
-                        ['รายการสั่งซื้อ','63/register/','ตราวสอบรายการสั่งซื้อและหลักฐานการโอน','baseball', 'blue'],
-                        ['ตรวจสอบข้อมูลรุ่นเรา','63/viewdata/', 'ตรวจสอบข้อมูลเพื่อนรุ่นเราที่ยืนยันเข้าค่าย','file', 'pink'],
-                        ['บัญชีค่าย Pre-Elec9','63/statement/', 'ตรวจสอบบัญชีค่าย','book','yellow'],
-                        ['ยกเลิกการสมัคร','63/unregister/', 'ยกเลิกการสมัครเข้าค่าย','calendar-x', 'pink'],
-                    ]
-                if not db.check_shirt: menu.pop(0)
-        except Camp_online_6x.DoesNotExist: pass
-
-    else :
-        menu = [
-                    ['สั่งซื้อสินค้า','6x/shop/','สมัครเข้าทำค่าย Pre-Elec 9','baseball', 'blue']
-
-                ]
-    return menu
 
 class CampIndexView(TemplateView):
     def dispatch(self, *args, **kwargs):
@@ -73,8 +32,53 @@ class Shop_6x(TemplateView):
     @method_decorator(login_required)
     @method_decorator(allowed_users(['63_student','61_student','62_student','guest']))
     def dispatch(self, *args, **kwargs):
+        if self.request.user.camp_online_6x.completed == True:
+            return redirect('checkout/')
         return super().dispatch(*args, **kwargs)   
     def get_context_data(self,*args, **kwargs):
         context = super(Shop_6x, self).get_context_data(*args,**kwargs)
-        context['title_name'] = 'สั่งซื้อเสื้อค่าย'
+        context['total'] = 0
+        if hasattr(self.request.user,'camp_online_6x'):
+            context['shop'] = Shop.objects.all().filter(camp_online_6x = self.request.user.camp_online_6x)
+            for obj in context['shop'].values():
+                context['total'] += obj['quantity']*obj['price']
+        context['title_name'] = 'สั่งซื้อสินค้า'
+        context['forms'] = [Powerbank_form(),Bag_form()]
         return context
+    def post(self,request,*args, **kwargs):
+        if Bag_form.Meta.form_name in self.request.POST.keys():
+            form = Bag_form(self.request.POST)
+        elif Powerbank_form.Meta.form_name in self.request.POST.keys():
+            form = Powerbank_form(self.request.POST)
+        elif 'delete' in self.request.POST.keys():
+            db = Shop.objects.get(pk = self.request.POST['regID'])
+            db.delete()
+            if len(Shop.objects.all().filter(camp_online_6x = self.request.user.camp_online_6x)) == 0:
+                self.request.user.camp_online_6x.delete()
+        try: 
+            if form.is_valid: form.save(self.request.user)
+        except: pass
+        return redirect('/camp/6x/shop/')
+
+class ShopCheckoutView(TemplateView):
+    template_name='preelec_online/6x/checkout.html'
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(['63_student','61_student','62_student','guest']))
+    def dispatch(self, *args, **kwargs):
+        if not hasattr(self.request.user, 'camp_online_6x'):
+            return redirect('/camp/')
+        return super().dispatch(*args, **kwargs) 
+    def get_context_data(self,*args, **kwargs):
+        context = super(ShopCheckoutView, self).get_context_data(*args,**kwargs)
+        context['title_name'] = 'ยืนยันและชำระเงิน'
+        db = Camp_online_6x.objects.get(user = self.request.user)
+        context['confirmed'] = db.confirmed
+        context['form'] = ShopCheckoutForm(instance= db)
+        return context
+    def post(self, request, *args, **kwargs):
+        db = Camp_online_6x.objects.get(user = self.request.user)
+        form = ShopCheckoutForm(self.request.POST,self.request.FILES, instance= db)
+        print(form.is_valid())
+        if form.is_valid():
+            form.save()
+        return HttpResponseRedirect(self.request.path_info)
