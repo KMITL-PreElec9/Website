@@ -1,3 +1,4 @@
+from preelec9_camp.views import RegisterView_64
 from django.db.models import query
 from django.shortcuts import render
 from django.views.generic.detail import DetailView
@@ -155,3 +156,31 @@ class RegisterView(TemplateView):
             db = Camp_online_64(user = self.request.user)
             db.save()
         return redirect('/camp/')
+
+class QrConfirmView(RegisterView):
+    template_name = 'preelec_online/64/qrconfirm.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title_name'] = "ลงทะเบียน"
+        return context
+    def post(self,*args, **kwargs):
+        if 'regis' in self.request.POST.keys():
+            db = self.request.user.camp_online_64
+            db.confirmed = True
+            db.save()
+        return redirect('/camp/')
+class CheckRegisterView_64(ListView):
+    model = Camp_online_64
+    template_name = "preelec_online/64/datalist.html"
+    context_object_name = 'data'
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_staff:
+            return redirect('/camp/')
+        return super().dispatch(*args, **kwargs) 
+    def get_context_data(self,*args, **kwargs):
+        context = super().get_context_data(*args,**kwargs)
+        context['title_name'] = 'น้องที่ลงทะเบียน'
+        return context
+    def get_queryset(self):
+        queryset = self.model.objects.filter(confirmed=True).order_by('confirmed')
+        return queryset

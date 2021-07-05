@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static%}
+{%block header%}
+<style>
+  td{
+    text-align: center;
+  }
+  th{
+    text-align: center;
+  }
+</style>
+{% include  'preelec9_camp/base_header.html' %}
+{% endblock%}
+{% block content%}
+<div style="padding-top: 10%; padding-bottom: 10%; max-height: 50000px ; margin: 30px 10px 10px 10px  ">
+    <div class="card bg-light " style="padding: 3%; max-width: 1200px; margin: auto;" >
+        <article  class="center" style="max-width: 1200px; ">
+            
+<h2 style="text-align: center;">ข้อมูลน้องที่ลงทะเบียน</h2>
+
+<div class="table-responsive">       
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ลำดับที่</th>
+        <th>ชื่อ - นามสกุล</th>
+        <th>ที่อยู่</th>
+        <th>สถานะ </th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for obj in data %}
+      <tr> 
+        <td>{{forloop.counter}}</td>
+        <td>{{ obj.user.eeuserprofile.gender}} {{ obj.user.eeuserprofile.name}} {{ obj.user.eeuserprofile.surname}}</td>
+        <td>{{ obj.user.eeuserprofile.address}}</td>
+        <td >
+            {% if obj.confirmed%}
+            ได้รับของแล้ว
+            {% else%}
+            ยังไม่ได้รับของ
+            {% endif%}
+        </td>
+     {% empty %}
+        <li>ยังไม่มีรายการ</li>
+    {% endfor %}
+      </tr>
+    
+    </tbody>
+  </table>
+  </div>
+
+
+</article>
+</div>
+</div>
+{% endblock %}
