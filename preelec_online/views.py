@@ -126,7 +126,7 @@ class OrderDetailView_6x(TemplateView):
         context['shop_list'] = db.shop_set.all().values()
         return context
     def post(self, *args, **kwargs):
-        if 'confirm' in self.request.POST:
+        if 'confirm' in self.request.POST.keys():
             db = Camp_online_6x.objects.get(pk = kwargs['pk'])
             p = db.user.eeuserprofile
             display_name = 'ค่าสินค้าของ {} {} {}'.format(p.gender, p.name, p.surname)
@@ -139,3 +139,19 @@ class OrderDetailView_6x(TemplateView):
                 )
             statement.save()
         return HttpResponseRedirect(self.request.path_info)
+
+class RegisterView(TemplateView):
+    template_name = 'preelec_online/64/regis.html'
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(['64_student']))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs) 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title_name'] = "ลงทะเบียน"
+        return context
+    def post(self,*args, **kwargs):
+        if 'regis' in self.request.POST.keys():
+            db = Camp_online_64(user = self.request.user)
+            db.save()
+        return redirect('/camp/')

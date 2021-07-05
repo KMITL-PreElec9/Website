@@ -4,7 +4,7 @@ from django.db.models.fields import IntegerField
 # Create your models here.
 class Camp_online_6x(models.Model):
     class Meta:
-        verbose_name = "Camp_online_6x"
+        verbose_name = "Camp_online_6x" 
         verbose_name_plural = "Camp_online_6x"
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     price= models.IntegerField(null= True)
