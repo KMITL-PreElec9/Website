@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block header%}
+{% include  'preelec_online/base_header.html' %}
+{% endblock %}
+{% block content%}
+<div style='height: 150px;'></div>
+{%if confirmed%}
+<p>รายการของท่านได้รับการยืนยันแล้ว</p>
+{%else%}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="btn btn-info" name="upload">
+        {% if not img_obj%}
+        <i class="bi bi-upload"></i> อัพโหลดภาพและสมัครค่าย
+        {%else%}
+        <i class="bi bi-pencil-square"></i> บันทึกการเปลี่ยนแปลง
+        {%endif%}
+    </button>
+</form>
+{%endif%}
+{% endblock%}
