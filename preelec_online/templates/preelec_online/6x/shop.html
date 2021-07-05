@@ -68,9 +68,9 @@
     <div class="container" data-aos="fade-up" > 
       <div class="section-title">
         <div style= 'height:50px;'></div>
-        <h2>หน้าหลักผู้ใช้ online</h2>
+        <h2>สั่งซื้อสินค้า</h2>
       </div>
-      <div class="row" style="height: 800px;">
+      <div class="row" style="max-height: 2000px;">
         {% for form in forms%}
         
             <div class="col-lg-4 col-md-6  align-items-stretch" data-aos="zoom-in" data-aos-delay="100" style='padding-bottom:20px; cursor: pointer;' id="form{{forloop.counter}}Btn">
@@ -82,17 +82,19 @@
                     <i class="bx bx-file"></i>
                   </div>
                   <h4>{{form.Meta.display_name}}</h4>
-                  <p>{{form.Meta.display_name}}</p>
+                  <p>สั่งซื้อ {{form.Meta.display_name}} ที่นี่</p>
                 </div>
               </div>
             
             <div id="form{{forloop.counter}}Modal" class="modal">
                 <div class="modal-content">
                     <span class="close">&times;</span>
+                    <img  src='{{ form.Meta.img_url }}'
+alt="coala"  max-height="228">
                     <form method="post" action=''>
                         {% csrf_token %}
                         {{form.as_p}}
-                        <input type='submit' name='{{form.Meta.form_name}}' value='เพิ่มรายการ'>
+                        <button type='submit' name='{{form.Meta.form_name}}' class="btn btn-primary btn-block">เพิ่มรายการ</button>                
                     </form>
                 </div>
 
@@ -115,7 +117,7 @@
             </script>
         {% endfor %}
         <h5>&nbsp;</h5>
-        <div class="table-responsive">
+        <div class="table-responsive" style="margin: 9px;">
             <table class="table table-hover">
                 <thead>
                   <tr>
@@ -124,7 +126,7 @@
                     <th>จำนวน</th>
                     <th>สี</th>
                     <th>ราคา</th>
-                    <th>การดำเนินการ</th>
+                    <th>ยกเลิก</th>
                 </tr>
             </thead>
             <tbody>
@@ -152,8 +154,9 @@
 
             </tbody>
         </table>
-        <h3>{{total}}</h3>
         </div>
+        <button type="button" class="btn btn-warning btn-block " style="margin: 9px;"> ยอดรวมทั้งหมด {{total}} บาท </button>
+        <button type="button" class="btn btn-success btn-block " style="margin: 9px;"> ยืนยันรายการสั่งซื้อและชำระเงิน </button>
         </div>
         </div>
         </section>

@@ -16,7 +16,8 @@ class Shop_form(forms.Form):
 
 class Powerbank_form(forms.ModelForm):
     class Meta:
-        display_name = 'สั่ง Powerbank'
+        img_url = 'https://s.isanook.com/ca/0/ui/279/1396205/download20190701165129_1562561119.jpg'
+        display_name = 'Powerbank'
         form_name = 'powerbank'
         model = Shop
         fields=['quantity','color']
@@ -24,8 +25,15 @@ class Powerbank_form(forms.ModelForm):
             ('white', 'White'),
             ('black', 'Black')
         ]
+        quantity_choices = [
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ]
         widgets = {
-                    'quantity' : forms.NumberInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'จำนวน'}),
+                    'quantity' : Select(attrs={'type': 'text','class': 'form-control', 'placeholder':'จำนวน'},choices=quantity_choices),
                     'color' : Select(attrs={'type': 'text','class': 'form-control', 'placeholder':'เลือกไซส์เสื้อ'},choices=powerbank_choices)
                     
     }
@@ -39,12 +47,20 @@ class Powerbank_form(forms.ModelForm):
 
 class Bag_form(forms.ModelForm):
     class Meta:
-        display_name = 'สั่งถุงผ้า'
+        img_url = 'http://i1.wp.com/poshmagazinethailand.com/wp-content/uploads/2017/08/The-Ten_Air-Jordan-I-x-Virgil-Abloh.jpg?fit=1800%2C2240'
+        display_name = 'ถุงผ้า'
         form_name = 'bag'
         model = Shop
         fields = ['quantity']
+        quantity_choices = [
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ]
         widgets = {
-                    'quantity' : forms.NumberInput(attrs={'type': 'text','class': 'form-control', 'placeholder':'จำนวน'}),
+                    'quantity' : Select(attrs={'type': 'text','class': 'form-control', 'placeholder':'จำนวน'},choices=quantity_choices),
         }
     def save(self, user, *args, **kwargs):
         model = super().save(commit= False)
