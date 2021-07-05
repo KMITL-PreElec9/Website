@@ -1,11 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.fields import IntegerField
 # Create your models here.
 class Camp_online_6x(models.Model):
     class Meta:
         verbose_name = "Camp_online_6x"
         verbose_name_plural = "Camp_online_6x"
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    price= models.IntegerField(null= True)
     check_shop = models.ImageField('หลักฐานการโอน',upload_to='images/preelec_online/shop',null=True)    
     completed = models.BooleanField(default=False)
     confirmed = models.BooleanField(default=False)

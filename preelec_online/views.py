@@ -1,5 +1,7 @@
+from django.db.models import query
 from django.shortcuts import render
-from .serializers import UserSerializer
+from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
 from django.http import Http404, HttpResponseRedirect
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -11,7 +13,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from preelec9_camp.decorators import *
 from .forms import *
-
+from preelec9_camp.models import Statement
+from django.utils import timezone
 
 class CampIndexView(TemplateView):
     def dispatch(self, *args, **kwargs):
@@ -32,8 +35,10 @@ class Shop_6x(TemplateView):
     @method_decorator(login_required)
     @method_decorator(allowed_users(['63_student','61_student','62_student','guest']))
     def dispatch(self, *args, **kwargs):
-        if self.request.user.camp_online_6x.completed == True:
-            return redirect('checkout/')
+        try:
+            if self.request.user.camp_online_6x.completed == True:
+                return redirect('checkout/')
+        except:pass
         return super().dispatch(*args, **kwargs)   
     def get_context_data(self,*args, **kwargs):
         context = super(Shop_6x, self).get_context_data(*args,**kwargs)
@@ -80,5 +85,57 @@ class ShopCheckoutView(TemplateView):
         form = ShopCheckoutForm(self.request.POST,self.request.FILES, instance= db)
         print(form.is_valid())
         if form.is_valid():
-            form.save()
+            model = form.save(commit = False)
+            shop_list = self.request.user.camp_online_6x.shop_set.values()
+            total = 0
+            for obj in shop_list:
+                total += obj['quantity']*obj['price']
+            model.price = total
+            model.save()
+        return HttpResponseRedirect(self.request.path_info)
+
+class OrderListView_6x(ListView):
+    model = Camp_online_6x
+    template_name = "preelec_online/6x/orderlist.html"
+    context_object_name = 'order'
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_staff:
+            return redirect('/camp/')
+        return super().dispatch(*args, **kwargs) 
+    def get_context_data(self,*args, **kwargs):
+        context = super(OrderListView_6x, self).get_context_data(*args,**kwargs)
+        context['title_name'] = 'รายการสั่งซื้อ'
+        return context
+    def get_queryset(self):
+        queryset = self.model.objects.filter(completed=True).order_by('confirmed')
+        return queryset
+
+class OrderDetailView_6x(TemplateView):
+    template_name = "preelec_online/6x/orderdetail.html"
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_staff:
+            return redirect('/camp/')
+        return super().dispatch(*args, **kwargs) 
+    def get_context_data(self,pk, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        db = Camp_online_6x.objects.get(pk = pk)
+        context['title_name'] = 'ตรวจสอบและยืนยันการสั่งซื้อ'
+        context['data'] = db.user.eeuserprofile
+        context['img'] = db.check_shop
+        context['confirmed'] = db.confirmed
+        context['shop_list'] = db.shop_set.all().values()
+        return context
+    def post(self, *args, **kwargs):
+        if 'confirm' in self.request.POST:
+            db = Camp_online_6x.objects.get(pk = kwargs['pk'])
+            p = db.user.eeuserprofile
+            display_name = 'ค่าสินค้าของ {} {} {}'.format(p.gender, p.name, p.surname)
+            db.confirmed = True
+            db.save()
+            statement = Statement(
+                division = 'Art', mode = 'รายรับ', item_name = display_name,
+                transaction_date = timezone.now(), price = db.price,
+                quantity = 1, remarks='เพิ่มโดยระบบ (อัตโนมัติ)'
+                )
+            statement.save()
         return HttpResponseRedirect(self.request.path_info)

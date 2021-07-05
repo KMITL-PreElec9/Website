@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{%block header%}
+{% include  'preelec_online/base_header.html' %}
+<style>
+    h1 {
+        text-align: center;
+    }
+
+    ul li {
+        margin: 2%;
+        font-size: 20px;
+    }
+</style>
+{% endblock%}
+{% block content%}
+<div style="padding-top: 10%; padding-bottom: 10%; max-height: 10000px; margin: 20px 10px 10px 10px ">
+    <div class="card bg-light" style="padding: 3%; max-width: 800px; margin: auto;">
+        <article class="center" style="max-width: 800px; ">
+
+            <ul>
+                <li>คำนำหน้า : {{data.gender}}</li>
+                <li>ชื่อ-นามสกุล : {{data.name}} {{data.surname}}</li>
+                <li>ชื่อเล่น : {{data.nickname}}</li>
+                <li>รหัสนักศึกษา : {{data.student_id}}</li>
+                <li>ที่อยู่ : {{data.address}}</li>
+                <li>หมายเลขโทรศัพท์ : {{data.self_telephone_num}}</li>
+            </ul>
+
+            <h4>หลักฐานการโอน</h4>
+            <img src='{{ img.url }}'>
+
+            <h4>รายการสั่งซื้อ</h4>
+            <div class="table-responsive" style="margin: 9px;">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>รายการที่</th>
+                            <th>สินค้า</th>
+                            <th>จำนวน</th>
+                            <th>สี</th>
+                            <th>ราคา</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for obj in shop_list %}
+                        <tr>
+                            <td class="align-middle"><a>{{forloop.counter}}</a></td>
+                            <td class="align-middle">{{obj.shop_choices}}</td>
+                            <td class="align-middle">{{obj.quantity}}</td>
+                            <td class="align-middle">{{obj.color}}</td>
+                            <td class="align-middle">{% widthratio obj.quantity 1 obj.price %}</td>
+                            {% empty %}
+                            <td>ยังไม่เพิ่มรายการ</td>
+                            {% endfor %}
+
+                        </tr>
+
+                    </tbody>
+                </table>
+                {% if not confirmed%}
+                <form method='post' action =''>
+                {% csrf_token %}
+                    <input type='submit' name ='confirm' value='ยืนยัน'>
+                </form>
+                {% endif %}
+        </article>
+    </div>
+</div>
+{% endblock %}
