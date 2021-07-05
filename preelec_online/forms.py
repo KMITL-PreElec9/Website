@@ -74,9 +74,10 @@ class ShopCheckoutForm(forms.ModelForm):
     class Meta:
         model = Camp_online_6x
         fields = ['check_shop']
-    def save(self):
+    def save(self, commit: bool):
         model = super().save(commit=False)
         model.completed = True
-        model.save()
+        if commit == True:
+            model.save()
         return model
 

@@ -27,14 +27,10 @@ def campmenu(View):
                 ]
         try: 
             db = View.request.user.camp_online_6x
-            if db.confirmed is True:
+            if db.completed is True:
                 menu = [
                         ['รายการสั่งซื้อ','63/register/','ตราวสอบรายการสั่งซื้อและหลักฐานการโอน','baseball', 'blue'],
-                        ['ตรวจสอบข้อมูลรุ่นเรา','63/viewdata/', 'ตรวจสอบข้อมูลเพื่อนรุ่นเราที่ยืนยันเข้าค่าย','file', 'pink'],
-                        ['บัญชีค่าย Pre-Elec9','63/statement/', 'ตรวจสอบบัญชีค่าย','book','yellow'],
-                        ['ยกเลิกการสมัคร','63/unregister/', 'ยกเลิกการสมัครเข้าค่าย','calendar-x', 'pink'],
-                    ]
-                if not db.check_shirt: menu.pop(0)
+                        ]
         except Camp_online_6x.DoesNotExist: pass
 
     else :
@@ -42,4 +38,6 @@ def campmenu(View):
                     ['สั่งซื้อสินค้า','6x/shop/','สมัครเข้าทำค่าย Pre-Elec 9','baseball', 'blue']
 
                 ]
+    if View.request.user.is_staff:
+        menu.append(['ยืนยันการสั่งซื้อ','6x/orderlist/','ยืนยันรายการสั่งซื้อ','baseball', 'blue'])
     return menu
