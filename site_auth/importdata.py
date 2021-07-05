@@ -11,10 +11,10 @@ def cvtime(oldtime):
 
 fields = ["ชื่อ",'นามสกุล','รหัส','เบอร์โทร','ไอดีไลน์','วันเกิด','ชื่อเล่น', 'อีเมล']
 
-data = pd.read_csv ('data/electronics_62.csv')   
-EEData_62.objects.all().delete()
+data = pd.read_csv ('data/electronics_61.csv')   
+EEData_61.objects.all().delete()
 for j in range(0,len(data)):
-    db = EEData_62( 
+    db = EEData_61( 
         name = data[fields[0]][j],surname = data[fields[1]][j],
         student_id = data[fields[2]][j],
         self_telephone_num ='0'+str(data[fields[3]][j]), 
