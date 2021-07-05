@@ -35,6 +35,8 @@ class Shop_6x(TemplateView):
         return super().dispatch(*args, **kwargs)   
     def get_context_data(self,*args, **kwargs):
         context = super(Shop_6x, self).get_context_data(*args,**kwargs)
+        if hasattr(self.request.user,'camp_online_6x'):
+            context['shop'] = Shop.objects.filter(camp_online_6x=self.request.user.camp_online_6x)
         context['title_name'] = 'สั่งซื้อเสื้อค่าย'
         context['forms'] = [Powerbank_form(),Bag_form()]
         return context
@@ -43,7 +45,7 @@ class Shop_6x(TemplateView):
             form = Bag_form(self.request.POST)
         elif Powerbank_form.Meta.form_name in self.request.POST.keys():
             form = Powerbank_form(self.request.POST)
-        #try: 
-        if form.is_valid: form.save(self.request.user)
-        #except: pass
+        try: 
+            if form.is_valid: form.save(self.request.user)
+        except: pass
         return render(request, self.template_name,self.get_context_data())

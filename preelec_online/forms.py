@@ -49,5 +49,6 @@ class Bag_form(forms.ModelForm):
         model = super().save(commit= False)
         model.user = user
         model.shop_choices = 'bag'
-        model.save(user = user)
+        
+        model.save()
         return model

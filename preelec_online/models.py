@@ -35,10 +35,4 @@ class Shop(models.Model):
     shop_choices = models.CharField(max_length=100, choices = shop_choices)
     def __str__(self):
         return str(self.camp_online_6x)
-    def save(self, user ,*args, **kwargs):
-        if not hasattr(user, 'camp_online_6x'):
-            db = Camp_online_6x(user = user)
-            db.save()
-        self.camp_online_6x = db
-        return super().save()
-
+    
