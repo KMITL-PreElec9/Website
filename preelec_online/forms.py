@@ -32,6 +32,7 @@ class Powerbank_form(forms.ModelForm):
     def save(self, user, *args, **kwargs):
         model = super().save(commit= False)
         model.shop_choices = 'powerbank'
+        model.price = 300
         model.save(user = user)
         return model
 
@@ -47,8 +48,8 @@ class Bag_form(forms.ModelForm):
         }
     def save(self, user, *args, **kwargs):
         model = super().save(commit= False)
-        model.user = user
         model.shop_choices = 'bag'
-        
-        model.save()
+        model.price = 150
+        model.color = 'white'
+        model.save(user = user)
         return model

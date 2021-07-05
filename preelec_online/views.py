@@ -35,8 +35,11 @@ class Shop_6x(TemplateView):
         return super().dispatch(*args, **kwargs)   
     def get_context_data(self,*args, **kwargs):
         context = super(Shop_6x, self).get_context_data(*args,**kwargs)
+        context['total'] = 0
         if hasattr(self.request.user,'camp_online_6x'):
-            context['shop'] = Shop.objects.filter(camp_online_6x=self.request.user.camp_online_6x)
+            context['shop'] = Shop.objects.all().filter(camp_online_6x = self.request.user.camp_online_6x)
+            for obj in context['shop'].values():
+                context['total'] += obj['quantity']*obj['price']
         context['title_name'] = 'สั่งซื้อเสื้อค่าย'
         context['forms'] = [Powerbank_form(),Bag_form()]
         return context
@@ -45,7 +48,12 @@ class Shop_6x(TemplateView):
             form = Bag_form(self.request.POST)
         elif Powerbank_form.Meta.form_name in self.request.POST.keys():
             form = Powerbank_form(self.request.POST)
+        elif 'delete' in self.request.POST.keys():
+            db = Shop.objects.get(pk = self.request.POST['regID'])
+            db.delete()
+            if len(Shop.objects.all().filter(camp_online_6x = self.request.user.camp_online_6x)) == 0:
+                self.request.user.camp_online_6x.delete()
         try: 
             if form.is_valid: form.save(self.request.user)
         except: pass
-        return render(request, self.template_name,self.get_context_data())
+        return redirect('/camp/6x/shop/')

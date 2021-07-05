@@ -122,8 +122,9 @@
                     <th>รายการที่</th>
                     <th>สินค้า</th>
                     <th>จำนวน</th>
+                    <th>สี</th>
                     <th>ราคา</th>
-                    <th>&nbsp;</th>
+                    <th>การดำเนินการ</th>
                 </tr>
             </thead>
             <tbody>
@@ -132,16 +133,26 @@
                     <td class="align-middle"><a>{{forloop.counter}}</a></td>
                     <td class="align-middle">{{obj.shop_choices}}</td>
                     <td class="align-middle">{{obj.quantity}}</td>
-                    <td class="align-middle">{{obj.color_shirt}}</td>
-                    <td class="align-middle"> </td>
+                    <td class="align-middle">{{obj.color}}</td>
+                    <td class="align-middle">{% widthratio obj.quantity 1 obj.price %}</td>
+                    <td class="align-middle">
+                      <form action='' method='post'>
+                                {% csrf_token %}
+                                <input type='hidden' name='regID' value='{{obj.pk}}'>
+                                <button type='submit' class="btn btn-danger" name='delete' style="padding:none;">
+                                    <i class="fa fa-times"></i></button>
+                      </form>
+                    </td>
                     
                     {% empty %}
                     <td>ยังไม่เพิ่มรายการ</td>
                     {% endfor %}
+
                 </tr>
 
             </tbody>
         </table>
+        <h3>{{total}}</h3>
         </div>
         </div>
         </div>
