@@ -32,6 +32,9 @@
 <div style=" padding-bottom: 10%; max-height: 5000px ; margin: 30px 10px 10px 10px  ">
     <div class="card bg-light " style="padding: 3%; max-width: 800px; margin: auto;">
         <article class="center" style="max-width: 800px; ">
+            {% if not img%}
+            <a type="button" class="btn btn-outline-primary" href ='../'><i class="fa fa-home"></i>แก้ไขรายการ</a> 
+            {%endif%}
             <h2>รายการสินค้า</h2>
             <div class="table-responsive">
                 <table class="table table-hover">
@@ -74,18 +77,21 @@
                 <h3>กสิกร xxx-xxxx-xxxxx</h3>
                 <h3>นายทำ เสร็จแล้ว</h3>
                 <img src="{{ img.url}}" alt="connect" class="mx-auto d-block" style=" width: 100%; height: auto;"><h2>&nbsp;</h2>
-                <h5 >เราได้รับของมูลของท่านแล้ว กรุณารอการยืนยันจาก ADMIN</h5>
+                <h5>เราได้รับของมูลของท่านแล้ว กรุณารอการยืนยันจาก ADMIN</h5>
                 <h5>กรุณาเช็คการยืนยันในวันถัดไป</h5>
             {%else%}
                 <h2>&nbsp;</h2>
                 <h3>กสิกร</h3>
                 <h3>xxx-xxxx-xxxxx</h3>
+                <h5>กรุณเช็ครายการสินค้า</h5>
+                <h5>เมื่ออัพโหลดภาพแล้ว จะไม่สามารถแก้ไขรายการสั่งซื้อได้</h5>
+                
             {%endif%}
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{form.as_p}}
                 <button type="submit" class="btn btn-info" name="upload">
-                    {% if not img_obj%}
+                    {% if not img%}
                     <i class="bi bi-upload"></i> อัพโหลดภาพ
                     {%else%}
                     <i class="bi bi-pencil-square"></i> บันทึกการเปลี่ยนแปลง
