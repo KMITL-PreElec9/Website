@@ -22,7 +22,8 @@ def campmenu(View):
     #กรณีรุ่นเรา
     elif group in ['63_student', 'admin']:
         menu = [
-                    ['สั่งซื้อสินค้า','6x/shop/','สมัครเข้าทำค่าย Pre-Elec 9','baseball', 'blue']
+                    ['สั่งซื้อสินค้า','6x/shop/','สมัครเข้าทำค่าย Pre-Elec 9','baseball', 'blue'],
+                    ['เช็คข้อมูลการโอน','6x/check_shop/','สมัครเข้าทำค่าย Pre-Elec 9','baseball', 'blue']
                     
                 ]
         try: 
