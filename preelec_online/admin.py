@@ -7,4 +7,5 @@ class ShopView(ModelAdmin):
 admin.site.register(Camp_online_6x)
 admin.site.register(Camp_online_64)
 admin.site.register(Shop, ShopView)
+admin.site.register(Activity_Camp)
 # Register your models here.

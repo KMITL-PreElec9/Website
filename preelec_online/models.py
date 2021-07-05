@@ -45,3 +45,16 @@ class Shop(models.Model):
         else: db = user.camp_online_6x
         self.camp_online_6x = db
         return super().save()
+class Activity_Camp(models.Model):
+    class Meta:
+        verbose_name = "Activity_Camp"
+        verbose_name_plural = "Activity_Camp"
+    activity_name = models.CharField(max_length=100, null=True)
+    activity_date = models.DateField(null=True)
+    activity_beginning_time = models.TimeField(null=True)
+    activity_end_time = models.TimeField(null=True)
+    activity_description = models.CharField(max_length=100, null=True)
+    activity_caretaker = models.CharField(max_length=100, null=True)
+    activity_place = models.CharField(max_length=100, null=True)
+    def __str__(self):
+        return str(self.activity_name)
