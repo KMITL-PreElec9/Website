@@ -2,7 +2,7 @@ from django import forms
 from django.db import models
 from django.db.models import fields
 from django.forms import widgets,Select,Textarea
-from .models import Shop
+from .models import Camp_online_6x, Shop
 
 class Shop_form(forms.Form):
     shop_choices = [
@@ -69,3 +69,14 @@ class Bag_form(forms.ModelForm):
         model.color = 'white'
         model.save(user = user)
         return model
+
+class ShopCheckoutForm(forms.ModelForm):
+    class Meta:
+        model = Camp_online_6x
+        fields = ['check_shop']
+    def save(self):
+        model = super().save(commit=False)
+        model.completed = True
+        model.save()
+        return model
+

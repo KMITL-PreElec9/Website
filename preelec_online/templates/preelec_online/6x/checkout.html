@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block header%}
+{% include  'preelec_online/base_header.html' %}
+<style>
+    h2 {
+        text-align: center;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    h3 {
+        text-align: center;
+    }
+    h5{
+        color: crimson;
+    }
+
+    tr {
+        text-align: center;
+    }
+
+    td {
+        text-align: center;
+    }
+</style>
+{% endblock %}
+{% block content%}
+<div style='height: 150px;'></div>
+<div style=" padding-bottom: 10%; max-height: 5000px ; margin: 30px 10px 10px 10px  ">
+    <div class="card bg-light " style="padding: 3%; max-width: 800px; margin: auto;">
+        <article class="center" style="max-width: 800px; ">
+            <h2>รายการสินค้า</h2>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>รายการที่</th>
+                            <th>สินค้า</th>
+                            <th>จำนวน</th>
+                            <th>สี</th>
+                            <th>ราคา</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for obj in shop %}
+                        <tr>
+                            <td class="align-middle"><a>{{forloop.counter}}</a></td>
+                            <td class="align-middle">{{obj.shop_choices}}</td>
+                            <td class="align-middle">{{obj.quantity}}</td>
+                            <td class="align-middle">{{obj.color}}</td>
+                            <td class="align-middle">{% widthratio obj.quantity 1 obj.price %}</td>
+                            {% empty %}
+                            <td>ยังไม่เพิ่มรายการ</td>
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            {%if confirmed%}
+                <button type="button" class="btn btn-success btn-block "> ชำระเงินแล้ว {{total}} บาท </button>
+                <img src="{{ img.url}}" alt="connect" class="mx-auto d-block" style=" width: 100%; height: auto;">
+                <h2>&nbsp;</h2>
+                <h3 style="color: green;">รายการของท่านได้รับการยืนยันแล้ว กรุณารอสินค้า</h3>
+                <h3>เมื่อเราส่งสินค้าสำเร็จ จะส่งข้อความไปทางหมายเลขโทรศัพท์ของท่าน</h3>
+                <h3>THANK YOU</h3>
+            {%else%}
+                <button type="button" class="btn btn-warning btn-block "> ราคาที่ต้องชำระ {{total}} บาท </button>
+            {% if img %}
+                <h2>&nbsp;</h2>
+                <h3>กสิกร xxx-xxxx-xxxxx</h3>
+                <h3>นายทำ เสร็จแล้ว</h3>
+                <img src="{{ img.url}}" alt="connect" class="mx-auto d-block" style=" width: 100%; height: auto;"><h2>&nbsp;</h2>
+                <h5 >เราได้รับของมูลของท่านแล้ว กรุณารอการยืนยันจาก ADMIN</h5>
+                <h5>กรุณาเช็คการยืนยันในวันถัดไป</h5>
+            {%else%}
+                <h2>&nbsp;</h2>
+                <h3>กสิกร</h3>
+                <h3>xxx-xxxx-xxxxx</h3>
+            {%endif%}
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button type="submit" class="btn btn-info" name="upload">
+                    {% if not img_obj%}
+                    <i class="bi bi-upload"></i> อัพโหลดภาพ
+                    {%else%}
+                    <i class="bi bi-pencil-square"></i> บันทึกการเปลี่ยนแปลง
+                    {%endif%}
+                </button>
+            </form>
+            {%endif%}
+        </article>
+    </div>
+</div>
+{% endblock%}
