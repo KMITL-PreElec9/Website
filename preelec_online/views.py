@@ -16,6 +16,7 @@ from django.utils.decorators import method_decorator
 from preelec9_camp.decorators import *
 from .forms import *
 from preelec9_camp.models import Statement
+from preelec9_camp.views import CampStatementView
 from django.utils import timezone
 
 class CampIndexView(TemplateView):
@@ -164,6 +165,7 @@ class RegisterView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title_name'] = "ลงทะเบียน"
+        context['data']=self.request.user.eeuserprofile
         return context
     def post(self,*args, **kwargs):
         if 'regis' in self.request.POST.keys():
@@ -173,6 +175,10 @@ class RegisterView(TemplateView):
 
 class QrConfirmView(RegisterView):
     template_name = 'preelec_online/64/qrconfirm.html'
+    def dispatch(self, *args, **kwargs):
+        if hasattr(self.request.user, 'camp_online_64'):
+            return redirect('/camp/')
+        return super().dispatch(*args, **kwargs)
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title_name'] = "ลงทะเบียน"
@@ -199,9 +205,16 @@ class CheckRegisterView_64(ListView):
         queryset = self.model.objects.filter(confirmed=True).order_by('confirmed')
         return queryset
 class TimeTableView(TemplateView):
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(['64_student','63_student','62_student','61_student']))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
     template_name = "preelec_online/timetable.html"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         headers = Activity_Camp.get_date_headers()
         context["data"] = Activity_Camp.get_data_by_headers(headers)
         return context
+
+class CampStatementView_online(CampStatementView):
+    template_name = "preelec_online/6x/statement.html"

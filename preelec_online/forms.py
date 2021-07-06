@@ -81,3 +81,24 @@ class ShopCheckoutForm(forms.ModelForm):
             model.save()
         return model
 
+class StatementForm_63(forms.Form):
+    division_choices = [
+        ('Art', 'Art'),
+        ('Data', 'Data'),
+        ('Delivery', 'Delivery'),
+        ('Local', 'Local'),
+        ('Medic', 'Medic'),
+        ('PR', 'PR'),
+        ('Recreation', 'Recreation'),
+        ('Security', 'Security'),
+        ('Secretary', 'Secretary'),
+        ('Welfare', 'Welfare'),
+        ('Treasurer', 'Treasurer'),
+        ('Other', 'Other'),
+        ('All', 'All')
+    ]
+    division = forms.ChoiceField(
+        choices = division_choices, label = 'เลือกฝ่าย',
+        widget=Select(attrs={'type': 'text','class': 'form-control'}
+        ))
+

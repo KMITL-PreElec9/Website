@@ -42,10 +42,14 @@
           รอการยืนยัน
         </td>
         {% endif%}
-        % if obj.confirmed%}
+        {% if obj.confirmed%}
         <td><a href='../orderdetail/{{obj.pk}}/' class="btn btn-success" >ยืนยัน</a></td>
+        {%else%}
+        <td><a href='../orderdetail/{{obj.pk}}/' class="btn btn-danger" >รอยืนยัน</a></td>
+        {%endif%}
+
      {% empty %}
-        <li>ยังไม่มีรายการสั่งซื้อ</li>
+        <td>ยังไม่มีรายการสั่งซื้อ</td>
     {% endfor %}
       </tr>
     

@@ -1,0 +1,96 @@
+{{% extends 'base.html' %}
+{% load static%}
+{%block header%}
+{% include  'preelec9_camp/base_header.html' %}
+<style>
+  td{
+    text-align: center;
+  }
+  th{
+      text-align: center;
+  }
+  
+</style>
+{% endblock%}
+{% block content%}
+<div style="padding-top: 10%; padding-bottom: 10%; max-height: 5000px ; margin: 50px 10px 10px 10px  ">
+  <div class="card bg-light " style="padding: 3%; max-width: 1200px; margin: auto;" >
+      <article  class="center" style="max-width: 1200px; ">
+
+{% if form %}
+<form method='get' action = ''>
+   <p style="text-align: center; font-weight: bold; font-size: 20px;">กรุณาเลือกฝ่าย </p>
+    <div class="form-group input-group">
+		<div class="input-group-prepend">
+		    <span class="input-group-text"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+</svg> </span>
+		 </div>
+            {{ form.division}}
+    </div>
+  <input type="submit" class="btn btn-primary btn-sm btn-block" value="Submit">
+</form>
+{%else%}
+<a class="btn btn-outline-primary" href='.'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/>
+</svg> กลับ</a><br><br>
+{% endif %}
+{% for division in data%}
+  {% if division.1 %}
+  <h3>{{division.0}}</h3>
+  <div class="table-responsive">     
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">ลำดับ</th>
+        <th scope="col">วันที่ทำรายการ</th>
+        <th scope="col">รายการ</th>
+        <th scope="col">จำนวน</th>
+        <th scope="col">ราคา</th>
+        <th scope="col">รายรับ</th>
+        <th scope="col">รายจ่าย</th>
+        <th scope="col">หมายเหตุ</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for a in division.1%}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{a.transaction_date}}</td>
+        <td>{{a.name}}</td>
+        <td>{{a.quantity}}</td>
+        <td>{{a.price}}</td>
+        <td>{{a.income}}</td>
+        <td>{{a.expenditure}}</td>
+        <td>{{a.remarks}}</td>
+      </tr>
+    {% endfor %} 
+    </tbody>
+  </table>
+  </div>
+
+  {% endif %}
+{%endfor%}
+<div class="col-md-12 bg-light text-right">
+{%if total != None %}
+
+  {%if total > 0 %}
+    <button type="button" class="btn pull-right btn-success"> คงเหลือ {{total}} บาท </button>
+  {%endif%}
+
+  {%if total == 0 %}
+    <button type="button" class="btn pull-right btn-warning"> คงเหลือ {{total}} บาท </button>
+  {%endif%}
+
+  {%if total < 0 %}
+    <button type="button" class="btn pull-right btn-danger"> คงเหลือ {{total}} บาท </button>
+  {%endif%}
+
+{%endif%}
+</div>
+
+</article>
+</div>
+</div>
+{%endblock%}

@@ -44,6 +44,7 @@ class EEData(models.Model):
     student_id = models.IntegerField(null=True)
     self_telephone_num = models.CharField(max_length=10, null=True)
     email = models.EmailField(max_length=200, null=True)
+    email2 = models.EmailField(max_length=200, null=True)
     line_id = models.CharField(max_length=100, null=True)
     birth_date = models.DateField(null=True)
     nickname = models.CharField(max_length=30,null=True)

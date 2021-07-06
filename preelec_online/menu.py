@@ -18,7 +18,7 @@ def campmenu(View):
     elif group in ['63_student', 'admin','61_student','62_student','guest']:
         menu = [
                     ['สั่งซื้อสินค้า','6x/shop/','สั่งซื้อสินค้าที่ระลึก','baseball', 'blue'],
-                    ['ตรวจสอบตารางกิจกรรม','timetable/', 'ตรวจสอบตารางกิจกรรมและจุดนัดพบแบบ Real-Time','tachometer','red'],
+                    ['ตรวจสอบตารางกิจกรรม','timetable/', 'ตรวจสอบตารางกิจกรรม Real-Time','tachometer','red'],
                 ]
         try: 
             db = View.request.user.camp_online_6x
@@ -26,6 +26,7 @@ def campmenu(View):
                 menu = [
                         ['รายการสั่งซื้อ','6x/shop/','ตราวสอบรายการสั่งซื้อและหลักฐานการโอน','baseball', 'blue'],
                         ['ตรวจสอบตารางกิจกรรม','timetable/', 'ตรวจสอบตารางกิจกรรมและจุดนัดพบแบบ Real-Time','tachometer','red'],
+                        ['บัญชี','6x/statement/', 'ตรวจสอบบัญชี','tachometer','yellow'],
                         ]
         except Camp_online_6x.DoesNotExist: pass
 
