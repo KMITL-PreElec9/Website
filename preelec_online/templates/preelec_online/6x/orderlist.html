@@ -33,14 +33,17 @@
       <tr> 
         <td>{{forloop.counter}}</td>
         <td>{{ obj.user.eeuserprofile.gender}} {{ obj.user.eeuserprofile.name}} {{ obj.user.eeuserprofile.surname}}</td>
-        <td >
-            {% if obj.confirmed%}
+        {% if obj.confirmed%}
+        <td style="color: green; font-weight: 600; ">
             ยืนยันแล้ว
-            {% else%}
-            รอการยืนยัน
-            {% endif%}
         </td>
-        <td><a href='../orderdetail/{{obj.pk}}/'>ยืนยัน</a></td>
+        {% else%}
+        <td style="color: crimson; font-weight: 600; ">
+          รอการยืนยัน
+        </td>
+        {% endif%}
+        % if obj.confirmed%}
+        <td><a href='../orderdetail/{{obj.pk}}/' class="btn btn-success" >ยืนยัน</a></td>
      {% empty %}
         <li>ยังไม่มีรายการสั่งซื้อ</li>
     {% endfor %}

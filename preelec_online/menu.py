@@ -20,16 +20,16 @@ def campmenu(View):
                # ['ตรวจสอบตารางกิจกรรม','64/table/', 'ตรวจสอบตารางกิจกรรมและจุดนัดพบแบบ Real-Time','tachometer','orange'],
             ]
     #กรณีรุ่นเรา
-    elif group in ['63_student', 'admin']:
+    elif group in ['63_student', 'admin','61_student','62_student','gust']:
         menu = [
-                    ['สั่งซื้อสินค้า','6x/shop/','สมัครเข้าทำค่าย Pre-Elec 9','baseball', 'blue']
+                    ['สั่งซื้อสินค้า','6x/shop/','สมัครเข้าทำค่าย Pre-Elec 9','baseball', 'blue'],
                     
                 ]
         try: 
             db = View.request.user.camp_online_6x
             if db.completed is True:
                 menu = [
-                        ['รายการสั่งซื้อ','63/register/','ตราวสอบรายการสั่งซื้อและหลักฐานการโอน','baseball', 'blue'],
+                        ['รายการสั่งซื้อ','6x/shop/','ตราวสอบรายการสั่งซื้อและหลักฐานการโอน','baseball', 'blue'],
                         ]
         except Camp_online_6x.DoesNotExist: pass
 
@@ -40,4 +40,5 @@ def campmenu(View):
                 ]
     if View.request.user.is_staff:
         menu.append(['ยืนยันการสั่งซื้อ','6x/orderlist/','ยืนยันรายการสั่งซื้อ','baseball', 'blue'])
+        menu.append(['เช็คน้องรับของ','64/datalist/','ยืนยันรายการสั่งซื้อ','baseball', 'blue'])
     return menu

@@ -10,6 +10,7 @@ from rest_framework import status
 from django.views.generic import TemplateView, FormView
 from .models import *
 from .menu import campmenu
+from site_auth.models import EEUserProfile,EEData_63,EEData_64
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from preelec9_camp.decorators import *
@@ -76,10 +77,18 @@ class ShopCheckoutView(TemplateView):
         return super().dispatch(*args, **kwargs) 
     def get_context_data(self,*args, **kwargs):
         context = super(ShopCheckoutView, self).get_context_data(*args,**kwargs)
+        context['total'] = 0
+        if hasattr(self.request.user,'camp_online_6x'):
+            context['shop'] = Shop.objects.all().filter(camp_online_6x = self.request.user.camp_online_6x)
+            for obj in context['shop'].values():
+                context['total'] += obj['quantity']*obj['price']
+        context['title_name'] = 'สั่งซื้อสินค้า'
+        context['forms'] = [Powerbank_form(),Bag_form()]
         context['title_name'] = 'ยืนยันและชำระเงิน'
         db = Camp_online_6x.objects.get(user = self.request.user)
         context['confirmed'] = db.confirmed
         context['form'] = ShopCheckoutForm(instance= db)
+        context['img'] = db.check_shop
         return context
     def post(self, request, *args, **kwargs):
         db = Camp_online_6x.objects.get(user = self.request.user)
@@ -125,6 +134,11 @@ class OrderDetailView_6x(TemplateView):
         context['img'] = db.check_shop
         context['confirmed'] = db.confirmed
         context['shop_list'] = db.shop_set.all().values()
+        context['total'] = 0
+        if hasattr(self.request.user,'camp_online_6x'):
+            context['shop'] = Shop.objects.all().filter(camp_online_6x = self.request.user.camp_online_6x)
+            for obj in context['shop'].values():
+                context['total'] += obj['quantity']*obj['price']
         return context
     def post(self, *args, **kwargs):
         if 'confirm' in self.request.POST.keys():

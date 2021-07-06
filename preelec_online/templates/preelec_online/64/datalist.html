@@ -34,15 +34,18 @@
         <td>{{forloop.counter}}</td>
         <td>{{ obj.user.eeuserprofile.gender}} {{ obj.user.eeuserprofile.name}} {{ obj.user.eeuserprofile.surname}}</td>
         <td>{{ obj.user.eeuserprofile.address}}</td>
-        <td >
-            {% if obj.confirmed%}
+        {% if obj.confirmed%}
+        <td style="color: green; font-weight: 600;">
             ได้รับของแล้ว
-            {% else%}
-            ยังไม่ได้รับของ
-            {% endif%}
         </td>
+        {% else%}
+        <td style="color: crimson; font-weight: 600;">
+          ยังไม่ได้รับของ
+        </td>
+        {% endif%}
      {% empty %}
-        <li>ยังไม่มีรายการ</li>
+     <td>ยังไม่มีรายการ</td>
+        
     {% endfor %}
       </tr>
     
