@@ -16,6 +16,7 @@ from django.utils.decorators import method_decorator
 from preelec9_camp.decorators import *
 from .forms import *
 from preelec9_camp.models import Statement
+from preelec9_camp.views import CampStatementView
 from django.utils import timezone
 
 class CampIndexView(TemplateView):
@@ -206,3 +207,6 @@ class TimeTableView(TemplateView):
         headers = Activity_Camp.get_date_headers()
         context["data"] = Activity_Camp.get_data_by_headers(headers)
         return context
+
+class CampStatementView_online(CampStatementView):
+    template_name = "preelec_online/6x/statement.html"

@@ -18,7 +18,7 @@
             
 <h2 style="text-align: center;">ตารางเวลากิจกรรม</h2>
 {%for obj in data%}
-<h3>กิจกรรมวันที่ {{obj.0.activity_date}}</h3>
+<h4>กิจกรรมวันที่ {{obj.0.activity_date}}</h4>
 <div class="table-responsive">       
   <table class="table table-hover">
     <thead>
@@ -31,12 +31,11 @@
     </thead>
     <tbody>
     {% for activity in obj %}
-      <tr {%if activity.is_active%} style='background: aqua' {%endif%} > 
+      <tr {%if activity.is_active%} style='background:greenyellow' {%endif%} > 
         <td>{{activity.activity_beginning_time}} - {{activity.activity_end_time}}</td>
         <td>{{activity.activity_description}}</td>
         <td>{{activity.activity_caretaker}}</td>
-        <td > {{activity.activity_place}}
-        </td>
+        <td >{{activity.activity_place}}</td>
      {% empty %}
         <li>ยังไม่มีรายการ</li>
     {% endfor %}
