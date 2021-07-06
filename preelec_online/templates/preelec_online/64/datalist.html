@@ -16,7 +16,7 @@
     <div class="card bg-light " style="padding: 3%; max-width: 1200px; margin: auto;" >
         <article  class="center" style="max-width: 1200px; ">
             
-<h2 style="text-align: center;">รายการสั่งซื้อ</h2>
+<h2 style="text-align: center;">ข้อมูลน้องที่ลงทะเบียน</h2>
 
 <div class="table-responsive">       
   <table class="table table-hover">
@@ -24,28 +24,28 @@
       <tr>
         <th>ลำดับที่</th>
         <th>ชื่อ - นามสกุล</th>
+        <th>ที่อยู่</th>
         <th>สถานะ </th>
-        <th>การดำเนินการ</th>
       </tr>
     </thead>
     <tbody>
-    {% for obj in order %}
+    {% for obj in data %}
       <tr> 
         <td>{{forloop.counter}}</td>
         <td>{{ obj.user.eeuserprofile.gender}} {{ obj.user.eeuserprofile.name}} {{ obj.user.eeuserprofile.surname}}</td>
+        <td>{{ obj.user.eeuserprofile.address}}</td>
         {% if obj.confirmed%}
-        <td style="color: green; font-weight: 600; ">
-            ยืนยันแล้ว
+        <td style="color: green; font-weight: 600;">
+            ได้รับของแล้ว
         </td>
         {% else%}
-        <td style="color: crimson; font-weight: 600; ">
-          รอการยืนยัน
+        <td style="color: crimson; font-weight: 600;">
+          ยังไม่ได้รับของ
         </td>
         {% endif%}
-        % if obj.confirmed%}
-        <td><a href='../orderdetail/{{obj.pk}}/' class="btn btn-success" >ยืนยัน</a></td>
      {% empty %}
-        <li>ยังไม่มีรายการสั่งซื้อ</li>
+     <td>ยังไม่มีรายการ</td>
+        
     {% endfor %}
       </tr>
     

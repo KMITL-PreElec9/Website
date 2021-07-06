@@ -40,4 +40,5 @@ def campmenu(View):
                 ]
     if View.request.user.is_staff:
         menu.append(['ยืนยันการสั่งซื้อ','6x/orderlist/','ยืนยันรายการสั่งซื้อ','baseball', 'blue'])
+        menu.append(['เช็คน้องรับของ','64/datalist/','ยืนยันรายการสั่งซื้อ','baseball', 'blue'])
     return menu

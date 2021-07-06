@@ -1,3 +1,4 @@
+from preelec9_camp.views import RegisterView_64
 from django.db.models import query
 from django.shortcuts import render
 from django.views.generic.detail import DetailView
@@ -133,9 +134,14 @@ class OrderDetailView_6x(TemplateView):
         context['img'] = db.check_shop
         context['confirmed'] = db.confirmed
         context['shop_list'] = db.shop_set.all().values()
+        context['total'] = 0
+        if hasattr(self.request.user,'camp_online_6x'):
+            context['shop'] = Shop.objects.all().filter(camp_online_6x = self.request.user.camp_online_6x)
+            for obj in context['shop'].values():
+                context['total'] += obj['quantity']*obj['price']
         return context
     def post(self, *args, **kwargs):
-        if 'confirm' in self.request.POST:
+        if 'confirm' in self.request.POST.keys():
             db = Camp_online_6x.objects.get(pk = kwargs['pk'])
             p = db.user.eeuserprofile
             display_name = 'ค่าสินค้าของ {} {} {}'.format(p.gender, p.name, p.surname)
@@ -148,3 +154,47 @@ class OrderDetailView_6x(TemplateView):
                 )
             statement.save()
         return HttpResponseRedirect(self.request.path_info)
+
+class RegisterView(TemplateView):
+    template_name = 'preelec_online/64/regis.html'
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(['64_student']))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs) 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title_name'] = "ลงทะเบียน"
+        return context
+    def post(self,*args, **kwargs):
+        if 'regis' in self.request.POST.keys():
+            db = Camp_online_64(user = self.request.user)
+            db.save()
+        return redirect('/camp/')
+
+class QrConfirmView(RegisterView):
+    template_name = 'preelec_online/64/qrconfirm.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title_name'] = "ลงทะเบียน"
+        return context
+    def post(self,*args, **kwargs):
+        if 'regis' in self.request.POST.keys():
+            db = self.request.user.camp_online_64
+            db.confirmed = True
+            db.save()
+        return redirect('/camp/')
+class CheckRegisterView_64(ListView):
+    model = Camp_online_64
+    template_name = "preelec_online/64/datalist.html"
+    context_object_name = 'data'
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_staff:
+            return redirect('/camp/')
+        return super().dispatch(*args, **kwargs) 
+    def get_context_data(self,*args, **kwargs):
+        context = super().get_context_data(*args,**kwargs)
+        context['title_name'] = 'น้องที่ลงทะเบียน'
+        return context
+    def get_queryset(self):
+        queryset = self.model.objects.filter(confirmed=True).order_by('confirmed')
+        return queryset
