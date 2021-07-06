@@ -64,11 +64,11 @@
                 </table>
                 <div class="col-md-12 bg-light text-right">
                         <button type="button" class="btn pull-right btn-warning"> ยอดรวม {{total}} บาท </button>
-                </div>
+                </div><br>
                 {% if not confirmed%}
                 <form method='post' action =''>
                 {% csrf_token %}
-                <input type='submit' name ='confirm' class="btn btn-warning btn-block " value='ยืนยัน'>
+                <input type='submit' name ='confirm' class="btn btn-success btn-block " value='ยืนยัน'>
                 </form>
                 {% endif %}
         </article>

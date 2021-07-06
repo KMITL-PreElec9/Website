@@ -164,6 +164,7 @@ class RegisterView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title_name'] = "ลงทะเบียน"
+        context['data']=self.request.user.eeuserprofile
         return context
     def post(self,*args, **kwargs):
         if 'regis' in self.request.POST.keys():
