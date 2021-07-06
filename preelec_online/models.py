@@ -1,6 +1,8 @@
+from datetime import tzinfo
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.fields import IntegerField
+from django.utils import timezone
+from datetime import datetime
 # Create your models here.
 class Camp_online_6x(models.Model):
     class Meta:
@@ -58,3 +60,27 @@ class Activity_Camp(models.Model):
     activity_place = models.CharField(max_length=100, null=True)
     def __str__(self):
         return str(self.activity_name)
+    def get_date_headers():
+        db = Activity_Camp.objects.all().values().order_by('activity_date')
+        headers = []
+        for element in db:
+            if not element['activity_date'] in headers:
+                headers.append(element['activity_date'])
+        return headers
+    def get_data_by_headers(headers):
+        db = Activity_Camp.objects.all().values()
+        data = []
+        for header in headers:
+            data_dict = db.filter(activity_date = header).order_by('activity_beginning_time')
+            for element in data_dict:
+                element['is_active'] = False
+                date = datetime.now().date()
+                time = datetime.now().time()
+                starttime = element['activity_beginning_time']
+                endtime = element['activity_end_time']
+                if element['activity_date'] == date :
+                    if starttime < time  <endtime:
+                        element['is_active'] = True
+            data.append(data_dict)
+        return data
+

@@ -199,3 +199,10 @@ class CheckRegisterView_64(ListView):
     def get_queryset(self):
         queryset = self.model.objects.filter(confirmed=True).order_by('confirmed')
         return queryset
+class TimeTableView(TemplateView):
+    template_name = "preelec_online/timetable.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        headers = Activity_Camp.get_date_headers()
+        context["data"] = Activity_Camp.get_data_by_headers(headers)
+        return context
