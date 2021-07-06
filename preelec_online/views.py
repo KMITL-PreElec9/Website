@@ -201,6 +201,10 @@ class CheckRegisterView_64(ListView):
         queryset = self.model.objects.filter(confirmed=True).order_by('confirmed')
         return queryset
 class TimeTableView(TemplateView):
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(['64_student','63_student','62_student','61_student']))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
     template_name = "preelec_online/timetable.html"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
