@@ -19,7 +19,7 @@ for j in range(0,len(data)):
         name = data[fields[0]][j],surname = data[fields[1]][j],
         student_id = data[fields[2]][j],
         line_id = data[fields[4]][j], birth_date = cvtime(data[fields[5]][j]),
-        nickname = data[fields[6]][j],email = data[fields[7]][j],email2 = data[fields[7]][j])
+        nickname = data[fields[6]][j],email = data[fields[7]][j],email2 = data[fields[8]][j])
     if  not pd.isna(data[fields[3]][j]):
         db.self_telephone_num ='0'+str(int(data[fields[3]][j]))
     else: db.self_telephone_num = None
