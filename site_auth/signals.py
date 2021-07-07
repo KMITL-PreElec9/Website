@@ -20,6 +20,10 @@ def filled_userprofile(sender, instance, created, **kwargs):
                     data = db[i].objects.get(email = user_email['email'])
                     g = Group.objects.get(name = user_group[i])
             except: pass
+            try: 
+                    data = db[i].objects.get(email2 = user_email['email'])
+                    g = Group.objects.get(name = user_group[i])
+            except: pass
     g.user_set.add(instance.user)
 
 @receiver(user_signed_up)
@@ -27,7 +31,12 @@ def user_signed_up_signal_handler(request, user, **kwargs):
     user_email = user.email
     for i in range(len(db)):
         try: 
-            data = db[i].objects.get(email = user_email)
+            try:
+                data = db[i].objects.get(email = user_email)
+            except: pass
+            try:
+                data = db[i].objects.get(email2 = user_email)
+            except: pass
             data.used = True
             data.save()
             profile = EEUserProfile(
@@ -37,6 +46,9 @@ def user_signed_up_signal_handler(request, user, **kwargs):
                 line_id = data.line_id, birth_date = data.birth_date, 
                 nickname = data.nickname
             )
+            
+            profile.eng_name = str(user.frst_name).title()
+            profile.eng_surname = str(user.last_name).title()
             profile.user = user
             profile.save(force_insert=True)
         except: pass

@@ -41,6 +41,7 @@ ul li{
   <h3>ข้อมูลทั่วไป</h3>
     <li>คำนำหน้า : {{data.gender}}</li>
     <li>ชื่อ-นามสกุล : {{data.name}} {{data.surname}}</li>
+    <li>ชื่อ-นามสกุล (ภาษาอังกฤษ) : {{data.eng_name}} {{data.eng_surname}}</li>
     <li>ชื่อเล่น : {{data.nickname}}</li>
     <li>รหัสนักศึกษา : {{data.student_id}}</li>
     <li>วันเดือนปีเกิด : {{data.birth_date}}</li>
@@ -84,7 +85,19 @@ ul li{
             {{ form.surname.errors }}
               {{ form.surname }}
       </div>
+      <div class="form-group input-group">
+        <span class="input-group-text" style="background-color: transparent;border: none;"> 
+          <label for="id_eng_name" style="margin: auto; ">ชื่อ (ภาษาอังกฤษ) :</label> </span>
+                  {{ form.eng_name.errors }}
+                  {{ form.eng_name }}
+      </div>
   
+      <div class="form-group input-group">
+          <span class="input-group-text" style="background-color: transparent;border: none;"> 
+            <label for="id_eng_surname" style="margin: auto; ">นามสกุล (ภาษาอังกฤษ) :</label> </span>
+            {{ form.eng_surname.errors }}
+              {{ form.eng_surname }}
+      </div>
       <div class="form-group input-group">
           <span class="input-group-text" style="background-color: transparent;border: none;"> 
             <label for="id_surname" style="margin: auto; ">ชื่อเล่น :</label> </span>
@@ -161,7 +174,7 @@ ul li{
             {{ form.congenital_disease.errors }}
             {{ form.congenital_disease }}
       </div> 
-
+      {% if message %}<p>{{message}}</p> {%endif%}
       <button class="btn btn-success btn-block" type="submit" >บันทึกข้อมูล</button>
 </form>
 </div>

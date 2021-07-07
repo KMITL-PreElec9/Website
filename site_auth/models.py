@@ -20,6 +20,8 @@ class EEUserProfile(models.Model):
     gender = models.CharField(choices=gender_choices, max_length=6, null=True)
     name = models.CharField(max_length=100,null=True)
     surname = models.CharField(max_length=100,null=True)
+    eng_name = models.CharField(max_length=100,null=True)
+    eng_surname = models.CharField(max_length=100,null=True)
     nickname = models.CharField(max_length=30,null=True)
     student_id = models.IntegerField(null=True)
     birth_date = models.DateField(null=True)
@@ -35,6 +37,13 @@ class EEUserProfile(models.Model):
     completed = models.BooleanField(default= False)
     def __str__(self):
         return '{} {}'.format(self.name , self.surname)
+    def updatename():
+        db = EEUserProfile.objects.all()
+        for obj in db:
+            obj.eng_name = str(obj.user.first_name).title()
+            obj.eng_surname = str(obj.user.last_name).title()
+            obj.save()
+        return True
 
 class EEData(models.Model):
     class Meta:
