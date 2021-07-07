@@ -11,7 +11,10 @@ def campmenu(View):
             ]
         try:
             db = View.request.user.camp_online_64
-            menu.pop(0)
+            menu = [
+                        ['สมัครค่ายเรียบร้อย','.','สมัครค่ายเรียบร้อย','check', 'blue'],
+                        ['ตรวจสอบตารางกิจกรรม','timetable/', 'ตรวจสอบตารางกิจกรรม Real-Time','tachometer','red'],
+                    ]
         except Camp_online_64.DoesNotExist:
             pass            
     #กรณีรุ่นเรา
@@ -32,10 +35,10 @@ def campmenu(View):
         except Camp_online_6x.DoesNotExist: pass
         if group == 'guest':
             menu.pop(2)
-
     else :
         menu = [
                     ['ตรวจสอบตารางกิจกรรม','timetable/', 'ตรวจสอบตารางกิจกรรมและจุดนัดพบแบบ Real-Time','tachometer','red'],
+                    
 
                 ]
     if View.request.user.is_staff:

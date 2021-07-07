@@ -20,7 +20,7 @@
   <h1>PreElec Online</h1><br>
   <p>ยินดีต้อนรับน้อง <p1>{{data.nickname}}</p1> สู่ค่าย PreElec Online</p>
   
-  <h5>กดปุ่มเมื่อได้รับของแล้ว</h5>
+  <p>กดปุ่มเมื่อได้รับของแล้ว Welcome Box</p>
   <form method='post' action =''>
     {% csrf_token %}
         <input type='submit' name ='regis' class="btn btn-primary btn-block " value='ได้รับของแล้ว'>
@@ -28,4 +28,5 @@
   </article>
   </div>
   </div>
+  <div style="height: 200px;"></div>
 {% endblock %}

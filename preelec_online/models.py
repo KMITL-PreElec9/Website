@@ -76,6 +76,7 @@ class Activity_Camp(models.Model):
             data_dict = db.filter(activity_date = header).order_by('activity_beginning_time')
             for element in data_dict:
                 element['is_active'] = False
+                element['is_past'] = False
                 date = datetime.now().date()
                 time = datetime.now().time()
                 starttime = element['activity_beginning_time']
@@ -83,6 +84,8 @@ class Activity_Camp(models.Model):
                 if element['activity_date'] == date :
                     if starttime < time  <endtime:
                         element['is_active'] = True
+                if element['activity_date'] <= date and endtime < time :
+                    element['is_past'] = True
             data.append(data_dict)
         return data
 

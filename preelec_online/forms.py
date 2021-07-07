@@ -16,7 +16,7 @@ class Shop_form(forms.Form):
 
 class Powerbank_form(forms.ModelForm):
     class Meta:
-        img_url = 'https://s.isanook.com/ca/0/ui/279/1396205/download20190701165129_1562561119.jpg'
+        img_url = "assets/img/power_bank.png"
         display_name = 'Powerbank'
         form_name = 'powerbank'
         price = 385
@@ -41,14 +41,14 @@ class Powerbank_form(forms.ModelForm):
     def save(self, user, *args, **kwargs):
         model = super().save(commit= False)
         model.shop_choices = 'powerbank'
-        model.price = 385
+        model.price = 389
         model.save(user = user)
         return model
 
 
 class Bag_form(forms.ModelForm):
     class Meta:
-        img_url = 'http://i1.wp.com/poshmagazinethailand.com/wp-content/uploads/2017/08/The-Ten_Air-Jordan-I-x-Virgil-Abloh.jpg?fit=1800%2C2240'
+        img_url = "assets/img/bag.png"
         display_name = 'ถุงผ้า'
         form_name = 'bag'
         price = 139

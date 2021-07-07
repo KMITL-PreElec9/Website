@@ -18,12 +18,7 @@
     <div class="card bg-light" style="padding: 3%; max-width: 800px; margin: auto;" >
         <article  class="center" style="max-width: 800px; ">
   <h1>PreElec Online</h1><br>
-  <p>ยินดีต้อนรับน้อง <p1>{{data.nickname}}</p1> สู่ค่าย PreElec Online</p>
-  
-  <h3>ข้อตกลงและเงื่อนไขในการเข้าค่าย</h3>
-  <h6>&nbsp;&nbsp;&nbsp;1....</h6>
-  <h6>&nbsp;&nbsp;&nbsp;2....</h6><br>
-  
+  <p>ยินดีต้อนรับน้อง <p1>{{data.nickname}}</p1> สู่ค่าย PreElec Online</p> 
   <form method='post' action =''>
     {% csrf_token %}
         <input type='submit' name ='regis' class="btn btn-primary btn-block " value='สมัครค่าย'>
@@ -31,5 +26,5 @@
   </article>
   </div>
   </div>
-  <div style="height: 100px;"></div>
+  <div style="height: 300px;"></div>
 {% endblock %}

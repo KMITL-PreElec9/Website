@@ -182,7 +182,7 @@ class RegisterView(TemplateView):
 class QrConfirmView(RegisterView):
     template_name = 'preelec_online/64/qrconfirm.html'
     def dispatch(self, *args, **kwargs):
-        if hasattr(self.request.user, 'camp_online_64'):
+        if not hasattr(self.request.user, 'camp_online_64'):
             return redirect('/camp/')
         return super().dispatch(*args, **kwargs)
     def get_context_data(self, **kwargs):
@@ -228,6 +228,7 @@ class TimeTableView(TemplateView):
         context = super().get_context_data(**kwargs)
         headers = Activity_Camp.get_date_headers()
         context["data"] = Activity_Camp.get_data_by_headers(headers)
+        context['title_name'] = 'ตารางกิจกรรม'
         return context
 
 class CampStatementView_online(CampStatementView):
