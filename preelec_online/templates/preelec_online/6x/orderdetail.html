@@ -68,9 +68,17 @@
                 {% if not confirmed%}
                 <form method='post' action =''>
                 {% csrf_token %}
-                <input type='submit' name ='confirm' class="btn btn-success btn-block " value='ยืนยัน'>
+                <input type='submit' name ='confirm' class="btn btn-success btn-block " value='ยืนยันบัญชี'>
+                </form>
+                {%else%}
+                {% if not sent%}
+                <form method='post' action =''>
+                {% csrf_token %}
+                <input type='submit' name ='sent' class="btn btn-info btn-block " value='ยืนยันการส่งของ'>
                 </form>
                 {% endif %}
+                {% endif %}
+                
         </article>
     </div>
 </div>

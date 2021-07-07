@@ -24,8 +24,9 @@
       <tr>
         <th>ลำดับที่</th>
         <th>ชื่อ - นามสกุล</th>
-        <th>สถานะ </th>
-        <th>การดำเนินการ</th>
+        <th>บัญชี</th>
+        <th>การจัดส่ง</th>
+        <th>สถานะ</th>
       </tr>
     </thead>
     <tbody>
@@ -42,10 +43,24 @@
           รอการยืนยัน
         </td>
         {% endif%}
-        {% if obj.confirmed%}
-        <td><a href='../orderdetail/{{obj.pk}}/' class="btn btn-success" >ยืนยัน</a></td>
+
+        {% if obj.sent%}
+        <td style="color: green; font-weight: 600; ">
+            ส่งแล้ว
+        </td>
+        {% else%}
+        <td style="color: crimson; font-weight: 600; ">
+            ยังไม่ส่ง
+        </td>
+        {% endif%}
+
+
+        {% if obj.confirmed and obj.sent %}
+        <td><a href='../orderdetail/{{obj.pk}}/' class="btn btn-success" >เคลียร์&nbsp;</a></td>
+        {%elif obj.confirmed and not obj.sent%}
+        <td><a href='../orderdetail/{{obj.pk}}/' class="btn btn-warning" >&nbsp;รอส่ง&nbsp;&nbsp;</a></td>
         {%else%}
-        <td><a href='../orderdetail/{{obj.pk}}/' class="btn btn-danger" >รอยืนยัน</a></td>
+        <td><a href='../orderdetail/{{obj.pk}}/' class="btn btn-danger" >รอบัญชี</a></td>
         {%endif%}
 
      {% empty %}

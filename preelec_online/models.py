@@ -13,6 +13,7 @@ class Camp_online_6x(models.Model):
     check_shop = models.ImageField('หลักฐานการโอน',upload_to='images/preelec_online/shop',null=True)    
     completed = models.BooleanField(default=False)
     confirmed = models.BooleanField(default=False)
+    sent = models.BooleanField(default=False)
     def __str__(self):
         return str(self.user)
 

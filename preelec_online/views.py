@@ -118,7 +118,7 @@ class OrderListView_6x(ListView):
         context['title_name'] = 'รายการสั่งซื้อ'
         return context
     def get_queryset(self):
-        queryset = self.model.objects.filter(completed=True).order_by('confirmed')
+        queryset = self.model.objects.filter(completed=True).order_by('confirmed','sent')
         return queryset
 
 class OrderDetailView_6x(TemplateView):
@@ -134,6 +134,7 @@ class OrderDetailView_6x(TemplateView):
         context['data'] = db.user.eeuserprofile
         context['img'] = db.check_shop
         context['confirmed'] = db.confirmed
+        context['sent'] = db.sent
         context['shop_list'] = db.shop_set.all().values()
         context['total'] = 0
         if hasattr(self.request.user,'camp_online_6x'):
@@ -154,7 +155,12 @@ class OrderDetailView_6x(TemplateView):
                 quantity = 1, remarks='เพิ่มโดยระบบ (อัตโนมัติ)'
                 )
             statement.save()
-        return HttpResponseRedirect(self.request.path_info)
+        if 'sent' in self.request.POST.keys():
+            db = Camp_online_6x.objects.get(pk = kwargs['pk'])
+            db.sent = True
+            db.save()
+        return redirect('/camp/6x/orderlist/')
+        
 
 class RegisterView(TemplateView):
     template_name = 'preelec_online/64/regis.html'
@@ -189,6 +195,7 @@ class QrConfirmView(RegisterView):
             db.confirmed = True
             db.save()
         return redirect('/camp/')
+
 class CheckRegisterView_64(ListView):
     model = Camp_online_64
     template_name = "preelec_online/64/datalist.html"
