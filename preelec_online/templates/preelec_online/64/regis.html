@@ -18,10 +18,14 @@
     <div class="card bg-light" style="padding: 3%; max-width: 800px; margin: auto;" >
         <article  class="center" style="max-width: 800px; ">
   <h1>PreElec Online</h1><br>
-  <p>ยินดีต้อนรับน้อง <p1>{{data.nickname}}</p1> สู่ค่าย PreElec Online</p> 
+  <h6>ยินดีต้อนรับน้อง {{data.nickname}} สู่ค่าย PreElec Online </h6>
+  <p>ข้อตกลงและเงื่อนไขในการเข้าค่าย</p>
+    <p>&nbsp;&nbsp;&nbsp;1. เชื่อฟังคำชี้แนะ คำชี้แจงของรุ่นพี่ และ อาจารย์</p>
+    <p>&nbsp;&nbsp;&nbsp;2. ไม่แสดงพฤติกรรมต่อต้าน และ ก้าวร้าวขณะร่วมกิจกรรม</p>
+    <p>&nbsp;&nbsp;&nbsp;3. มีมารยาท และ ให้เกียรติทุกๆคน</p><br>
   <form method='post' action =''>
     {% csrf_token %}
-        <input type='submit' name ='regis' class="btn btn-primary btn-block " value='สมัครค่าย'>
+        <input type='submit' name ='regis' class="btn btn-primary btn-block " value='ยอมรับข้อตกลงและสมัครค่าย'>
     </form>
   </article>
   </div>
