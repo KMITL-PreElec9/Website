@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 from django.db.models.signals import post_save
 from django.contrib.auth.models import Group,User
 
-db = [EEData_63, EEData_64]
+db = [EEData_63, EEData_64, EEData_61, EEData_62]
 
 @receiver(post_save, sender = EEUserProfile)
 def filled_userprofile(sender, instance, created, **kwargs):
@@ -37,8 +37,7 @@ def user_signed_up_signal_handler(request, user, **kwargs):
             try:
                 data = db[i].objects.get(email2 = user_email)
             except: pass
-            data.used = True
-            data.save()
+            
             profile = EEUserProfile(
                 name = data.name, surname = data.surname,
                 student_id = data.student_id, 
@@ -47,7 +46,7 @@ def user_signed_up_signal_handler(request, user, **kwargs):
                 nickname = data.nickname
             )
             
-            profile.eng_name = str(user.frst_name).title()
+            profile.eng_name = str(user.first_name).title()
             profile.eng_surname = str(user.last_name).title()
             profile.user = user
             profile.save(force_insert=True)

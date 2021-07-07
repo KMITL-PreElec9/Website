@@ -1,5 +1,6 @@
 from django.db.models.query import InstanceCheckMeta
 from django.http import request
+from django.http.response import HttpResponseRedirect
 from django.views.generic import View
 from django.views.generic.edit import FormView
 from django.shortcuts import redirect
@@ -50,6 +51,13 @@ class UserProfileView(FormView):
             db.save()
         self.initial = EEUserProfile.objects.filter(user = request.user).values()[0]
         return super().get(request,*args, **kwargs)
+    '''
+    def post(self,*args, **kwargs):
+        form = ProfileForm(self.request.POST)
+        print(form.is_valid())
+        print(self.request.POST)
+        return HttpResponseRedirect(self.request.path_info)
+    '''
     def form_valid(self, form):
         model = form.save(commit = False)
         model.user = self.request.user
