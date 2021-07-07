@@ -1,4 +1,5 @@
 from django.db.models.query import InstanceCheckMeta
+from django.http import request
 from django.views.generic import View
 from django.views.generic.edit import FormView
 from django.shortcuts import redirect
@@ -35,6 +36,11 @@ class UserProfileView(FormView):
             context['completed'] = not bool(int(self.request.GET['edit']))
         else:
             context['completed'] = data.completed
+        if 'message' in self.request.GET.keys():
+            message = {
+                'shop' : 'โปรดกดบันทึกข้อมูลเพื่อทำการชำระเงิน'
+            }
+            context['message'] = message[str(self.request.GET['message'])]
         return context
     def get(self, request, *args, **kwargs):
         try: 

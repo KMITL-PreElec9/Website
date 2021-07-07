@@ -169,7 +169,7 @@ ul li{
             {{ form.congenital_disease.errors }}
             {{ form.congenital_disease }}
       </div> 
-
+      {% if message %}<p>{{message}}</p> {%endif%}
       <button class="btn btn-success btn-block" type="submit" >บันทึกข้อมูล</button>
 </form>
 </div>
