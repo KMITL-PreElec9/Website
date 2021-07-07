@@ -19,7 +19,7 @@ class Powerbank_form(forms.ModelForm):
         img_url = "assets/img/power_bank.png"
         display_name = 'Powerbank'
         form_name = 'powerbank'
-        price = 385
+        price = 389
         model = Shop
         fields=['quantity','color']
         powerbank_choices = [
