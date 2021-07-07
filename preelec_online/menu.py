@@ -30,6 +30,8 @@ def campmenu(View):
                         ['บัญชี','6x/statement/', 'ตรวจสอบบัญชี','tachometer','yellow'],
                     ]
         except Camp_online_6x.DoesNotExist: pass
+        if group == 'guest':
+            menu.pop(2)
 
     else :
         menu = [

@@ -39,7 +39,7 @@ class UserProfileView(FormView):
             context['completed'] = data.completed
         if 'message' in self.request.GET.keys():
             message = {
-                'shop' : 'โปรดกดบันทึกข้อมูลเพื่อทำการชำระเงิน'
+                'shop' : 'โปรดกดบันทึกข้อมูลเพื่อทำการชำระเงินต่อไป'
             }
             context['message'] = message[str(self.request.GET['message'])]
         return context
