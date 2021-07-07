@@ -23,6 +23,7 @@ class Camp_online_64(models.Model):
         verbose_name_plural = "Camp_online_64"
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     confirmed = models.BooleanField(default=False)
+    sent = models.BooleanField(default=False)
     def __str__(self):
         return str(self.user)
     

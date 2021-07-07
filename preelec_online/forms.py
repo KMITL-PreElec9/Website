@@ -19,6 +19,7 @@ class Powerbank_form(forms.ModelForm):
         img_url = 'https://s.isanook.com/ca/0/ui/279/1396205/download20190701165129_1562561119.jpg'
         display_name = 'Powerbank'
         form_name = 'powerbank'
+        price = 385
         model = Shop
         fields=['quantity','color']
         powerbank_choices = [
@@ -50,6 +51,7 @@ class Bag_form(forms.ModelForm):
         img_url = 'http://i1.wp.com/poshmagazinethailand.com/wp-content/uploads/2017/08/The-Ten_Air-Jordan-I-x-Virgil-Abloh.jpg?fit=1800%2C2240'
         display_name = 'ถุงผ้า'
         form_name = 'bag'
+        price = 139
         model = Shop
         fields = ['quantity']
         quantity_choices = [

@@ -82,7 +82,7 @@
                     <i class="bx bx-file"></i>
                   </div>
                   <h4>{{form.Meta.display_name}}</h4>
-                  <p>สั่งซื้อ {{form.Meta.display_name}} ที่นี่</p>
+                  <p>ราคา {{form.Meta.price}} บาท</p>
                 </div>
               </div>
             
@@ -96,7 +96,6 @@
                         <button type='submit' name='{{form.Meta.form_name}}' class="btn btn-primary btn-block">เพิ่มรายการ</button>                
                     </form>
                 </div>
-
             </div>
             <script>
             var modal{{forloop.counter}} = document.getElementById("form{{forloop.counter}}Modal");
@@ -163,5 +162,5 @@
         </div>
         </div>
         </section>
-        
+
 {% endblock %}

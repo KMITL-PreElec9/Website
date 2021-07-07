@@ -25,15 +25,17 @@
         <th>ลำดับที่</th>
         <th>ชื่อ - นามสกุล</th>
         <th>ที่อยู่</th>
-        <th>สถานะ </th>
+        <th>การรับของ</th>
+        <th>การส่งของ</th>
       </tr>
     </thead>
     <tbody>
     {% for obj in data %}
       <tr> 
         <td>{{forloop.counter}}</td>
-        <td>{{ obj.user.eeuserprofile.gender}} {{ obj.user.eeuserprofile.name}} {{ obj.user.eeuserprofile.surname}}</td>
-        <td>{{ obj.user.eeuserprofile.address}}</td>
+        <td>{{ obj.user.eeuserprofile.gender}} {{ obj.user.eeuserprofile.name}} {{ obj.user.eeuserprofile.surname}} <br>
+            {{ obj.user.eeuserprofile.eng_name}} {{ obj.user.eeuserprofile.eng_surname}}</td>
+        <td style="max-width: 300px;">{{ obj.user.eeuserprofile.address}} โทร {{ obj.user.eeuserprofile.self_telephone_num}}</td>
         {% if obj.confirmed%}
         <td style="color: green; font-weight: 600;">
             ได้รับของแล้ว
@@ -43,6 +45,18 @@
           ยังไม่ได้รับของ
         </td>
         {% endif%}
+        <td>
+          {% if not obj.sent%}
+                <form method='post' action =''>
+                {% csrf_token %}
+                <input type="hidden" name = 'pk' value="{{obj.pk}}">
+                <input type='submit' name ='sent' class="btn btn-danger btn-block " value='ยังไม่ส่ง'>
+                </form>
+        {%else%}
+              <input type='submit'  class="btn btn-success btn-block " value='ส่งแล้ว'>
+        {% endif %}
+        </td>
+        
      {% empty %}
      <td>ยังไม่มีรายการ</td>
         

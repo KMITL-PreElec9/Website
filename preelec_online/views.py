@@ -150,7 +150,7 @@ class OrderDetailView_6x(TemplateView):
             db.confirmed = True
             db.save()
             statement = Statement(
-                division = 'Art', mode = 'รายรับ', item_name = display_name,
+                division = 'Other', mode = 'รายรับ', item_name = display_name,
                 transaction_date = timezone.now(), price = db.price,
                 quantity = 1, remarks='เพิ่มโดยระบบ (อัตโนมัติ)'
                 )
@@ -209,11 +209,18 @@ class CheckRegisterView_64(ListView):
         context['title_name'] = 'น้องที่ลงทะเบียน'
         return context
     def get_queryset(self):
-        queryset = self.model.objects.filter(confirmed=True).order_by('confirmed')
+        queryset = self.model.objects.all().order_by('confirmed')
         return queryset
+    def post(self, *args, **kwargs):
+        if 'sent' in self.request.POST.keys():
+            db = Camp_online_64.objects.get(pk = self.request.POST['pk'])
+            db.sent = True
+            db.save()
+        return HttpResponseRedirect(self.request.path_info)
+
 class TimeTableView(TemplateView):
     @method_decorator(login_required)
-    @method_decorator(allowed_users(['64_student','63_student','62_student','61_student']))
+    @method_decorator(allowed_users(['64_student','63_student','62_student','61_student','gust']))
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
     template_name = "preelec_online/timetable.html"
