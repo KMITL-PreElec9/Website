@@ -89,7 +89,7 @@
             <div id="form{{forloop.counter}}Modal" class="modal">
                 <div class="modal-content">
                     <span class="close" style="margin-left: 99%;">&times;</span>
-                    <img  src='{{ form.Meta.img_url }}' alt="error" style="max-height: 200px; max-width: 200px; margin: auto;">
+                    <img  src='/static/{{ form.Meta.img_url }}' alt="error" style="max-height: 250px; max-width: 250px; margin: auto;">
                     <form method="post" action=''>
                         {% csrf_token %}
                         {{form.as_p}}
