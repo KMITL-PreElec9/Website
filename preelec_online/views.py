@@ -220,7 +220,7 @@ class CheckRegisterView_64(ListView):
 
 class TimeTableView(TemplateView):
     @method_decorator(login_required)
-    @method_decorator(allowed_users(['64_student','63_student','62_student','61_student','gust']))
+    @method_decorator(allowed_users(['64_student','63_student','62_student','61_student','guest']))
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
     template_name = "preelec_online/timetable.html"
@@ -231,4 +231,8 @@ class TimeTableView(TemplateView):
         return context
 
 class CampStatementView_online(CampStatementView):
+    @method_decorator(login_required)
+    @method_decorator(allowed_users(['64_student','63_student','62_student','61_student','guest']))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
     template_name = "preelec_online/6x/statement.html"

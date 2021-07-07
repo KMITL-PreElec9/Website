@@ -67,8 +67,8 @@ class UserProfileView(FormView):
     def get_success_url(self, **kwargs) -> str:
         if 'next' in self.request.GET.keys():
             url = self.request.GET['next']
-        else: 
-            url = '/accounts/userprofile/'
+        else:
+            url = '/'
         return url
 
         
