@@ -34,7 +34,9 @@
       <tr> 
         <td>{{forloop.counter}}</td>
         <td>{{ obj.user.eeuserprofile.gender}} {{ obj.user.eeuserprofile.name}} {{ obj.user.eeuserprofile.surname}} <br>
-            {{ obj.user.eeuserprofile.eng_name}} {{ obj.user.eeuserprofile.eng_surname}}</td>
+            {{ obj.user.eeuserprofile.eng_name}} {{ obj.user.eeuserprofile.eng_surname}}<br>
+            น้อง{{obj.user.eeuserprofile.nickname}}
+            </td>
         <td style="max-width: 300px;">{{ obj.user.eeuserprofile.address}} โทร {{ obj.user.eeuserprofile.self_telephone_num}}</td>
         {% if obj.confirmed%}
         <td style="color: green; font-weight: 600;">
