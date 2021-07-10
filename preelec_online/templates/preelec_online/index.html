@@ -40,8 +40,9 @@
                 </svg>
                 <i class="bx bx-{{item.3}}"></i>
               </div>
-              <h4>{{item.0}}</h4>
-              <p>{{item.2}}</p>
+              
+              {{item.0|safe}}
+              {{item.2|safe}}
             </div>
           </div>
         {%endfor%}
