@@ -20,14 +20,10 @@ def campmenu(View):
     #กรณีรุ่นเรา
     elif group in ['63_student', 'admin','61_student','62_student','guest']:
         menu = [
-<<<<<<< HEAD
-                    ['ตรวจสอบตารางกิจกรรม','timetable/', 'ตรวจสอบตารางกิจกรรม Real-Time','tachometer','red'],
-                    ['บัญชี','6x/statement/', 'ตรวจสอบบัญชี','tachometer','yellow'],
-=======
                     ['<h4 style="color: crimson;">หมดเวลาการสั่งซื้อ</h4>','.','<p style="color: crimson;">หมดเวลาการสั่งซื้อ</p>','tachometer', 'red'],
                     ['<h4>ตรวจสอบตารางกิจกรรม</h4>','timetable/', '<p>ตรวจสอบตารางกิจกรรม Real-Time</p>','baseball','blue'],
                     ['<h4>บัญชี</h4>','6x/statement/', '<p>ตรวจสอบบัญชี</p>','book','yellow'],
->>>>>>> a86cfde8705376c8c578e1770a938cb6a7520950
+
                 ]
         try: 
             db = View.request.user.camp_online_6x
