@@ -136,11 +136,7 @@ class OrderDetailView_6x(TemplateView):
         context['confirmed'] = db.confirmed
         context['sent'] = db.sent
         context['shop_list'] = db.shop_set.all().values()
-        context['total'] = 0
-        if hasattr(self.request.user,'camp_online_6x'):
-            context['shop'] = Shop.objects.all().filter(camp_online_6x = self.request.user.camp_online_6x)
-            for obj in context['shop'].values():
-                context['total'] += obj['quantity']*obj['price']
+        context['total'] = db.price
         return context
     def post(self, *args, **kwargs):
         if 'confirm' in self.request.POST.keys():
