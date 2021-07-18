@@ -29,6 +29,7 @@ class StatementForm_63(forms.Form):
         ('Secretary', 'Secretary'),
         ('Welfare', 'Welfare'),
         ('Treasurer', 'Treasurer'),
+        ('Welcome Box','Welcome Box'),
         ('Other', 'Other'),
         ('All', 'All')
     ]

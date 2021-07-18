@@ -17,6 +17,7 @@ class Statement(models.Model):
         ('Secretary', 'Secretary'),
         ('Welfare', 'Welfare'),
         ('Treasurer', 'Treasurer'),
+        ('Welcome Box','Welcome Box'),
         ('Other', 'Other')
     ]
     mode_choices = [
