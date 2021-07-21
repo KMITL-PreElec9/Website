@@ -92,23 +92,22 @@ class CampStatementView(TemplateView):
     def get_context_data(self,*args, **kwargs):
         context = super(CampStatementView, self).get_context_data(*args,**kwargs)
         context['title_name'] = 'Camp Statements'
+        db = Statement
         if 'division' in self.request.GET.keys():
             getstr = str(self.request.GET['division'])
-            db = Statement
             if (getstr,getstr) in StatementForm_63.division_choices and getstr != 'All':
                 data, total1, total2 = db.get_data_by_division(db,getstr)
                 context['data'] = [[getstr, data, total1, total2]]
                 context['total'] = total1 +total2
-            elif getstr == 'All':
+        else :
                 context['data'] = []
                 context['total'] = 0
                 for tuple in StatementForm_63.division_choices:
                     data, total1, total2 = db.get_data_by_division(db,tuple[0])
                     context['data'].append([tuple[0], data, total1, total2])
                     context['total'] = context['total']+total1+total2
-            else: pass   
-        else:
-            context['form'] = StatementForm_63()
+        
+        context['form'] = StatementForm_63()
         return context
 
 class RegisterView_64(FormView):

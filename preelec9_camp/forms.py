@@ -31,7 +31,6 @@ class StatementForm_63(forms.Form):
         ('Treasurer', 'Treasurer'),
         ('Welcome Box','Welcome Box'),
         ('Other', 'Other'),
-        ('All', 'All')
     ]
     division = forms.ChoiceField(
         choices = division_choices, label = 'เลือกฝ่าย',
