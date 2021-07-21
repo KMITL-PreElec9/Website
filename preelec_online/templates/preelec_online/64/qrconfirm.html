@@ -14,11 +14,28 @@
 </style>
 {% endblock%}
 {% block content%}
+{% if confirmed %}
 <div style="padding-top: 10%; padding-bottom: 10%; margin: 100px 10px 10px 10px; ">
     <div class="card bg-light" style="padding: 3%; max-width: 800px; margin: auto;" >
         <article  class="center" style="max-width: 800px; ">
   <h1>PreElec Online</h1><br>
-  <p>ยินดีต้อนรับน้อง <p1>{{data.nickname}}</p1> สู่ค่าย PreElec Online</p>
+  <p>ยินดีต้อนรับน้อง <p1 style="color: #07c800;">{{data.nickname}}</p1> สู่ค่าย PreElec Online</p>
+  
+  <p>น้องได้รับของเรียบร้อยแล้ว ของคุณน้องมาก</p>
+  <form method='post' action =''>
+    {% csrf_token %}
+        <input type='submit' class="btn btn-success btn-block " value='ได้รับของแล้ว' >
+    </form>
+  </article>
+  </div>
+  </div>
+  <div style="height: 200px;"></div>
+{%else%}
+<div style="padding-top: 10%; padding-bottom: 10%; margin: 100px 10px 10px 10px; ">
+    <div class="card bg-light" style="padding: 3%; max-width: 800px; margin: auto;" >
+        <article  class="center" style="max-width: 800px; ">
+  <h1>PreElec Online</h1><br>
+  <p>ยินดีต้อนรับน้อง <p1 style="color: #0000FF;">{{data.nickname}}</p1> สู่ค่าย PreElec Online</p>
   
   <p>กดปุ่มเมื่อได้รับของแล้ว Welcome Box</p>
   <form method='post' action =''>
@@ -29,4 +46,5 @@
   </div>
   </div>
   <div style="height: 200px;"></div>
+{%endif%}
 {% endblock %}

@@ -183,6 +183,7 @@ class QrConfirmView(RegisterView):
         return super().dispatch(*args, **kwargs)
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['confirmed'] = self.request.user.camp_online_64.confirmed
         context['title_name'] = "ลงทะเบียน"
         return context
     def post(self,*args, **kwargs):
